@@ -2,15 +2,6 @@ const path = require('path')
 const fs = require('mz/fs')
 
 const contentDir = __dirname + '/../md/'
-
-// const readFile = function (fileName) {
-//     return new Promise(function (resolve, reject) {
-//       fs.readFile(fileName, function(error, data) {
-//         if (error) return reject(error);
-//         resolve(data);
-//       });
-//     });
-//   };
   
 
 const  readMdir = async (Dir) =>{
@@ -21,20 +12,29 @@ const  readMdir = async (Dir) =>{
 
             }).catch(err => console.log(err))
 
-    let _filesContent
 
-    for (i in _files) {
-
-        _filesContent += await fs.readFile(Dir + _files[i], 'utf8').then(result =>{
-            return result
-        })}
-
-    return _filesContent
+    return _files
     
 }
 
-readMdir(contentDir).then(x =>console.log(x))
+var output = []
 
+const Listmd = async (contentDir) =>{
+    let input = await readMdir(contentDir)
+    while ( input.length ){
+        let path_string = input.shift()
+        if(await fs.lstat(contentDir + path_string).then(x =>x.isDirectory())){
+            await Listmd(contentDir + path_string + '/')
+        }else{
+            output.push(contentDir + path_string)
+        }
+    }
+    return output
+}
 
+Listmd(contentDir).then(x =>{
+    for( i in x){
 
-// }
+        console.log(x[i])
+    }
+})
