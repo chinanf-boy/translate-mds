@@ -1,5 +1,5 @@
 {
-  "name": "translateMds",
+  "name": "translate-mds",
   "version": "1.2.0",
   "description": "translate [folder] md file to zh",
   "main": "index.js",
