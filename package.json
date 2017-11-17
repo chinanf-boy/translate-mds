@@ -4,7 +4,7 @@
   "description": "use translate.js",
   "main": "index.js",
   "scripts": {
-    "test": "nyc ava",
+    "test": "nyc ava -s --verbose",
     "report": "nyc report --reporter=html"
   },
   "author": "",

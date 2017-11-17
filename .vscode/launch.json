@@ -8,6 +8,12 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
+            "program": "${workspaceFolder}/src/writeDataToFile.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
             "program": "${workspaceFolder}/src/readmd.js"
         },
         {
