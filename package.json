@@ -1,5 +1,5 @@
 {
-  "name": "translate",
+  "name": "translateMds",
   "version": "1.2.0",
   "description": "translate [folder] md file to zh",
   "main": "index.js",
@@ -7,13 +7,20 @@
     "test": "nyc ava --verbose",
     "report": "nyc report --reporter=html"
   },
-  "author": "",
+  "bin": {
+    "translateMds": "./index.js"
+  },
+  "author": "yobrave",
   "license": "ISC",
   "dependencies": {
     "chalk": "^2.3.0",
     "mz": "^2.7.0",
     "translation.js": "^0.6.4"
   },
+  "keywords": [
+    "md",
+    "translate"
+  ],
   "devDependencies": {
     "ava": "^0.23.0",
     "nyc": "^11.3.0"

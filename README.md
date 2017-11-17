@@ -4,6 +4,14 @@
 
 ## 这个项目是 hugo 官方文档 
 
+```
+npm install -g translateMds
+```
+
+```
+translateMds md/
+```
+
 机翻部分，我会把 content 目录下的 所有 文章-通过翻译网站翻译
 
 先把大概搞出来。 
