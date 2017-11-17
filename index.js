@@ -1,6 +1,6 @@
 const fs = require('fs')
 const tjs = require('translation.js')
-const Listmd = require('./src/readmd.js')
+const {Listmd} = require('./src/readmd.js')
 const { writeDataToFile } = require('./src/writeDataToFile.js')
 const meow = require('meow');
 
@@ -18,11 +18,12 @@ var dir = cli.input[0]
 if(!dir.startsWith('/')){
   dir = '/' + dir
 }
-
 // main func
 
+( async function(){
+
 // get floder markdown files Array
-const getList = Listmd(process.cwd()+dir)
+const getList = await Listmd(process.cwd()+dir)
 
 //
 getList.map((value) =>{
@@ -39,7 +40,7 @@ getList.map((value) =>{
     .then(result => {
 
       // get zh and -> write down same folder { me.md => me.zh.md }
-      writeDataToFile(result, value) 
+      writeDataToFile(result.text, value) 
 
       // result 的数据结构见下文
     }).catch(error => {
@@ -48,3 +49,4 @@ getList.map((value) =>{
   })
 })
 
+})()
