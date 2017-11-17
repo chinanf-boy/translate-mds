@@ -13,6 +13,7 @@
 i add content floder -- md files path --> Array[]
 
 demo
+
 ```
 md
     about
@@ -29,17 +30,15 @@ node src/readmd.js
 
 output
 ```
-__dirname__../md/1.md
+__dirname__/../md/1.md
 
-__dirname__../md/2.md
+__dirname__/../md/2.md
 
-__dirname__../md/about/3.md
+__dirname__/../md/about/3.md
 
-__dirname__../md/about/aboutme/me.md
+__dirname__/../md/about/aboutme/me.md
 
-__dirname__../md/start/index.md
+__dirname__/../md/start/index.md
 ```
 
-使用 ``translate.js` 完成 与翻译网站的交互
-
-use ``translate.js`` finished 
+使用 [``translate.js``](https://github.com/Selection-Translator/translation.js) 完成 与翻译网站的交互

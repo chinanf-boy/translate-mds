@@ -4,12 +4,17 @@
   "description": "use translate.js",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nyc ava",
+    "report": "nyc report --reporter=html"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "mz": "^2.7.0",
     "translation.js": "^0.6.4"
+  },
+  "devDependencies": {
+    "ava": "^0.23.0",
+    "nyc": "^11.3.0"
   }
 }
