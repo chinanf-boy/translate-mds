@@ -1,6 +1,6 @@
 {
   "name": "translate",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "translate [folder] md file to zh",
   "main": "index.js",
   "scripts": {
