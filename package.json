@@ -4,6 +4,7 @@
   "description": "translate [folder] md file to zh",
   "main": "index.js",
   "scripts": {
+    "demo": "node index.js md/",
     "test": "nyc ava --verbose",
     "report": "nyc report --reporter=html"
   },
