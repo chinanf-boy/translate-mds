@@ -27,6 +27,8 @@ const getList = await Listmd(process.cwd()+dir)
 
 //
 getList.map((value) =>{
+
+  if(value.endsWith('.zh.md'))return
   //read each file
   fs.readFile(value, 'utf8', (err, data) =>{
     
@@ -38,9 +40,8 @@ getList.map((value) =>{
       api: "baidu"
     })
     .then(result => {
-
       // get zh and -> write down same folder { me.md => me.zh.md }
-      writeDataToFile(result.text, value) 
+      writeDataToFile(result.result, value) 
 
       // result 的数据结构见下文
     }).catch(error => {

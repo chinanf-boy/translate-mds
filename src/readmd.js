@@ -31,7 +31,7 @@ const Listmd = async (contentDir) =>{
     }
     
     
-    return Promise.resolve( unique5(output))
+    return Promise.resolve( unique5(output) )
 
 }
 

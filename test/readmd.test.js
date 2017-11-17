@@ -2,16 +2,16 @@ const { test } = require('ava')
 
 const {Listmd, unique5} = require('../src/readmd.js')
 
-test("read md ", async t =>{
+test("read zh md ", async t =>{
     const len = await Listmd(__dirname+"/../md/").then(x => x)
 
-    t.is(len.length, 5)
+    t.is(len.length/2, 5)
 })
 
 test("read md no / ", async t =>{
     const len = await Listmd(__dirname+"/../md").then(x => x)
 
-    t.is(len.length, 5)
+    t.is(len.length, 10)
 })
 
 // test.serial.before("read md no /", async t =>{

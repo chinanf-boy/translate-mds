@@ -1,4 +1,5 @@
 const fs = require('fs')
+const fixE2Z = require('./fixEntoZh')
 
 function insert_flg(str, flg, Uindex) {
     var newstr = "";
@@ -17,6 +18,13 @@ const writeDataToFile = (data, file_dir) => {
         throw new Error('没有 获得 md 文章') 
     }
     zhfile = insert_flg(file_dir, '.zh', 3)
+
+    // data is Array
+    if(data instanceof Array){
+        data = data.join("\n")
+    }
+    
+    
     fs.writeFile(zhfile+'', data, (err) => {
         if (err) 
             throw err;
