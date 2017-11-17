@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+'use script'
 const fs = require('fs')
 const tjs = require('translation.js')
 const {Listmd} = require('./src/readmd.js')
