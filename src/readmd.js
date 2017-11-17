@@ -1,5 +1,6 @@
 const fs = require('mz/fs')
-  
+const path = require('path')
+
 const  readMdir = async (Dir) =>{
 
     
@@ -12,21 +13,30 @@ function unique5(array){ var r = []; for(var i = 0, l = array.length; i < l; i++
 var output = []
 
 const Listmd = async (contentDir) =>{
+    var input = []
 
-    if( ! contentDir.endsWith('/') ){
-        contentDir += '/'   
+    if( await fs.lstat(contentDir).then(x =>x.isFile())){
+        input.push(path.basename(contentDir))
+        contentDir = path.dirname(contentDir)
     }
-    
-    let input = await readMdir(contentDir)
+    else{
+        if( ! contentDir.endsWith('/') ){
+            contentDir += '/'   
+        }
+        input = await readMdir(contentDir)
+    }
+
     if (input instanceof Error)
         return Promise.reject(input)
 
     while ( input.length ){
         let path_string = input.shift()
-        if(await fs.lstat(contentDir + path_string).then(x =>x.isDirectory())){
-            await Listmd(contentDir + path_string + '/')
+        if(await fs.lstat( path.join(contentDir,path_string)).then(x =>x.isDirectory())){
+
+            await Listmd(path.join(contentDir, path_string))
+
         }else{
-            output.push(contentDir + path_string)
+            output.push(path.join(contentDir, path_string))
         }
     }
     

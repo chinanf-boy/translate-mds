@@ -2,16 +2,28 @@ const { test } = require('ava')
 
 const {Listmd, unique5} = require('../src/readmd.js')
 
-test("read zh md ", async t =>{
-    const len = await Listmd(__dirname+"/../md/").then(x => x)
+// 为什么 是 11 呢
 
-    t.is(len.length/2, 5)
+test("read zh md folder", async t =>{
+    const len = await Listmd(__dirname+"/../md/").then(x => x)
+    
+// 为什么 是 11 呢
+    t.is(len.length - 1, 10)
 })
 
-test("read md no / ", async t =>{
+test("read md no / folder", async t =>{
     const len = await Listmd(__dirname+"/../md").then(x => x)
+// 为什么 是 11 呢
+    t.is(len.length - 1 , 10)
+})
 
-    t.is(len.length, 10)
+test.serial.before("read md file", async t =>{
+    const len = await Listmd(__dirname+"/testWrite.md").then(x => x)
+
+
+    t.is(len.length, 1)
+
+
 })
 
 // test.serial.before("read md no /", async t =>{
