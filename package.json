@@ -1,7 +1,7 @@
 {
   "name": "translate",
   "version": "1.1.0",
-  "description": "use translate.js",
+  "description": "translate [folder] md file to zh",
   "main": "index.js",
   "scripts": {
     "test": "nyc ava --verbose",
@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^2.3.0",
     "mz": "^2.7.0",
     "translation.js": "^0.6.4"
   },

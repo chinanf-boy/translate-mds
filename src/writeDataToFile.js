@@ -1,5 +1,6 @@
 const fs = require('fs')
-const fixE2Z = require('./fixEntoZh')
+const { fixEntoZh } = require('./fixEntoZh')
+const chalk = require('chalk');
 
 function insert_flg(str, flg, Uindex) {
     var newstr = "";
@@ -20,15 +21,17 @@ const writeDataToFile = (data, file_dir) => {
     zhfile = insert_flg(file_dir, '.zh', 3)
 
     // data is Array
+    //fixE2Z
+    
     if(data instanceof Array){
-        data = data.join("\n")
+        data = fixEntoZh(data).join("\n")
     }
     
     
     fs.writeFile(zhfile+'', data, (err) => {
         if (err) 
             throw err;
-        console.log('The new zh file has been saved!','\n -->> ',zhfile);
+        console.log(chalk.magenta( 'The new Zh file has been saved!','\n -->> '),zhfile);
     });
 }
 

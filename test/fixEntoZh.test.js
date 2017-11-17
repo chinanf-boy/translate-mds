@@ -3,11 +3,12 @@ const fs = require('fs')
 
 const { fixEntoZh, charZh2En, reg, Store, halfStr ,reg2 } = require('../src/fixEntoZh.js')
 
-// test("二分法 分离 字符串", t =>{
-//     let result = halfStr("你好阿baby'‘～｀！＠“＃＄＾")
+test("二分法 分离 字符串", t =>{
+    let result = halfStr("你好阿baby'‘～｀！＠“＃＄＾")
 
-//     t.is(result,"你好阿baby''~`!@\"#$^")
-// })
+    t.is(result,"你好阿baby''~`!@\"#$^")
+})
+
 test("中文符号", t =>{
     
         t.true(reg2("＠＃＄＾％＆＊（"))
@@ -16,7 +17,7 @@ test("中文符号", t =>{
 
 test("是不是有中文符号", t =>{
 
-    t.true(reg.test("～｀！＠＃＄＾％＆＊（）＿＋｜－＝｛｝［］：“‘；＜＞？，．／＼＇"))
+    t.true(reg.test("～｀！＠＃＄＾％＆＊（）＿＋｜－＝｛｝［］ℴ：“‘；＜＞？，．／＼＇"))
 
 })
 
@@ -31,7 +32,7 @@ test("特别 中文 单双引号", t =>{
 
 test(" 中文符号 变 英文符号 ",t =>{
     let result = charZh2En("～｀！＠＃＄＾％＆＊（）＿＋｜－＝｛｝［］：“‘；＜＞？，．／＼＇")
-    t.is(result, "~`!@#$^%&*()_+|-={}[]:\"';<>?,./\\'")
+    t.is(result, "~`!@#$^%&*()_+|-={}[]: \"';<>?,./\\'")
 
     let re = charZh2En("＃")
     t.is(re, "#")
@@ -47,7 +48,6 @@ test("me.md E 2 Z 不管 中文字 ", t =>{
     publishdate：2017-02-01
     lastmod：2017-02-01`)
 
-    console.log(result)
     t.false(reg.test(result))
     
 })
