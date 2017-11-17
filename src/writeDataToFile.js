@@ -11,12 +11,12 @@ function insert_flg(str, flg, Uindex) {
     return newstr;
 }
 
-const writeDataToFile = (data, dir) => {
+const writeDataToFile = (data, file_dir) => {
     var zhfile
-    if(!dir.endsWith('.md')){
+    if(!file_dir.endsWith('.md')){
         throw new Error('没有 获得 md 文章') 
     }
-    zhfile = insert_flg(dir, '.zh', 3)
+    zhfile = insert_flg(file_dir, '.zh', 3)
     fs.writeFile(zhfile+'', data, (err) => {
         if (err) 
             throw err;
