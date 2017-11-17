@@ -1,11 +1,14 @@
 # translate en.md to zh.md
 
+[![NPM](https://nodei.co/npm/translate-mds.png)](https://nodei.co/npm/translate-mds/)
+
 递归 获取 目录下 所有文件 写入 数组
+
 
 ## 这个项目是 hugo 官方文档 
 
 ```
-npm install -g translateMds
+npm install -g translate-mds
 ```
 
 ```
