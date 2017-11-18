@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^2.3.0",
+    "meow": "^3.7.0",
     "mz": "^2.7.0",
     "translation.js": "^0.6.4"
   },
