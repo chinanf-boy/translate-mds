@@ -6,7 +6,7 @@ const {Listmd} = require('./src/readmd.js')
 const { writeDataToFile } = require('./src/writeDataToFile.js')
 const meow = require('meow');
 const chalk = require('chalk');
-
+const cutMdhead = require('./src/cutMdhead.js')
 // cli cmd 
 const cli = meow(`
 Usage
@@ -46,20 +46,22 @@ getList.map((value) =>{
     // ---
     // thing
     // ---
-
-    data = cutMdhead(data)
+    let head
+    [body, head] = cutMdhead(data)
 
     // tjs make data en to zh
     let api = "baidu"
 
     tjs
     .translate({
-      text: data,
+      text: body,
       api: api
     })
     .then(result => {
       console.log(chalk.yellow(`获得 ${api} 数据了~`));
       // get zh and -> write down same folder { me.md => me.zh.md }
+      result.result.unshift(head)
+
       writeDataToFile(result.result, value) 
 
       // result 的数据结构见下文
