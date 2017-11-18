@@ -42,6 +42,13 @@ getList.map((value) =>{
     
     console.log(chalk.green("翻译->"+value));
 
+    // 去掉 文件中头的 部分 
+    // ---
+    // thing
+    // ---
+
+    data = cutMdhead(data)
+
     // tjs make data en to zh
     let api = "baidu"
 
