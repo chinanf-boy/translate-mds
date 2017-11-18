@@ -12,14 +12,29 @@ npm install -g translate-mds
 ```
 
 ```
+// all folder
 translateMds md/
+
+//or single file
+
+translateMds test.md
+```
+
+---
+
+# 下面的Demo 你 应该 
+
+下载这个项目
+
+```
+git clone https://github.com/chinanf-boy/translate-js.git
 ```
 
 ## Demo
 
 [![asciicast](https://asciinema.org/a/aPDJ0Vdt3awZs8NJV8DtYH0ww.png)](https://asciinema.org/a/aPDJ0Vdt3awZs8NJV8DtYH0ww)
 
-# Gif sometime very quick
+# Video sometime very quick
 
 - So the cmd Step is 
 
@@ -28,6 +43,10 @@ node index.js md/
 ```
 
 > Done !!
+
+# License
+
+[ISC](./License)
 
 
 
