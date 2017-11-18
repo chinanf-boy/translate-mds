@@ -19,7 +19,7 @@ Example
 
 var dir = cli.input[0]
 if(!dir){
-  return console.log(chalk.green(cli.help))
+  return console.log(chalk.green("--> V"+cli.pkg.version,cli.help))
 }
 if(!dir.startsWith('/')){
 
