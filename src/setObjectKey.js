@@ -1,6 +1,5 @@
 const tjs = require('translation.js')
 const chalk = require('chalk')
-let api = "baidu"
 
 function timeout(ms) {
     return new Promise((resolve) => {
@@ -8,7 +7,7 @@ function timeout(ms) {
     });
   }
   
-function translateValue(value){
+function translateValue(value, api){
     return tjs.translate({
                       text: value,
                       api: api
@@ -18,14 +17,14 @@ function translateValue(value){
 
 let sum = 0
 
-module.exports = async function setObjectKey(obj) {
+module.exports = async function setObjectKey(obj, api) {
     Object.keys(obj).forEach(async function(key) {
         
-      (obj[key] && typeof obj[key] === 'object') && setObjectKey(obj[key])
+      (obj[key] && typeof obj[key] === 'object') && setObjectKey(obj[key], api)
 
       if(key === 'value' && obj[key] != null){
             sum = sum + 1
-          obj[key] = await translateValue(obj[key]).then(result => {
+          obj[key] = await translateValue(obj[key], api).then(result => {
             console.log(chalk.yellow(`获得 ${api} 数据了~`));
             // get zh and -> write down same folder { me.md => me.zh.md }
             sum = sum - 1
@@ -41,7 +40,7 @@ module.exports = async function setObjectKey(obj) {
 
     });
     while(sum > 0){
-        await timeout(2)
+        await timeout(10)
     }
     return obj;
   };
