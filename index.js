@@ -7,6 +7,8 @@ const { writeDataToFile } = require('./src/writeDataToFile.js')
 const meow = require('meow');
 const chalk = require('chalk');
 const cutMdhead = require('./src/cutMdhead.js')
+const remark = require('remark')
+const setObjectKey = require('./src/setObjectKey.js')
 // cli cmd 
 const cli = meow(`
 Usage
@@ -34,11 +36,11 @@ if(!dir.startsWith('/')){
 const getList = await Listmd(process.cwd()+dir)
 
 //
-getList.map((value) =>{
+getList.map(async (value) =>{
 
   if(value.endsWith('.zh.md'))return
   //read each file
-  fs.readFile(value, 'utf8', (err, data) =>{
+  fs.readFile(value, 'utf8',async (err, data) =>{
     
     console.log(chalk.green("翻译->"+value));
 
@@ -49,25 +51,28 @@ getList.map((value) =>{
     let head
     [body, head] = cutMdhead(data)
 
-    // tjs make data en to zh
-    let api = "baidu"
+    // to AST
+    let mdAst = remark.parse(body)
+    // type <string>
+    // 
+    // chileren Array
+    // postion Object 
+    // {
+    //   start,
+    //   end
+    // }
 
-    tjs
-    .translate({
-      text: body,
-      api: api
-    })
-    .then(result => {
-      console.log(chalk.yellow(`获得 ${api} 数据了~`));
-      // get zh and -> write down same folder { me.md => me.zh.md }
-      result.result.unshift(head)
+    // translate Object Key == value
+    // en to zh
+    mdAst = await setObjectKey(mdAst)
 
-      writeDataToFile(result.result, value) 
+    // Ast to markdown
+    body = remark.stringify(mdAst)
 
-      // result 的数据结构见下文
-    }).catch(error => {
-      console.log(error.code)
-    })
+    writeDataToFile(head+body, value) 
+
+    // console.log(chalk.red(bodyAll))
+
   })
 })
 
