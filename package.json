@@ -13,7 +13,8 @@
   },
   "ava":{
     "files": [
-      "test/*.test.js"
+      "test/**/*",
+      "!test/*.Object.js"
     ]
   },
   "bin": {
