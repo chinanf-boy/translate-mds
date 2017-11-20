@@ -8,8 +8,13 @@
   },
   "scripts": {
     "demo": "node index.js md/",
-    "ava": "LOG_LEVEL=error NODE_ENV=test ava --verbose --serial",
+    "ava": "ava --verbose --serial",
     "test": "nyc -a --reporter=lcov --reporter=text --reporter=html npm run ava"
+  },
+  "ava":{
+    "files": [
+      "test/*.test.js"
+    ]
   },
   "bin": {
     "translateMds": "./index.js"
