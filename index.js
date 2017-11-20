@@ -9,6 +9,8 @@ const chalk = require('chalk');
 const cutMdhead = require('./src/cutMdhead.js')
 const remark = require('remark')
 const setObjectKey = require('./src/setObjectKey.js')
+// const debuglog 
+// next ready auto select api source
 // cli cmd 
 const cli = meow(`
 Usage
@@ -23,12 +25,12 @@ Example
 const APIs = ['google','baidu','youdao']
 let { api } = require('./config.js')
 var dir = cli.input[0]
-console.log(cli.input[1])
 if(!dir){
   return console.log(chalk.green("--> V"+cli.pkg.version,cli.help))
 }else if(APIs.some(x => x == cli.input[1])){
   api = cli.input[1]
 }
+
 if(!dir.startsWith('/')){
 
   dir = '/' + dir
