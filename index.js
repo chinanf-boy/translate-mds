@@ -12,16 +12,21 @@ const setObjectKey = require('./src/setObjectKey.js')
 // cli cmd 
 const cli = meow(`
 Usage
-  $ translate-md-content [folder name]
+  $ translate-md-content [folder name] [API]{google,baidu,youdao}
+  default:
+    API:youdao
 Example
-  $ translate-md-content md/
+  $ translate-md-content md/ 
   
 
 `);
-
+const APIs = ['google','baidu','youdao']
+const { api } = require('./config.js')
 var dir = cli.input[0]
 if(!dir){
   return console.log(chalk.green("--> V"+cli.pkg.version,cli.help))
+}else if(cli.input[1] in APIs){
+  api = cli.input[1]
 }
 if(!dir.startsWith('/')){
 
@@ -64,12 +69,12 @@ getList.map(async (value) =>{
 
     // translate Object Key == value
     // en to zh
-    mdAst = await setObjectKey(mdAst)
+    mdAst = await setObjectKey(mdAst, api)
 
     // Ast to markdown
     body = remark.stringify(mdAst)
 
-    writeDataToFile(head+body, value) 
+    writeDataToFile(head+'\n'+body, value) 
 
     // console.log(chalk.red(bodyAll))
 
