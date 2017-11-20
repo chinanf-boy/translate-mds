@@ -1,5 +1,6 @@
 # translate en.md to zh.md
 
+[![GitHub license](https://img.shields.io/github/license/chinanf-boy/translate-js.svg)](https://github.com/chinanf-boy/translate-js/blob/master/License)
 [![NPM](https://nodei.co/npm/translate-mds.png)](https://nodei.co/npm/translate-mds/)
 
 递归 获取 目录下 所有文件 写入 数组

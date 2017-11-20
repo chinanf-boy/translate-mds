@@ -3,10 +3,13 @@
   "version": "1.4.0",
   "description": "translate [folder] md file to zh",
   "main": "index.js",
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "scripts": {
     "demo": "node index.js md/",
-    "test": "nyc ava --verbose",
-    "report": "nyc report --reporter=html"
+    "ava": "LOG_LEVEL=error NODE_ENV=test ava --verbose --serial",
+    "test": "nyc -a --reporter=lcov --reporter=text --reporter=html npm run ava"
   },
   "bin": {
     "translateMds": "./index.js"
