@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+- 8.0.0
+- 8.1.1
+- 8.5.0
+script:
+- npm test
+after_success:
+- bash <(curl -s https://codecov.io/bash)
+deploy:
+  provider: npm
+  email: yobrave@outlook.com
+  api_key:
+    secure: Ri2QHzYxQideAgdkuOcZaJbAxVwm/YzZX2FHjaqwa7uoyccxT5g+inTZSTVdisigRFvmB571HlZ4+04wJUHRFRE3+GIIubKS3adOFHGhWOGanUfNwVTPiXWdydMCeiaHg4RoC78ny+UNEDQnd17tpPDLLTnwv0d6wMBQrKDtGOFYbuoVdeUz625LDGAaxN5xCPKNbnQMr7fqhiR7OPhPXczI26l3CqCY30XmloxcLqCjfKJNsZ0HCJsKUcq+jj65kmMIrmCba9JwhE5PnDh/06OMPBnZsCpHykWQ5oZso3wovIklhVkcp701/57PfltaqjoF83wJXhIvw+xU/z/FrT3sG/iTVj+xYsQ12UX/6mBTd1ZTCULWPnO1F1daBXy+LEVdhM9O1tWqGF21CScdzo0GlxKQeycfmJqe6RARa/UJDfK3iMxvf4JlCdrtUjV7fnFo6xGhEeAATSVs1JZHbGvjoM047UiB/uIsBClXdI1SjzaweKnUn4sZ9sbB1I+Ug1W2QooffnhaeIPGTyesS39bwv5fdzMVKVmCz4JaJ/iMvIaAvJmWEB0o4f/SYKSA7L83rt5+dL79QNyjSJO5Wwun5poxhPDY+5hAACDdU51kvzj1IcYlBO7SeN/AgXfPbrdR+yi0e91R4LUrgQ7mtrhNHCSgBnOeTTrbMkBj3w4=
+  on:
+    tags: true
+    repo: chinanf-boy/translate-js
