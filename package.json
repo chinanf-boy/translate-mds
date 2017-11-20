@@ -1,6 +1,6 @@
 {
   "name": "translate-mds",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "translate [folder] md file to zh",
   "main": "index.js",
   "engines": {
@@ -11,7 +11,7 @@
     "ava": "ava --verbose --serial",
     "test": "nyc -a --reporter=lcov --reporter=text --reporter=html npm run ava"
   },
-  "ava":{
+  "ava": {
     "files": [
       "test/**/*",
       "!test/*.Object.js"
