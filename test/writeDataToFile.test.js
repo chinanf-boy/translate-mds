@@ -21,7 +21,7 @@ test.cb("write data to zh", t =>{
 
         fs.readFile(__dirname + '/testWrite.zh.md', 'utf8', (err, insidedata) =>{
             if (err) throw err;
-            console.log('inside')
+            // console.log('inside')
             t.is(insidedata, data)
             t.end()
         });
