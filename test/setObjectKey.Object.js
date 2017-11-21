@@ -37,7 +37,8 @@ const tree = {
             "column": 9,
             "offset": 8
           },
-          "indent": []
+          "indent": [],
+          "value": "world"
         }
       }
     ],
@@ -93,7 +94,8 @@ const truetree = {
             "column": 9,
             "offset": 8
           },
-          "indent": []
+          "indent": [],
+          "value": "世界"          
         }
       }
     ],

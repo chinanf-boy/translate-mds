@@ -15,7 +15,8 @@
   "ava": {
     "files": [
       "test/**/*",
-      "!test/*.Object.js"
+      "!test/*.Object.js",
+      "!config.js"
     ]
   },
   "bin": {
