@@ -12,15 +12,19 @@ function translateValue(value, api){
                       text: value,
                       api: api
                     })
-
 }
 
 let sum = 0
 
 module.exports = async function setObjectKey(obj, api) {
+    let newObj = JSON.parse(JSON.stringify(obj))
+    return await deep(newObj, api)
+}
+
+async function deep(obj, api) {
     Object.keys(obj).forEach(async function(key) {
         
-      (obj[key] && typeof obj[key] === 'object') && setObjectKey(obj[key], api)
+      (obj[key] && typeof obj[key] === 'object') && deep(obj[key], api)
 
       if(key === 'value' && obj[key] != null){
             sum = sum + 1

@@ -7,7 +7,6 @@ var newObject = (oldObject) =>JSON.parse(JSON.stringify(oldObject));
 
 test(' test ',async t =>{
     let newTree = await setObjectKey(newObject(tree), 'baidu')
-    console.log(JSON.stringify(newTree))
     t.deepEqual(newTree, truetree)
 })
 
