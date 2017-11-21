@@ -50,7 +50,7 @@ getList.map(async (value) =>{
   //read each file
   fs.readFile(value, 'utf8',async (err, data) =>{
     
-    console.log(chalk.green("翻译->"+value));
+    // console.log(chalk.green("翻译->"+value));
 
     // 去掉 文件中头的 部分 
     // ---
