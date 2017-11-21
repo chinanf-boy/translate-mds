@@ -10,7 +10,7 @@
     "demo": "node index.js md/",
     "ava": "ava --verbose --serial",
     "test": "nyc -a --reporter=lcov --reporter=text --reporter=html npm run ava",
-    "pubGitandNpm": "git push --tags"
+    "pubGitandNpm": "git push origin master && git push --tags"
   },
   "ava": {
     "files": [
