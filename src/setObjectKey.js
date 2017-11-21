@@ -34,9 +34,9 @@ async function translateValue(value, api){
                       // console.log(result.result,'--------outside')
 
                       // Bug translate.js return result.result Array
-                      // if(value.length != result.result.length){
-                      //   return result.result
-                      // }
+                      if(value.length != result.result.length){
+                        return result.result
+                      }
 
                       if(value.length ==  result.result.length){
                         return result.result
