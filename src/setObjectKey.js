@@ -78,6 +78,12 @@ async function setObjectKey(obj, api) {
       resultArray = await translateValue(thisTranArray, api)
       api = allAPi.shift()
     }
+    if(!resultArray){
+      throw logger.error(`获取信息错误,原因有二
+      - 网络失联
+      - 翻译源 api 失败
+      `)
+    }
 
     logger.log('debug',chalk.whiteBright('Result -->>'),chalk.green(resultArray))
     setdeep(newObj, resultArray)
