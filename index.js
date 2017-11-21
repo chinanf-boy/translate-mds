@@ -2,6 +2,7 @@
 ( async function(){
 'use script'
 const fs = require('fs')
+const path = require('path')
 const tjs = require('translation.js')
 const {Listmd} = require('./src/readmd.js')
 const { writeDataToFile } = require('./src/writeDataToFile.js')
@@ -31,7 +32,8 @@ Example
 `);
 const APIs = ['google','baidu','youdao']
 let api = jsonText.api
-let jsonFile = './config.json'
+// Fix write file Path is absoulte
+let jsonFile = path.join(__dirname+'/config.json')
 var dir = cli.input[0]
 if(!dir){
   return logger.info(chalk.green("--> V"+cli.pkg.version,cli.help))
