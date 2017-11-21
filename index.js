@@ -9,7 +9,6 @@ const meow = require('meow');
 const chalk = require('chalk');
 const cutMdhead = require('./src/cutMdhead.js')
 const remark = require('remark')
-const {setObjectKey} = require('./src/setObjectKey.js')
 const { logger } = require('./config/loggerConfig.js') // winston config
 let defaultJson = './config/defaultConfig.json' // default config---
 let jsonText = require(defaultJson) //---
@@ -42,8 +41,9 @@ if(!dir){
 }else{
   // rewrite config.json  
   await writeJson(jsonFile, jsonText)
-  console.log('Rewrite')
 }
+const {setObjectKey} = require('./src/setObjectKey.js')
+
 APIs.forEach(x =>{
   if( cli.input.join('\n').includes(x) ){
     api = x
