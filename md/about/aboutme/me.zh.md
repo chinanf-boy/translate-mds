@@ -16,39 +16,39 @@ slug:
 aliases: [/troubleshooting/categories-with-accented-characters/]
 toc: true
 ---
-## 麻烦:带有重音字符的类别
+## 问题：带有重音字符的类别
 
-> 我的一个分类叫做“le - carre”，但链接最终生成如下:
+> 我的一个类别被命名为“乐卡尔”，但链接最终是这样生成的：
 >
->     类别/ le-carr % C3%A9
+>     分类/ LE
 >
-> 而不是工作。
+> 不工作。我能忽略这个问题吗？
 
-## 我可以忽略这个问题吗?
+## 解决方案
 
-你是macOS用户吗?
+你是一个MacOS的用户吗？如果是这样的话，你可能是一个受害者，HFS +文件系统的坚持来存储“é”（U + 00e9）字符正常形式分解（NFD）模式，即为“E”+“́”（U + 0065 + 0301）。
 
-`如果是这样,你可能的受害者HFS +文件系统存储的坚持“e”(U + 00 e9)字符在正常形式分解(NFD)模式,即“e”+“́”(U + 0065 U + 0065)。`是正确的,`% C3%A9`按照web服务器的期望，成为utf - 8版本的U + 00E9。[问题是OS X旋转+]进入[U + 0065 U + 0301],因此`le-carr % C3%A9`不再有效。`相反,只`以`e % CC % 81`将匹配[U + 0065 U + 0301]在最后。
+`勒% %`实际上是正确的，`% %`在U+ UTF-8版本00e9预期由Web服务器。问题是OS X转了。[u + 00e9]进入之内[0065＋0301+]，从而`勒% %`不再工作。相反，只有`勒卡雷连铸% 81`结束`81 %`将匹配[0065＋0301+]最后.
 
-这对于OS x来说是唯一的，其他的世界并没有这样做，而且肯定不是您的web服务器，它最有可能运行Linux。
+这是OS X独有的。世界上其他地方没有这样做，当然也不是你最可能运行Linux的Web服务器。这也不是雨果特有的问题。其他人在他们的HTML文件中有重音字符时就被这个咬了。
 
-这也不是一个具体的问题。`当其他人在他们的HTML文件中有重音字符时，他们就会被它咬伤。`分解成`た`和`& # x3099;`的。[读][])。
+注意，这个问题并不具体于拉丁语脚本。日本的Mac用户经常遇到相同的问题，例如`だ`分解成`た`和`与# x3099；`。（读[日本perl用户文章][]）。
 
-Rsync 3。[x的救援][]从
+rsync 3。x的救援！从[服务器故障的答案][]：
 
-> 您可以使用rsync`——iconv`可以选择在utf -8 NFC和NFD之间进行转换，至少在Mac上是这样的`utf-8-mac`代表utf -8 NFD的字符集。
+> 你可以使用rsync的`——iconv`选择UTF-8 NFC与NFD之间转换，至少如果你的Mac。有一个特别的`utf-8-mac`字符集是UTF-8 NFD。因此，为了将文件从Mac复制到Web服务器，您需要运行类似于：
 >
-> `因此，要将文件从您的Mac复制到您的web服务器，您需要运行一些类似的东西:`
+> `rsync -——iconv = utf-8-mac，UTF-8 localdir / mywebserver：remotedir /`
 >
-> 这将把所有本地文件名从utf -8 NFD转换到远程服务器上的utf -8 NFC。[文件的内容不会受到影响。][]
+> 这会将所有本地文件名由UTF-8 NFD为NFC在远程服务器。文件的内容不会受到影响。—[服务器故障][]
 
-表示“或`——iconv`在rsync 3. x中，标记是新的。
+请确保你有rsync 3的最新版本。装X。rsync，OS X的船只已经过时。即使是包装版本10.10（优诗美地国家公园）是版本2.6.9协议版本29。这个`——iconv`国旗是新的rsync 3。X。
 
-### 论坛的引用
+### 论坛参考
 
 -   <http://discourse.gohugo.io/t/categories-with-accented-characters/505>
--   <http://wiki.apache.org/subversion/NonNormalizingUnicodeCompositionAwareness>
--   [https://en.wikipedia.org/wiki/Unicode_equivalence的例子](https://en.wikipedia.org/wiki/Unicode_equivalence#Example)
+-   [http://wiki.apache.org/subversion/nonnormalizingunicodecompositionawareness](http://wiki.apache.org/subversion/NonNormalizingUnicodeCompositionAwareness)
+-   [http：/ /恩。维基百科。org /维基/ unicode_equivalence #例子](https://en.wikipedia.org/wiki/Unicode_equivalence#Example)
 -   <http://zaiste.net/2012/07/brand_new_rsync_for_osx/>
 -   <https://gogo244.wordpress.com/2014/09/17/drived-me-crazy-convert-utf-8-mac-to-utf-8/>
 

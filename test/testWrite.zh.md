@@ -16,5 +16,4 @@ aliases: []
 toc: false
 layout: documentation-home
 ---
-Hugo is the **world's fastest static website engine.** It's written in Go (aka Golang) and developed by [bep](https://github.com/bep), [spf13](https://github.com/spf13) and [friends](https://github.com/gohugoio/hugo/graphs/contributors). Below you will find some of the most common and helpful pages from our documentation.
-➜ /Users/lizhenyong/Desk
+雨果是**世界上最快的静态网站引擎。**它是用去（aka Golang）开发的[BEP](https://github.com/bep)，[spf13](https://github.com/spf13)和[朋友](https://github.com/gohugoio/hugo/graphs/contributors)。下面您将从我们的文档中找到一些最常见和最有用的页面。
