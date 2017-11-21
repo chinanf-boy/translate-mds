@@ -1,5 +1,6 @@
 {
     "logger": {
       "level": "info"
-    }
+    },
+    "api":"youdao"
   }
