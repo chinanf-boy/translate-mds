@@ -1,7 +1,7 @@
 const fs = require('fs')
 const { fixEntoZh } = require('./fixEntoZh')
 const chalk = require('chalk');
-
+const { logger } = require('../config/loggerConfig.js')
 function insert_flg(str, flg, Uindex) {
     var newstr = "";
     if(!str || !flg){
@@ -31,7 +31,7 @@ const writeDataToFile = (data, file_dir) => {
     fs.writeFile(zhfile+'', data, (err) => {
         if (err) 
             throw err;
-        console.log(chalk.magenta( 'The new Zh file has been saved!','\n -->> '),zhfile);
+        logger.log('info',chalk.magenta( 'The new Zh file has been saved! -->> \n'),chalk.blue(zhfile));
     });
 }
 
