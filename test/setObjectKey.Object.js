@@ -15,6 +15,7 @@ const tree = {
               "start": {
                 "line": 1,
                 "column": 4,
+                "value": "Hello",
                 "offset": 3
               },
               "end": {
@@ -72,6 +73,7 @@ const truetree = {
               "start": {
                 "line": 1,
                 "column": 4,
+            "value": "你好",             
                 "offset": 3
               },
               "end": {

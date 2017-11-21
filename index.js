@@ -8,7 +8,7 @@ const meow = require('meow');
 const chalk = require('chalk');
 const cutMdhead = require('./src/cutMdhead.js')
 const remark = require('remark')
-const setObjectKey = require('./src/setObjectKey.js')
+const {setObjectKey} = require('./src/setObjectKey.js')
 // const debuglog 
 // next ready auto select api source
 // cli cmd 

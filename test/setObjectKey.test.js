@@ -16,11 +16,11 @@ test(' test youdao',async t =>{
 })
 
 
-// test(' test translateValue ',async t =>{
-//     let value = ['hello world','hello world']
-//     let result = await translateValue(value, 'baidu').then(x => x)
-//     t.deepEqual(result.result, [`你好世界`,`你好世界`])
-// })
+test(' test translateValue ',async t =>{
+    let value = ['hello world','hello world']
+    let result = await translateValue(value, 'baidu').then(x => x)
+    t.deepEqual(result, [`你好世界`,`你好世界`])
+})
 
 test.before(" test deep func get values from obj", t =>{
     let obj = {'id':1,children:{

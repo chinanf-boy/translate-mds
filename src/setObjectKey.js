@@ -1,16 +1,51 @@
 const tjs = require('translation.js')
 const chalk = require('chalk')
 
-function translateValue(value, api){
-
+async function translateValue(value, api){
+    let thisTranString
     if(value instanceof Array){
-        value = value.join('\n')
+        thisTranString = value.join('\n')
     }
-    console.log(value,'=')
+    // console.log(thisTranString,value,'----- first')
     return tjs.translate({
-                      text: value,
+                      text: thisTranString,
                       api: api
+                    }).then(result => {
+                      console.log(chalk.yellow(`获得 ${api} 数据了~`,result.result.length,value.length));
+                      // console.log(result.result)
+                      // get zh and -> write down same folder { me.md => me.zh.md }
+                      for (i in result.result){
+                        console.log('set- '+ chalk.green(value[i]) + ' to-> '+ chalk.yellow(result.result[i]))
+                      }
+                      
+                      if(value.length > result.result.length){
+                        // console.log(value.slice(result.result.length),'-------youdao')
+
+                        return translateValue(value.slice(result.result.length),api).then(youdao =>{
+                          // console.log(youdao,'-------inside')
+                          youdao.forEach(x => result.result.push(x))
+                          // console.log(result.result,'all --------all ')
+                          return result.result
+                      
+                        })
+                        // Promise.reject("bad youdao fanyi no get \\n")
+
+                      }
+                      // console.log(result.result,'--------outside')
+
+                      // Bug translate.js return result.result Array
+                      // if(value.length != result.result.length){
+                      //   return result.result
+                      // }
+
+                      if(value.length ==  result.result.length){
+                        return result.result
+                      }
+                    }).catch(error => {
+                      console.log(error.code)
+
                     })
+      
 }
 
 let tranArray = []
@@ -30,21 +65,9 @@ async function setObjectKey(obj, api) {
     // translate tranArray to zh
     // console.log(tranArray)
     
-    let resultArray = await translateValue(thisTranArray, api).then(result => {
-      console.log(chalk.yellow(`获得 ${api} 数据了~`));
-      // get zh and -> write down same folder { me.md => me.zh.md }
-      for (i in result.result){
-        console.log('set- '+ chalk.green(thisTranArray[i]) + ' to-> '+ chalk.yellow(result.result[i]))
-      }
-      // if(thisTranArray.length != )
-
-      return result.result
-    }).catch(error => {
-      console.log(error.code)
-
-    })
+    let resultArray = await translateValue(thisTranArray, api)
     
-    console.log(resultArray)
+    console.log(chalk.whiteBright('result'),chalk.green(resultArray))
     setdeep(newObj, resultArray)
 
     return newObj
