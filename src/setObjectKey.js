@@ -63,7 +63,7 @@ async function setObjectKey(obj, api) {
     // put obj values to tranArray
     if(!deep(obj)){
       logger.log('error obj','里面没 value')
-      throw new Error('no value', sum)
+      throw logger.error('no value', sum)
     }
     if(tranArray.length){
       thisTranArray = tranArray

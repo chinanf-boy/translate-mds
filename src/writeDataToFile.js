@@ -5,7 +5,7 @@ const { logger } = require('../config/loggerConfig.js')
 function insert_flg(str, flg, Uindex) {
     var newstr = "";
     if(!str || !flg){
-        throw new Error('你把什么放进来啦') 
+        throw logger.error('你把什么放进来啦') 
     }
     var len = str.length
     var tmp = str.substring(0, len - Uindex);
@@ -16,7 +16,7 @@ function insert_flg(str, flg, Uindex) {
 const writeDataToFile = (data, file_dir) => {
     var zhfile
     if(!file_dir.endsWith('.md')){
-        throw new Error('没有 获得 md 文章') 
+        throw logger.error('没有 获得 md 文章') 
     }
     zhfile = insert_flg(file_dir, '.zh', 3)
 
@@ -32,6 +32,9 @@ const writeDataToFile = (data, file_dir) => {
         if (err) 
             throw err;
         logger.log('info',chalk.magenta( 'The new Zh file has been saved! -->> \n'),chalk.blue(zhfile));
+        if(logger.level == 'debug'){
+            logger.debug(chalk.red('translate-info.log in your Project'))
+        }
     });
 }
 
