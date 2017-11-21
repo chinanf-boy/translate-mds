@@ -16,5 +16,6 @@ aliases: []
 toc: false
 layout: documentation-home
 ---
-雨果是世界上最快的静态网站引擎ㄢ**用去(aka Golang),由[ ](http: / / BEP GitHubㄢCOM / BEP)],[ spf13(https://github.com/spf13)和[朋友](http: / / GitHubㄢCOM / gohugoio /雨果/图/人)ㄢ下面您将从我们的文档中找到一些最常见和最有用的页面ㄢ
-你好
+雨果是一**世界上最快的静态网站引擎。**它是用Go(aka Golang)写成的[cep](https://github.com/bep)，[spf13](https://github.com/spf13)和[朋友](https://github.com/gohugoio/hugo/graphs/contributors)的。
+
+下面您将从我们的文档中找到一些最常见和有用的页面。
