@@ -15,6 +15,11 @@ test(' test youdao',async t =>{
     t.deepEqual(newTree, truetree)
 })
 
+test(' test youdao',async t =>{
+    let newTree = await setObjectKey(newObject(tree), 'google')
+    t.deepEqual(newTree, truetree)
+})
+
 
 test(' test translateValue ',async t =>{
     let value = ['hello world','hello world']
