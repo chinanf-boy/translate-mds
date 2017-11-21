@@ -10,9 +10,7 @@ const  readMdir = async (Dir) =>{
 
 function unique5(array){ var r = []; for(var i = 0, l = array.length; i < l; i++) { for(var j = i + 1; j < l; j++) if (array[i] === array[j]) j = ++i; r.push(array[i]); } return r; }
 
-var output = []
-
-const Listmd = async (contentDir) =>{
+const Listmd = async (contentDir, output = []) =>{
     var input = []
 
     if( await fs.lstat(contentDir).then(x =>x.isFile())){
@@ -33,7 +31,7 @@ const Listmd = async (contentDir) =>{
         let path_string = input.shift()
         if(await fs.lstat( path.join(contentDir,path_string)).then(x =>x.isDirectory())){
 
-            await Listmd(path.join(contentDir, path_string))
+            await Listmd(path.join(contentDir, path_string), output)
 
         }else{
             output.push(path.join(contentDir, path_string))
@@ -41,7 +39,7 @@ const Listmd = async (contentDir) =>{
     }
     
     
-    return Promise.resolve( unique5(output) )
+    return Promise.resolve( output )
 
 }
 
