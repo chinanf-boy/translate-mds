@@ -47,9 +47,6 @@ node index.js md/
 
 > Done !!
 
-# License
-
-[ISC](./License)
 
 # [ - ]提高http之类的md格式准确率
 启用 md AST
