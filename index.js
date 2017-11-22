@@ -13,6 +13,7 @@ const remark = require('remark')
 const { logger } = require('./config/loggerConfig.js') // winston config
 let defaultJson = './config/defaultConfig.json' // default config---
 let jsonText = require(defaultJson) //---
+let jsonFile = path.join(__dirname+'/config.json')
 const writeJson  = require('./util/writeJson.js')
 // const debuglog 
 // next ready auto select api source
@@ -33,7 +34,6 @@ Example
 const APIs = ['google','baidu','youdao']
 let api = jsonText.api
 // Fix write file Path is absoulte
-let jsonFile = path.join(__dirname+'/config.json')
 var dir = cli.input[0]
 if(!dir){
   return logger.info(chalk.green("--> V"+cli.pkg.version,cli.help))
@@ -103,4 +103,10 @@ getList.map(async (value) =>{
   })
 })
 
+// logger.info(getList) 
+// false
+// 因为 getList.map
+// 困不住 await
+// 用 for 才行
+// ../bin/translateExports.js #44
 })()

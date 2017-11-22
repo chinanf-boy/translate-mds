@@ -55,7 +55,7 @@ async function setObjectKey(obj, api) {
     for(i in configs.logger){
       logger[i] = configs.logger[i]
     }
-    let allAPi = ['google','baidu','youdao']
+    let allAPi = ['baidu','google','youdao']
     let thisTranArray 
     let resultArray
     let newObj = JSON.parse(JSON.stringify(obj))
@@ -72,13 +72,14 @@ async function setObjectKey(obj, api) {
     // translate tranArray to zh
     // logger.log(tranArray)
     
-    while(!resultArray && allAPi.length){
-      allAPi = allAPi.filter(x => x!=api)
+
+    allAPi = allAPi.filter(x => x!=api)
+    while(!resultArray && allAPi.length >=0 ){
       logger.log('info',chalk.yellow('使用',api))
       resultArray = await translateValue(thisTranArray, api)
       api = allAPi.shift()
     }
-    if(!resultArray){
+    if(!resultArray ){
       throw logger.error(`获取信息错误,原因有二
       - 网络失联
       - 翻译源 api 失败
