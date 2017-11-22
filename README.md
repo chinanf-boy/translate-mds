@@ -25,6 +25,20 @@ translateMds test.md
 
 ---
 
+## 项目引用
+
+```
+const translate = require('translate-mds')
+//
+let results = await translate(__dirname+'/testWrite1.md')
+//or
+let results = await translate(__dirname+'/md/')
+
+// results is Array
+
+
+```
+
 # 下面的Demo 你 应该 
 
 下载这个项目
