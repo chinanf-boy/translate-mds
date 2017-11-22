@@ -10,11 +10,11 @@
 
 ## 这个项目是 hugo 官方文档 
 
-```
+``` js
 npm install -g translate-mds
 ```
 
-```
+``` js
 // all folder
 translateMds md/
 
@@ -27,7 +27,7 @@ translateMds test.md
 
 ## 项目引用
 
-```
+``` js
 const translate = require('translate-mds')
 //
 let results = await translate(__dirname+'/testWrite1.md')
@@ -55,7 +55,7 @@ git clone https://github.com/chinanf-boy/translate-js.git
 
 - So the cmd Step is 
 
-```
+``` js
 node index.js md/
 ```
 
