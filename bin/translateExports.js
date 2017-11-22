@@ -11,7 +11,7 @@ const remark = require('remark')
 const { logger } = require('../config/loggerConfig.js') // winston config
 let defaultJson = '../config/defaultConfig.json' // default config---
 let jsonText = require(defaultJson) //---
-let jsonFile = path.join(__dirname+'/../config.json')
+let jsonFile = path.resolve(__dirname, '../config.json')
 const writeJson  = require('../util/writeJson.js')
 
 
