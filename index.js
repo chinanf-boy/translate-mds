@@ -36,7 +36,7 @@ let api = jsonText.api
 // Fix write file Path is absoulte
 var dir = cli.input[0]
 if(!dir){
-  return logger.info(chalk.green("--> V"+cli.pkg.version,cli.help))
+  return console.log(chalk.green("--> V"+cli.pkg.version,cli.help))
 }else if(cli.flags['D']){
   jsonText.logger.level = 'debug'
   await writeJson(jsonFile, jsonText) 
