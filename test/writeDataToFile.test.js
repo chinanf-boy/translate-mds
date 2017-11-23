@@ -15,7 +15,7 @@ test.failing("get bad filename ",t =>{
 
 test.cb("write data to zh", t =>{
 
-    fs.readFile(__dirname + '/testWrite.md', 'utf8', (err, data) =>{
+    fs.readFile(__dirname + '/testWrite1.md', 'utf8', (err, data) =>{
         if (err) throw err;
         writeDataToFile(data, __dirname + '/testWrite1.md')
 

@@ -16,8 +16,4 @@ aliases: []
 toc: false
 layout: documentation-home
 ---
-雨果是一**世界上最快的静态网站引擎。**它是用Go(aka Golang)写成的[cep](https://github.com/bep)，[spf13](https://github.com/spf13)和[朋友](https://github.com/gohugoio/hugo/graphs/contributors)的。
-
-```js
-var a = 'asdf'
-```
+Hugo is the **world's fastest static website engine.** It's written in Go (aka Golang) and developed by [bep](https://github.com/bep), [spf13](https://github.com/spf13) and [friends](https://github.com/gohugoio/hugo/graphs/contributors). Below you will find some of the most common and helpful pages from our documentation.
