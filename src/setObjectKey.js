@@ -75,7 +75,7 @@ async function setObjectKey(obj, api) {
 
     allAPi = allAPi.filter(x => x!=api)
     while(!resultArray && allAPi.length >=0 ){
-      logger.log('info',chalk.yellow('使用',api))
+      logger.log('verbose',chalk.yellow('使用',api))
       resultArray = await translateValue(thisTranArray, api)
       api = allAPi.shift()
     }

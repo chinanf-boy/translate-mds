@@ -55,7 +55,7 @@ APIs.forEach(x =>{
 if(!dir.startsWith('/')){
 
   dir = '/' + dir
-  logger.info(chalk.blue('Starting 翻译')+chalk.red(dir));
+  logger.verbose(chalk.blue('Starting 翻译')+chalk.red(dir));
 }
 
 // main func

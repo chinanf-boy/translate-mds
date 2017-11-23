@@ -36,7 +36,7 @@ if(debug){
   }
 
 
-logger.info(chalk.blue('Starting 翻译')+chalk.red(absoluteFile));
+logger.verbose(chalk.blue('Starting 翻译')+chalk.red(absoluteFile));
 // get floder markdown files Array
 const getList = await Listmd(absoluteFile)
 const {setObjectKey} = require('../src/setObjectKey.js') 
