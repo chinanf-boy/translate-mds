@@ -2,5 +2,7 @@
     "logger": {
       "level": "info"
     },
-    "api":"youdao"
+    "api":"youdao",
+    "from":"en",
+    "to":"zh"
   }

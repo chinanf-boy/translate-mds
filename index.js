@@ -12,8 +12,8 @@ const cutMdhead = require('./src/cutMdhead.js')
 const remark = require('remark')
 const { logger } = require('./config/loggerConfig.js') // winston config
 let defaultJson = './config/defaultConfig.json' // default config---
-let jsonText = require(defaultJson) //---
-let jsonFile = path.resolve(__dirname, 'config.json')
+let defaultConfig = require(defaultJson) //---
+let configJson = path.resolve(__dirname, 'config.json')
 const writeJson  = require('./util/writeJson.js')
 // const debuglog 
 // next ready auto select api source
@@ -28,22 +28,55 @@ Example
   
   [options]
 
-  -D debug 
+  -f   from : default en
 
+  -t   to   : default zh
+
+  -D debug 
+  
 `);
+
+function optionsTodo(option, callback, args){
+      callback(option, args)
+}
+
+function debugTodo(option, args){
+  if(option){
+    args.logger.level = 'debug'
+  }
+}
+
+function fromTodo(option, args){
+  if(option){
+    args.from = option
+  }
+}
+
+function toTodo(option, args){
+  if(option){
+    args.to = option
+  }
+}
+
+
+
+
 const APIs = ['google','baidu','youdao']
-let api = jsonText.api
+let api = defaultConfig.api
 // Fix write file Path is absoulte
 var dir = cli.input[0]
 if(!dir){
   return console.log(chalk.green("--> V"+cli.pkg.version,cli.help))
-}else if(cli.flags['D']){
-  jsonText.logger.level = 'debug'
-  await writeJson(jsonFile, jsonText) 
-}else{
-  // rewrite config.json  
-  await writeJson(jsonFile, jsonText)
 }
+// change defaultConfig from cli
+optionsTodo(cli.flags['D'], debugTodo, defaultConfig)
+optionsTodo(cli.flags['f'], fromTodo, defaultConfig)
+optionsTodo(cli.flags['t'], toTodo, defaultConfig)
+
+await writeJson(configJson, defaultConfig)
+
+
+
 const {setObjectKey} = require('./src/setObjectKey.js')
 
 APIs.forEach(x =>{
