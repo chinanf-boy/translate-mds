@@ -27,6 +27,22 @@ test(' test translateValue ',async t =>{
     t.deepEqual(result, [`你好世界`,`你好世界`])
 })
 
+test.before('test only code AST ', t =>{
+    let obj = {
+        "type": "root",
+        "children": [
+          {
+            "type": "code",
+            "lang": "js",
+            "value": "var a = 'asdf'",
+            "position": {
+              "start": {
+                "line": 1,}}}
+        ]}
+    let sum = deep(obj)
+    t.is(sum, 0)
+})
+
 test.before(" test deep func get values from obj", t =>{
     let obj = {'id':1,children:{
         id:2,

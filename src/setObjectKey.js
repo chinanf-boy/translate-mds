@@ -62,12 +62,13 @@ async function setObjectKey(obj, api) {
 
     // put obj values to tranArray
     if(!deep(obj)){
-      logger.log('error obj','里面没 value')
       throw logger.error('no value', sum)
     }
     if(tranArray.length){
       thisTranArray = tranArray
       tranArray = []
+    }else{
+      return newObj
     }
     // translate tranArray to zh
     // logger.log(tranArray)
@@ -97,7 +98,12 @@ let sum = 0
 function deep(obj) {
     Object.keys(obj).forEach(function(key) {
       
+      // no translate code content
+    if(obj['type'] && obj['type'] === 'code'){
+      return sum
+    }
     (obj[key] && typeof obj[key] === 'object') && deep(obj[key])
+    
 
     if(key === 'value' && obj[key] != null){
           tranArray.push(obj[key])
@@ -110,6 +116,10 @@ function deep(obj) {
 function setdeep(obj, tranArrayZh) {
     Object.keys(obj).forEach(function(key) {
       
+    if(obj['type'] && obj['type'] === 'code'){
+        return sum
+    }
+    
     (obj[key] && typeof obj[key] === 'object') && setdeep(obj[key], tranArrayZh)
 
     if(key === 'value'){
