@@ -5,4 +5,5 @@ module.exports = cutMdhead = (data) =>{
         return [data.slice(index), data.slice(0,index)]
 
     }
+    return data
 }
