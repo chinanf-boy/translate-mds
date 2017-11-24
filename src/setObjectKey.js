@@ -2,17 +2,28 @@ const tjs = require('translation.js')
 const chalk = require('chalk')
 const {logger} = require('../config/loggerConfig.js')
 const configs = require('../config.json')
+let tranF, tranT
+tranF = configs['from']
+tranT = configs['to']
+logger.level = configs.logger.level
+//
 async function translateValue(value, api){
     let thisTranString
     if(value instanceof Array){
         thisTranString = value.join('\n')
+    }else{
+      console.log('value is string')
     }
+    
     // logger.log('debug',thisTranString,value,'----- first')
     return tjs.translate({
                       text: thisTranString,
-                      api: api
+                      api: api,
+                      from: tranF,
+                      to: tranT
                     }).then(result => {
-                      logger.log('debug',chalk.yellow(`获得 ${api} 数据了~`,result.result.length,value.length));
+                      // result.result.length,value.length
+                      logger.debug(chalk.yellow(`获得 ${api} 数据了~`));
                       // get zh and -> write down same folder { me.md => me.zh.md }
                       for (i in result.result){
                         if(!value[i]){
@@ -43,7 +54,7 @@ async function translateValue(value, api){
                         return result.result
                       }
                     }).catch(error => {
-                      logger.log('error',api,chalk.red( error.code,'出现了啦，不给数据'))
+                      logger.warn(api,chalk.red( error.code,'出现了啦，不给数据'))
 
                     })
       
@@ -52,9 +63,7 @@ async function translateValue(value, api){
 let tranArray = []
 
 async function setObjectKey(obj, api) {
-    for(i in configs.logger){
-      logger[i] = configs.logger[i]
-    }
+
     let allAPi = ['baidu','google','youdao']
     let thisTranArray 
     let resultArray
