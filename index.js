@@ -73,7 +73,8 @@ const getList = await Listmd(path.resolve(process.cwd(),dir))
 //
 getList.map(async (value) =>{
 
-  if(value.endsWith(`.${tranTo}.md`))return
+  if(value.endsWith(`.${tranTo}.md`) || value.match(/\.[a-zA-Z]+\.md+/) ) return
+
   //read each file
   fs.readFile(value, 'utf8',async (err, data) =>{
     

@@ -1,6 +1,6 @@
 {
   "name": "translate-mds",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "description": "translate [folder] md file to zh",
   "main": "./bin/translateExports.js",
   "engines": {
