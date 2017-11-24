@@ -2,5 +2,7 @@
   "logger": {
     "level": "info"
   },
-  "api": "youdao"
+  "api": "baidu",
+  "from": "en",
+  "to": "zh"
 }
