@@ -2,10 +2,12 @@ const fs = require('fs')
 const { fixEntoZh } = require('./fixEntoZh')
 const chalk = require('chalk');
 const { logger } = require('../config/loggerConfig.js')
+const configs = require('../config.json')
+const tranT = configs.to
 function insert_flg(str, flg, Uindex) {
     var newstr = "";
     if(!str || !flg){
-        throw logger.error('你把什么放进来啦') 
+        throw logger.error('filename<',str,'>can not add',flg) 
     }
     var len = str.length
     var tmp = str.substring(0, len - Uindex);
@@ -16,9 +18,10 @@ function insert_flg(str, flg, Uindex) {
 const writeDataToFile = (data, file_dir) => {
     var zhfile
     if(!file_dir.endsWith('.md')){
-        throw logger.error('没有 获得 md 文章') 
+        logger.verbose(file_dir,'go away')
+        return false
     }
-    zhfile = insert_flg(file_dir, '.zh', 3)
+    zhfile = insert_flg(file_dir, `.${tranT}`, 3)
 
     // data is Array
     //fixE2Z
@@ -32,9 +35,7 @@ const writeDataToFile = (data, file_dir) => {
         if (err) 
             throw err;
         logger.log('verbose',chalk.magenta( 'The new Zh file has been saved! -->> \n'),chalk.blue(zhfile));
-        if(logger.level == 'debug'){
-            logger.debug(chalk.red('translate-info.log in your Project'))
-        }
+        logger.debug(chalk.red('translate-info.log in your Project'))
     });
 }
 
