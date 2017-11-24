@@ -1,0 +1,24 @@
+{
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-js/index.js": [
+		"node_modules/translation.js/libs/index.js",
+		"src/readmd.js",
+		"node_modules/meow/index.js",
+		"node_modules/chalk/index.js",
+		"src/cutMdhead.js",
+		"node_modules/_remark@8.0.0@remark/index.js",
+		"src/optionsTodo.js",
+		"config/loggerConfig.js",
+		"config/defaultConfig.json",
+		"util/writeJson.js",
+		"src/setObjectKey.js"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-js/src/readmd.js": [
+		"../node_modules/mz/fs.js"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-js/config/loggerConfig.js": [
+		"../node_modules/_winston@2.4.0@winston/lib/winston.js"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-js/src/setObjectKey.js": [
+		"../config.json"
+	]
+}

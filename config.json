@@ -1,6 +1,6 @@
 {
   "logger": {
-    "level": "info"
+    "level": "verbose"
   },
   "api": "baidu",
   "from": "en",

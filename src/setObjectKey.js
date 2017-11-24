@@ -1,12 +1,14 @@
 const tjs = require('translation.js')
 const chalk = require('chalk')
 const {logger} = require('../config/loggerConfig.js')
+// get config.json
 const configs = require('../config.json')
 let tranF, tranT
 tranF = configs['from']
 tranT = configs['to']
 logger.level = configs.logger.level
-//
+
+// get translate result
 async function translateValue(value, api){
     let thisTranString
     if(value instanceof Array){

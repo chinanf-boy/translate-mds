@@ -9,14 +9,17 @@ const meow = require('meow');
 const chalk = require('chalk');
 const cutMdhead = require('./src/cutMdhead.js')
 const remark = require('remark')
+// option todo list
+const { setDefault, debugTodo, fromTodo, toTodo, apiTodo } = require('./src/optionsTodo.js')
+
+// config 
 const { logger } = require('./config/loggerConfig.js') // winston config
 let defaultJson = './config/defaultConfig.json' // default config---
 let defaultConfig = require(defaultJson) //---
 let configJson = path.resolve(__dirname, 'config.json')
+// write config.json
 const writeJson  = require('./util/writeJson.js')
-const { setDefault, debugTodo, fromTodo, toTodo, apiTodo } = require('./src/optionsTodo.js')
 
-// const debuglog 
 // next ready auto select api source
 // cli cmd 
 const cli = meow(`
