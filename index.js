@@ -5,7 +5,6 @@ const fs = require('fs')
 const path = require('path')
 const tjs = require('translation.js')
 const {Listmd} = require('./src/readmd.js')
-const { writeDataToFile } = require('./src/writeDataToFile.js')
 const meow = require('meow');
 const chalk = require('chalk');
 const cutMdhead = require('./src/cutMdhead.js')
@@ -59,7 +58,8 @@ await writeJson(configJson, defaultConfig) // 用 defaultConfig 写入 config.js
 
 // and then, setObjectKey.js can require the new config.json 
 const {setObjectKey} = require('./src/setObjectKey.js')
-
+const { writeDataToFile } = require('./src/writeDataToFile.js')
+//ready
 logger.verbose(chalk.blue('Starting 翻译')+chalk.red(dir));
 
 // main func
