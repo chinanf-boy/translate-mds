@@ -3,7 +3,6 @@ const fs = require('mz/fs')
 const path = require('path')
 const tjs = require('translation.js')
 const {Listmd} = require('../src/readmd.js')
-const { writeDataToFile } = require('../src/writeDataToFile.js')
 const meow = require('meow');
 const chalk = require('chalk');
 const cutMdhead = require('../src/cutMdhead.js')
@@ -48,14 +47,16 @@ async function translateMds(options,debug){
     // Error: this json error here , see test "async translate"
 await writeJson(jsonFile, defaultConfig) 
 
+// and then, setObjectKey.js can require the new config.json 
+const {setObjectKey} = require('../src/setObjectKey.js') 
+// const { writeDataToFile } = require('../src/writeDataToFile.js')
+
+//
 let results = []
 
 logger.verbose(chalk.blue('Starting 翻译')+chalk.red(absoluteFile));
 // get floder markdown files Array
 const getList = await Listmd(absoluteFile)
-
-const {setObjectKey} = require('../src/setObjectKey.js') 
-
 for (i in getList){
     let value = getList[i]
     
