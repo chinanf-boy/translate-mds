@@ -18,7 +18,7 @@ function insert_flg(str, flg, Uindex) {
 const writeDataToFile = (data, file_dir) => {
     var zhfile
     if(!file_dir.endsWith('.md')){
-        logger.verbose(file_dir,'go away')
+        logger.verbose(file_dir,chalk.green('no md file,just go away'))
         return false
     }
     zhfile = insert_flg(file_dir, `.${tranT}`, 3)
