@@ -9,6 +9,12 @@ test("cut md head", t =>{
     t.is(head, onlyhead)
 })
 
+test(" no cut ", t =>{
+  let [body, head] = cut("# 你好")
+  t.is(body,"# 你好")
+  t.is(head, "")
+})
+
 let onlyhead = `---
 title: Hugo Documentation
 linktitle: Hugo

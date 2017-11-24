@@ -5,68 +5,75 @@ const fs = require('fs')
 const path = require('path')
 const tjs = require('translation.js')
 const {Listmd} = require('./src/readmd.js')
-const { writeDataToFile } = require('./src/writeDataToFile.js')
 const meow = require('meow');
 const chalk = require('chalk');
 const cutMdhead = require('./src/cutMdhead.js')
 const remark = require('remark')
+// option todo list
+const { setDefault, debugTodo, fromTodo, toTodo, apiTodo } = require('./src/optionsTodo.js')
+
+// config 
 const { logger } = require('./config/loggerConfig.js') // winston config
 let defaultJson = './config/defaultConfig.json' // default config---
-let jsonText = require(defaultJson) //---
-let jsonFile = path.resolve(__dirname, 'config.json')
+let defaultConfig = require(defaultJson) //---
+let configJson = path.resolve(__dirname, 'config.json')
+// write config.json
 const writeJson  = require('./util/writeJson.js')
-// const debuglog 
+
 // next ready auto select api source
 // cli cmd 
 const cli = meow(`
 Usage
-  $ translateMds [folder name] [API]{google,baidu,youdao} [options]
+  $ translateMds [folder name] [options]
   default:
     API:youdao
 Example
   $ translateMds md/ 
   
   [options]
+  -a   API  : default baidu {google,baidu,youdao}
+
+  -f   from : default en
+
+  -t   to   : default zh
 
   -D debug 
-
+  
 `);
+
 const APIs = ['google','baidu','youdao']
-let api = jsonText.api
 // Fix write file Path is absoulte
 var dir = cli.input[0]
 if(!dir){
   return console.log(chalk.green("--> V"+cli.pkg.version,cli.help))
-}else if(cli.flags['D']){
-  jsonText.logger.level = 'debug'
-  await writeJson(jsonFile, jsonText) 
-}else{
-  // rewrite config.json  
-  await writeJson(jsonFile, jsonText)
 }
+// change defaultConfig from cli
+// if true return first option
+// else return 
+let debug = setDefault(cli.flags['D'], debugTodo, defaultConfig)
+logger.level = debug
+let tranFr = setDefault(cli.flags['f'], fromTodo, defaultConfig)
+let tranTo = setDefault(cli.flags['t'], toTodo, defaultConfig)
+let api = setDefault(cli.flags['a'], apiTodo, defaultConfig)
+
+// Now rewrite config.json
+await writeJson(configJson, defaultConfig) // 用 defaultConfig 写入 config.json
+
+// and then, setObjectKey.js can require the new config.json 
 const {setObjectKey} = require('./src/setObjectKey.js')
-
-APIs.forEach(x =>{
-  if( cli.input.join('\n').includes(x) ){
-    api = x
-  }
-})
-
-if(!dir.startsWith('/')){
-
-  dir = '/' + dir
-  logger.info(chalk.blue('Starting 翻译')+chalk.red(dir));
-}
+const { writeDataToFile } = require('./src/writeDataToFile.js')
+//ready
+logger.verbose(chalk.blue('Starting 翻译')+chalk.red(dir));
 
 // main func
 
 // get floder markdown files Array
-const getList = await Listmd(process.cwd()+dir)
+const getList = await Listmd(path.resolve(process.cwd(),dir))
 
 //
 getList.map(async (value) =>{
 
-  if(value.endsWith('.zh.md'))return
+  if(value.endsWith(`.${tranTo}.md`))return
   //read each file
   fs.readFile(value, 'utf8',async (err, data) =>{
     

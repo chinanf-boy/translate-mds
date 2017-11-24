@@ -1,18 +1,31 @@
 const tjs = require('translation.js')
 const chalk = require('chalk')
 const {logger} = require('../config/loggerConfig.js')
+// get config.json
 const configs = require('../config.json')
+let tranF, tranT
+tranF = configs['from']
+tranT = configs['to']
+logger.level = configs.logger.level
+
+// get translate result
 async function translateValue(value, api){
     let thisTranString
     if(value instanceof Array){
         thisTranString = value.join('\n')
+    }else{
+      console.log('value is string')
     }
+    
     // logger.log('debug',thisTranString,value,'----- first')
     return tjs.translate({
                       text: thisTranString,
-                      api: api
+                      api: api,
+                      from: tranF,
+                      to: tranT
                     }).then(result => {
-                      logger.log('debug',chalk.yellow(`获得 ${api} 数据了~`,result.result.length,value.length));
+                      // result.result.length,value.length
+                      logger.debug(chalk.yellow(`获得 ${api} 数据了~`));
                       // get zh and -> write down same folder { me.md => me.zh.md }
                       for (i in result.result){
                         if(!value[i]){
@@ -43,7 +56,7 @@ async function translateValue(value, api){
                         return result.result
                       }
                     }).catch(error => {
-                      logger.log('error',api,chalk.red( error.code,'出现了啦，不给数据'))
+                      logger.warn(api,chalk.red( error.code,'出现了啦，不给数据'))
 
                     })
       
@@ -52,9 +65,7 @@ async function translateValue(value, api){
 let tranArray = []
 
 async function setObjectKey(obj, api) {
-    for(i in configs.logger){
-      logger[i] = configs.logger[i]
-    }
+
     let allAPi = ['baidu','google','youdao']
     let thisTranArray 
     let resultArray
@@ -62,12 +73,13 @@ async function setObjectKey(obj, api) {
 
     // put obj values to tranArray
     if(!deep(obj)){
-      logger.log('error obj','里面没 value')
       throw logger.error('no value', sum)
     }
     if(tranArray.length){
       thisTranArray = tranArray
       tranArray = []
+    }else{
+      return newObj
     }
     // translate tranArray to zh
     // logger.log(tranArray)
@@ -75,7 +87,7 @@ async function setObjectKey(obj, api) {
 
     allAPi = allAPi.filter(x => x!=api)
     while(!resultArray && allAPi.length >=0 ){
-      logger.log('info',chalk.yellow('使用',api))
+      logger.log('verbose',chalk.yellow('使用',api))
       resultArray = await translateValue(thisTranArray, api)
       api = allAPi.shift()
     }
@@ -97,7 +109,12 @@ let sum = 0
 function deep(obj) {
     Object.keys(obj).forEach(function(key) {
       
+      // no translate code content
+    if(obj['type'] && obj['type'] === 'code'){
+      return sum
+    }
     (obj[key] && typeof obj[key] === 'object') && deep(obj[key])
+    
 
     if(key === 'value' && obj[key] != null){
           tranArray.push(obj[key])
@@ -110,6 +127,10 @@ function deep(obj) {
 function setdeep(obj, tranArrayZh) {
     Object.keys(obj).forEach(function(key) {
       
+    if(obj['type'] && obj['type'] === 'code'){
+        return sum
+    }
+    
     (obj[key] && typeof obj[key] === 'object') && setdeep(obj[key], tranArrayZh)
 
     if(key === 'value'){

@@ -3,48 +3,64 @@ const fs = require('mz/fs')
 const path = require('path')
 const tjs = require('translation.js')
 const {Listmd} = require('../src/readmd.js')
-const { writeDataToFile } = require('../src/writeDataToFile.js')
 const meow = require('meow');
 const chalk = require('chalk');
 const cutMdhead = require('../src/cutMdhead.js')
 const remark = require('remark')
 const { logger } = require('../config/loggerConfig.js') // winston config
 let defaultJson = '../config/defaultConfig.json' // default config---
-let jsonText = require(defaultJson) //---
+let defaultConfig = require(defaultJson) //---
 let jsonFile = path.resolve(__dirname, '../config.json')
 const writeJson  = require('../util/writeJson.js')
-
+//
+const { setDefault, debugTodo, fromTodo, toTodo, apiTodo } = require('../src/optionsTodo.js')
+// Main Function
+function O2A(options){
+    let {aFile, api, tF, tT} = options
+    return [aFile, api, tF, tT]
+}
 
 async function translateMds(options,debug){
-if(!(options instanceof Array)){
-    throw logger.error('args options is Array [absoluteFile, api]')
-}
-let [absoluteFile, api] = options
+
+    let absoluteFile, api, tranFrom, tranTo
+    if(!options) throw logger.error('options is NULL')
+
+    // options is Array or Object
+    if(options instanceof Array){
+        [absoluteFile, api, tranFrom, tranTo] = options
+    }else if(options instanceof Object){
+        [absoluteFile, api, tranFrom, tranTo] = O2A(options)
+    }
+    // file is absolute
+    if(!absoluteFile || !path.isAbsolute(absoluteFile)){
+        throw logger.error('translateMds no absoluteFile arg or absoluteFile is no absolute ')
+    }
+    // change defaultConfig from options
+    // return first option
+    debug = setDefault(debug, debugTodo, defaultConfig)
+    logger.level = debug
+    tranFrom = setDefault(tranFrom, fromTodo, defaultConfig)
+    tranTo = setDefault(tranTo, toTodo, defaultConfig)
+    api = setDefault(api, apiTodo, defaultConfig)
+
+    // rewrite config.json
+    // Error: this json error here , see test "async translate"
+await writeJson(jsonFile, defaultConfig) 
+
+// and then, setObjectKey.js can require the new config.json 
+const {setObjectKey} = require('../src/setObjectKey.js') 
+// const { writeDataToFile } = require('../src/writeDataToFile.js')
+
+//
 let results = []
-if(!absoluteFile || !path.isAbsolute(absoluteFile)){
-    throw logger.error('translateMds no absoluteFile arg or absoluteFile is no absolute ')
-}else if(!api){
-    api = jsonText.api
-}
 
-if(debug){
-    jsonText.logger.level = 'debug'
-    await writeJson(jsonFile, jsonText) 
-  }else{
-    // rewrite config.json  
-    await writeJson(jsonFile, jsonText)
-  }
-
-
-logger.info(chalk.blue('Starting 翻译')+chalk.red(absoluteFile));
+logger.verbose(chalk.blue('Starting 翻译')+chalk.red(absoluteFile));
 // get floder markdown files Array
 const getList = await Listmd(absoluteFile)
-const {setObjectKey} = require('../src/setObjectKey.js') 
-
 for (i in getList){
     let value = getList[i]
     
-    if(value.endsWith('.zh.md'))continue
+    if(value.endsWith(`.${tranTo}.md`))continue
     
     let _translate = await fs.readFile(value, 'utf8').then(async (data) =>{
         
@@ -63,7 +79,7 @@ for (i in getList){
                 return head+'\n'+body
                 // writeDataToFile(head+'\n'+body, value) 
             
-            }).catch(x => logger.error('can not translate'))
+            }).catch(x => logger.error('can not translate',value))
 
     // logger.info(_translate)
     results.push(_translate)

@@ -15,7 +15,7 @@ test.failing("get bad filename ",t =>{
 
 test.cb("write data to zh", t =>{
 
-    fs.readFile(__dirname + '/testWrite.md', 'utf8', (err, data) =>{
+    fs.readFile(__dirname + '/testWrite1.md', 'utf8', (err, data) =>{
         if (err) throw err;
         writeDataToFile(data, __dirname + '/testWrite1.md')
 
@@ -28,8 +28,8 @@ test.cb("write data to zh", t =>{
     });
 })
 
-test.failing("filename no .md", t =>{
-            writeDataToFile(data, __dirname + '/testWrite.md')
-            t.fail('')
+test("filename no .md", t =>{
+            let result = writeDataToFile('data', __dirname + '')
+            t.false(result)
     })
 
