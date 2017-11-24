@@ -1,8 +1,8 @@
 {
     "logger": {
-      "level": "info"
+      "level": "verbose"
     },
-    "api":"youdao",
+    "api":"baidu",
     "from":"en",
     "to":"zh"
   }
