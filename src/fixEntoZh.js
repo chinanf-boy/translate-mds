@@ -57,7 +57,7 @@ function charZh2En(str) {
 // 主 函数
 const fixEntoZh = function fixEntoZh(data){
 
-    if(!data instanceof Array){
+    if(!(data instanceof Array)){
         data = data.trim()
         return halfStr(data)
     }else{
@@ -66,7 +66,7 @@ const fixEntoZh = function fixEntoZh(data){
             return halfStr(x)
         })
 
-        return data
+        return data.join('')
     }
 
 }

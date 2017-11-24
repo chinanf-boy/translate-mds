@@ -3,6 +3,18 @@ const fs = require('fs')
 
 const { fixEntoZh, charZh2En, reg, Store, halfStr ,reg2 } = require('../src/fixEntoZh.js')
 
+test("fix EntoZh 二分法 分离 字符串", t =>{
+    let result = fixEntoZh("你好阿baby'‘～｀！＠“＃＄＾")
+
+    t.is(result,"你好阿baby''~`!@\"#$^")
+})
+
+test("fix EntoZh 二分法 分离 字符串 Array", t =>{
+    let result = fixEntoZh(["你好阿baby'‘～｀","！＠“＃＄＾"])
+
+    t.is(result,"你好阿baby''~`!@\"#$^")
+})
+
 test("二分法 分离 字符串", t =>{
     let result = halfStr("你好阿baby'‘～｀！＠“＃＄＾")
 
