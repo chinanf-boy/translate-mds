@@ -22,7 +22,24 @@ translateMds md/
 
 translateMds test.md
 ```
+cli
+``` js
+Usage
+  $ translateMds [folder name] [options]
+  default:
+    API:youdao
+Example
+  $ translateMds md/ 
+  
+  [options]
+  -a   API  : default baidu {google,baidu,youdao}
 
+  -f   from : default en
+
+  -t   to   : default zh
+
+  -D debug 
+```
 ---
 
 ## 项目引用
@@ -30,15 +47,42 @@ translateMds test.md
 ``` js
 const translate = require('translate-mds')
 //
-let results = await translate(__dirname+'/testWrite1.md')
+let results = await translate([__dirname+'/testWrite1.md'])
 //or
-let results = await translate(__dirname+'/md/')
-
+let results = await translate([__dirname+'/md/'])
 // results is Array
 
 
 ```
 
+## translate(options,debug)
+
+## options 当用 []
+
+[ aFile,api,tF,tT ] = options
+## options 当 用 {}
+
+- aFile 
+
+> absolute file
+
+- api
+
+>``default : baidu``
+
+>{'google','baidu','youdao'}
+
+- tF
+
+>``default : en``
+
+- tT
+
+>``default : zh``
+
+- debug
+
+> ``default : verbose``
 # 下面的Demo 你 应该 
 
 下载这个项目
