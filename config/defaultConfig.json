@@ -4,5 +4,6 @@
     },
     "api":"baidu",
     "from":"en",
-    "to":"zh"
+    "to":"zh",
+    "rewrite": false
   }

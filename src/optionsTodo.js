@@ -41,4 +41,9 @@ function apiTodo(api, args){
   return args.api
 }
 
-module.exports = {setDefault, debugTodo, fromTodo, toTodo, apiTodo }
+function rewriteTodo(rewrite, args) {
+
+  args.rewrite = rewrite? true : false
+  return rewrite
+}
+module.exports = {setDefault, debugTodo, fromTodo, toTodo, apiTodo, rewriteTodo }
