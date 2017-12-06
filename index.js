@@ -2,6 +2,7 @@
 ( async function(){
 'use script'
 const fs = require('fs')
+const asyncfs = require('mz/fs')
 const path = require('path')
 const tjs = require('translation.js')
 const {Listmd} = require('./src/readmd.js')
@@ -102,7 +103,7 @@ getList.map(async function runTranslate(value){
 
 
   //read each file
-  fs.readFile(value, 'utf8',async (err, data) =>{
+  return await asyncfs.readFile(value, 'utf8').then(async (data) =>{
     
     // console.log(chalk.green("翻译->"+value));
 
@@ -123,33 +124,45 @@ getList.map(async function runTranslate(value){
     //   start,
     //   end
     // }
-
     // translate Object Key == value
     // en to zh
-    const spinner = ora(`Loading translate .. ${path.basename(value)} `)
+    if(noDone.some(x =>x==value)){
+      logger.debug(`${path.basename(value)} try second fail`)
+      // secondTry fail is translate false
+    }
+
+    const spinner = new ora(`Loading translate .. ${path.basename(value)}  `)
     spinner.color = 'yellow'
     spinner.start();
-     
+    
     mdAst = await setObjectKey(mdAst, api)
-
+    
     if(!mdAst){
-      //await runTranslate(value)
       if(noDone.some(x =>x==value)){
-        logger.warn(value," try second fail")
-        // secondTry fail is translate false
         return false
       }
+      //await runTranslate(value)
+      
+      // later up up up
       noDone.push(value)
       let secondTry = await runTranslate(value)
       if(!secondTry){
         spinner.fail()
         return false
       }
+    }else if(noDone.some(x =>x==value)){
+      noDone = noDone.filter(x =>x!=value)
+      return true
     }
+
+
     // Ast to markdown
     body = remark.stringify(mdAst)
-    spinner.succeed()
+
+    // write
     writeDataToFile(head+'\n'+body, value) 
+
+    spinner.succeed()
     logger.verbose(chalk.blue(`已搞定 第 ${++Done} 文件`));
     doneShow(`all done`)
     
