@@ -16,7 +16,9 @@ async function translateValue(value, api){
     }else{
       console.log('value is string')
     }
-    
+    if(api == 'youdao' && tranT === 'zh'){
+      tranT = tranT + '-CN'
+    }
     // logger.log('debug',thisTranString,value,'----- first')
     return tjs.translate({
                       text: thisTranString,
@@ -37,12 +39,16 @@ async function translateValue(value, api){
                       if(value.length > result.result.length){
                 
                         return translateValue(value.slice(result.result.length),api).then(youdao =>{
-                          
-                          youdao.forEach(x => result.result.push(x))
+                          // tjs translate youdao BUG
+                          if(youdao instanceof Array){
+                            youdao.forEach(x => result.result.push(x))
+                          }else{
+                            result.result.push(youdao)
+                          }
                           logger.log('debug',JSON.stringify(result.result,null,2),chalk.cyan('集合 --------中 '))
                           return result.result
                       
-                        })
+                        }).catch(x => logger.error('youdao炸了',x))
                         // Promise.reject("bad youdao fanyi no get \\n")
 
                       }
@@ -56,7 +62,7 @@ async function translateValue(value, api){
                         return result.result
                       }
                     }).catch(error => {
-                      logger.warn(api,chalk.red( error.code,'出现了啦，不给数据'))
+                      logger.debug(api,chalk.red( error.code,'出现了啦，不给数据'))
 
                     })
       
@@ -73,7 +79,8 @@ async function setObjectKey(obj, api) {
 
     // put obj values to tranArray
     if(!deep(obj)){
-      throw logger.error('no value', sum)
+      logger.error('no value', sum)
+      return false
     }
     if(tranArray.length){
       thisTranArray = tranArray
@@ -87,20 +94,20 @@ async function setObjectKey(obj, api) {
 
     allAPi = allAPi.filter(x => x!=api)
     while(!resultArray && allAPi.length >=0 && api){
-      logger.log('verbose',chalk.yellow('使用',api))
+      logger.log('debug',chalk.yellow('使用',api))
       resultArray = await translateValue(thisTranArray, api)
       api = allAPi.shift()
     }
     if(!resultArray ){
-      throw logger.error(`获取信息错误,原因有二
+      logger.debug(`\n获取信息错误,原因有二
       - 网络失联
       - 翻译源 api 失败
       `)
+      return false
     }
 
     logger.log('debug',chalk.whiteBright('Result -->>'),chalk.green(resultArray))
     setdeep(newObj, resultArray)
-
     return newObj
 }
 
