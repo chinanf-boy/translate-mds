@@ -21,6 +21,11 @@ test(' test google',async t =>{
 })
 
 
+test(' test translate no key == value ',async t =>{
+    let noValue = await setObjectKey(newObject({type:'asdf'}), 'baidu')
+    t.false(noValue)
+})
+
 test(' test translateValue ',async t =>{
     let value = ['hello world','hello world']
     let result = await translateValue(value, 'baidu').then(x => x)

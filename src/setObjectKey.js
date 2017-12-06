@@ -85,8 +85,6 @@ async function setObjectKey(obj, api) {
     if(tranArray.length){
       thisTranArray = tranArray
       tranArray = []
-    }else{
-      return newObj
     }
     // translate tranArray to zh
     // logger.log(tranArray)
