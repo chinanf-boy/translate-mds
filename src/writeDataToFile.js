@@ -34,7 +34,7 @@ const writeDataToFile = (data, file_dir) => {
     fs.writeFile(zhfile+'', data, (err) => {
         if (err) 
             throw err;
-        logger.log('verbose',chalk.magenta( `The new ${tranT} file has been saved! -->> \n`),chalk.blue(zhfile));
+        logger.log('verbose',chalk.magenta( `\n ${tranT} file saved! -->> \n`),chalk.blue(zhfile));
         logger.debug(chalk.red('translate-info.log in your Project'))
     });
 }
