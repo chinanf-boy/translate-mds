@@ -39,6 +39,8 @@ Example
   -t   to   : default zh
 
   -D debug 
+
+  -R rewrite
 ```
 ---
 
