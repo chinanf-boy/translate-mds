@@ -59,8 +59,8 @@ logger.verbose(chalk.blue('Starting 翻译')+chalk.red(absoluteFile));
 const getList = await Listmd(absoluteFile)
 for (i in getList){
     let value = getList[i]
-    
-    if(value.endsWith(`.${tranTo}.md`))continue
+    // 去掉 .**.zh 的后缀 和 自己本身 .match(/\.[a-zA-Z]+\.md+/)
+    if(value.endsWith(`.${tranTo}.md`) || value.match(/\.[a-zA-Z]+\.md+/) )continue
     
     let _translate = await fs.readFile(value, 'utf8').then(async (data) =>{
         

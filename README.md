@@ -110,7 +110,9 @@ node index.js md/
 # [ X ] 自动换 翻译源
 
 # [ x ] 启用 md AST
+
 使用 [``remark``](https://github.com/wooorm/remark) 提高精准度
+
 使用 [``translate.js``](https://github.com/Selection-Translator/translation.js) 完成 与翻译网站的交互
 
 还有个 [异步Promise 递归的 例子](https://github.com/chinanf-boy/translate-js/blob/master/src/setObjectKey.js#L78)
