@@ -6,11 +6,12 @@ const path = require('path')
 const tjs = require('translation.js')
 const {Listmd} = require('./src/readmd.js')
 const meow = require('meow');
+const ora = require('ora')
 const chalk = require('chalk');
 const cutMdhead = require('./src/cutMdhead.js')
 const remark = require('remark')
 // option todo list
-const { setDefault, debugTodo, fromTodo, toTodo, apiTodo } = require('./src/optionsTodo.js')
+const { setDefault, debugTodo, fromTodo, toTodo, apiTodo, rewriteTodo } = require('./src/optionsTodo.js')
 
 // config 
 const { logger } = require('./config/loggerConfig.js') // winston config
@@ -31,14 +32,15 @@ Example
   $ translateMds md/ 
   
   [options]
-  -a   API  : default baidu {google,baidu,youdao}
+  -a   API      : default baidu {google,baidu,youdao}
 
-  -f   from : default en
+  -f   from     : default en
 
-  -t   to   : default zh
+  -t   to       : default zh
 
-  -D debug 
+  -D   debug    
   
+  -R   rewrite  : default false {yes/no retranslate and rewrite translate file}
 `);
 
 const APIs = ['google','baidu','youdao']
@@ -55,13 +57,14 @@ logger.level = debug
 let tranFr = setDefault(cli.flags['f'], fromTodo, defaultConfig)
 let tranTo = setDefault(cli.flags['t'], toTodo, defaultConfig)
 let api = setDefault(cli.flags['a'], apiTodo, defaultConfig)
+let rewrite = setDefault(cli.flags['R'], rewriteTodo, defaultConfig)
 
 // Now rewrite config.json
 await writeJson(configJson, defaultConfig) // 用 defaultConfig 写入 config.json
 
 // and then, setObjectKey.js can require the new config.json 
 const {setObjectKey} = require('./src/setObjectKey.js')
-const { writeDataToFile } = require('./src/writeDataToFile.js')
+const { writeDataToFile, insert_flg } = require('./src/writeDataToFile.js')
 //ready
 logger.verbose(chalk.blue('Starting 翻译')+chalk.red(dir));
 
@@ -70,10 +73,25 @@ logger.verbose(chalk.blue('Starting 翻译')+chalk.red(dir));
 // get floder markdown files Array
 const getList = await Listmd(path.resolve(process.cwd(),dir))
 
-//
-getList.map(async (value) =>{
+logger.info(chalk.blue(`总文件数 ${getList.length}, 有些文件会跳过`));
 
-  if(value.endsWith(`.${tranTo}.md`) || value.match(/\.[a-zA-Z]+\.md+/) ) return
+let Done = 0
+let noDone = []
+
+
+getList.map(async function runTranslate(value){
+
+  if(value.endsWith(`.${tranTo}.md`) || value.match(/\.[a-zA-Z]+\.md+/) || !value.endsWith('.md')) {
+    logger.debug(chalk.blue(`翻译的 或者 不是 md 文件的 有 ${++Done}`));
+    return true
+  }
+  if(!rewrite && fs.existsSync( insert_flg(value,`.${tranTo}`, 3 ))){
+    logger.debug(chalk.blue(`已翻译, 不覆盖 ${++Done}`));
+    return true
+  }
+
+
+
 
   //read each file
   fs.readFile(value, 'utf8',async (err, data) =>{
@@ -100,17 +118,36 @@ getList.map(async (value) =>{
 
     // translate Object Key == value
     // en to zh
+    const spinner = ora(`Loading translate .. ${path.basename(value)} `)
+    spinner.color = 'yellow'
+    spinner.start();
+     
     mdAst = await setObjectKey(mdAst, api)
 
+    if(!mdAst){
+      logger.warn(value,"\nCan not translate\n Try Again later")
+      //await runTranslate(value)
+      if(noDone.some(x =>x==value)){
+        // secondTry fail is translate false
+        return false
+      }
+      noDone.push(value)
+      let secondTry = await runTranslate(value)
+      if(!secondTry){
+        spinner.fail()
+        return false
+      }
+      return true
+    }
     // Ast to markdown
     body = remark.stringify(mdAst)
-
+    spinner.succeed()
     writeDataToFile(head+'\n'+body, value) 
+    logger.verbose(chalk.blue(`已搞定 第 ${++Done} 文件`));
 
-
+    return true
   })
 })
-
 // logger.info(getList) 
 // false
 // 因为 getList.map
