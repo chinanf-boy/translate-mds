@@ -105,7 +105,19 @@ git clone https://github.com/chinanf-boy/translate-js.git
 node index.js md/
 ```
 
-> Done !!
+> Done !! Or
+
+[查看我 you dont know js 翻译](https://github.com/chinanf-boy/You-Dont-Know-JS)
+
+所有的 ``.zh.md`` 都是通过 下面命令
+
+```
+tanslateMds <folder>
+```
+
+## ⏰ tips 有时会抽风，正在查找
+
+## 不过你只要再运行，自己选择是否重写文件，默认不会
 
 
 # [ X ] 提高http之类的md格式准确率
