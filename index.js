@@ -77,16 +77,24 @@ logger.info(chalk.blue(`总文件数 ${getList.length}, 有些文件会跳过`))
 
 let Done = 0
 let noDone = []
-
+function doneShow(str) {
+  if(Done >= getList.length){
+    const s = new ora(str).start()
+    s.succeed()
+  }
+}
 
 getList.map(async function runTranslate(value){
 
   if(value.endsWith(`.${tranTo}.md`) || value.match(/\.[a-zA-Z]+\.md+/) || !value.endsWith('.md')) {
     logger.debug(chalk.blue(`翻译的 或者 不是 md 文件的 有 ${++Done}`));
+    doneShow(`all done`)
     return true
   }
   if(!rewrite && fs.existsSync( insert_flg(value,`.${tranTo}`, 3 ))){
     logger.debug(chalk.blue(`已翻译, 不覆盖 ${++Done}`));
+    doneShow(`all done`)
+    
     return true
   }
 
@@ -125,9 +133,9 @@ getList.map(async function runTranslate(value){
     mdAst = await setObjectKey(mdAst, api)
 
     if(!mdAst){
-      logger.warn(value,"\nCan not translate\n Try Again later")
       //await runTranslate(value)
       if(noDone.some(x =>x==value)){
+        logger.warn(value," try second fail")
         // secondTry fail is translate false
         return false
       }
@@ -137,14 +145,14 @@ getList.map(async function runTranslate(value){
         spinner.fail()
         return false
       }
-      return true
     }
     // Ast to markdown
     body = remark.stringify(mdAst)
     spinner.succeed()
     writeDataToFile(head+'\n'+body, value) 
     logger.verbose(chalk.blue(`已搞定 第 ${++Done} 文件`));
-
+    doneShow(`all done`)
+    
     return true
   })
 })
