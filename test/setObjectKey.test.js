@@ -26,6 +26,14 @@ test(' test translate no key == value ',async t =>{
     t.false(noValue)
 })
 
+test(' test translate code or html false',async t =>{
+    let noValue = await setObjectKey(newObject({
+        "type": "html",
+        "value": "<a href=\"http://www.ebooks.com/1993212/you-don-t-know-js-up-going/simpson-kyle/\">"
+      }), 'baidu')
+    t.false(noValue)
+})
+
 test(' test translateValue ',async t =>{
     let value = ['hello world','hello world']
     let result = await translateValue(value, 'baidu').then(x => x)
@@ -44,7 +52,9 @@ test.before('test only code AST ', t =>{
               "start": {
                 "line": 1,}}}
         ]}
-    let sum = deep(obj)
+    let tranArray = []
+    
+    let sum = deep(obj, tranArray)
     t.is(sum, 0)
 })
 
@@ -54,7 +64,8 @@ test.before(" test deep func get values from obj", t =>{
         value: 'hello world'
     },position:[{value:"hello"}]};
 
-    let sum = deep(obj)
+    let tranArray = []
+    let sum = deep(obj,tranArray)
 
     t.is(sum,2)
 })

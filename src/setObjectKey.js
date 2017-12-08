@@ -14,7 +14,7 @@ async function translateValue(value, api){
     if(value instanceof Array){
         thisTranString = value.join('\n')
     }else{
-      console.log('value is string')
+      // console.log('value is string')
     }
     if(api == 'youdao' && tranT === 'zh'){
       tranT = tranT + '-CN'
@@ -68,17 +68,16 @@ async function translateValue(value, api){
       
 }
 
-let tranArray = []
-
 async function setObjectKey(obj, api) {
 
     let allAPi = ['baidu','google','youdao']
+    let tranArray = []
     let thisTranArray 
     let resultArray
     let newObj = JSON.parse(JSON.stringify(obj))
 
     // put obj values to tranArray
-    if(!deep(obj)){
+    if(!deep(obj, tranArray)){
       logger.error('no value', sum)
       return false
     }
@@ -91,8 +90,8 @@ async function setObjectKey(obj, api) {
     
 
     allAPi = allAPi.filter(x => x!=api)
-    while(!resultArray && allAPi.length >=0 && api){
-      logger.log('debug',chalk.yellow('使用',api))
+    while(thisTranArray && !resultArray && allAPi.length >=0 && api){
+      logger.log('debug',chalk.yellow('使用',api))  
       resultArray = await translateValue(thisTranArray, api)
       api = allAPi.shift()
     }
@@ -111,14 +110,14 @@ async function setObjectKey(obj, api) {
 
 let sum = 0
 
-function deep(obj) {
+function deep(obj, tranArray) {
     Object.keys(obj).forEach(function(key) {
       
       // no translate code content
-    if(obj['type'] && obj['type'] === 'code'){
+    if(obj['type'] && ( obj['type'] === 'html' || obj['type'] === 'code')){
       return sum
     }
-    (obj[key] && typeof obj[key] === 'object') && deep(obj[key])
+    (obj[key] && typeof obj[key] === 'object') && deep(obj[key], tranArray)
     
 
     if(key === 'value' && obj[key] != null){
@@ -132,7 +131,7 @@ function deep(obj) {
 function setdeep(obj, tranArrayZh) {
     Object.keys(obj).forEach(function(key) {
       
-    if(obj['type'] && obj['type'] === 'code'){
+    if(obj['type'] && ( obj['type'] === 'html' || obj['type'] === 'code')){
         return sum
     }
     
@@ -140,7 +139,6 @@ function setdeep(obj, tranArrayZh) {
 
     if(key === 'value'){
           obj[key] = tranArrayZh.shift()
-          tranArray.shift()
           sum--
     }
     });
