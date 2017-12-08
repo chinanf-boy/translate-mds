@@ -25,6 +25,7 @@
   "author": "yobrave",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.6.0",
     "chalk": "^2.3.0",
     "meow": "^3.7.0",
     "mz": "^2.7.0",
