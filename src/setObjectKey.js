@@ -151,7 +151,7 @@ function deep(obj, tranArray) {
     (obj[key] && typeof obj[key] === 'object') && deep(obj[key], tranArray)
     
 
-    if(key === 'value' && obj[key] != null){
+    if(key === 'value' && obj[key].trim()){
           tranArray.push(obj[key])
           sum++
     }
@@ -174,7 +174,7 @@ function setdeep(obj, tranArrayZh) {
     
     (obj[key] && typeof obj[key] === 'object') && setdeep(obj[key], tranArrayZh)
 
-    if(key === 'value'){
+    if(key === 'value' && obj[key].trim()){
           obj[key] = tranArrayZh.shift()
           sum--
     }
