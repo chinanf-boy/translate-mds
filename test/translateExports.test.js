@@ -27,6 +27,11 @@ test.serial('translate absolute folder auto', async t =>{
     let results = await translate([path.resolve(__dirname,'../md/'),'baidu'], 'info')
     t.is(results.length,5)
 })
+
+// test.serial('translate absolute big folder auto', async t =>{
+//     let results = await translate([`*******/You_Don\'t\ _Know_JS/You-Dont-Know-JS`,'baidu'], 'verbose')
+//     t.is(results.length,5)
+// })
 // test async translate
 // while del serial , config.json is error
 // before data

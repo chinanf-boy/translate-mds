@@ -4,6 +4,9 @@ node_modules/
 *.log
 npm-debug.log*
 
+# vscode debug
+try.js
+
 # Runtime data
 pids
 *.pid
