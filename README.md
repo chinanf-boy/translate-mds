@@ -1,12 +1,14 @@
-# translate en.md to zh.md
+# translate .md to *.md 
+
+like
+```
+.md to .zh.md
+```
 
 [![Build Status](https://travis-ci.org/chinanf-boy/translate-js.svg?branch=master)](https://travis-ci.org/chinanf-boy/translate-js)
 [![codecov](https://codecov.io/gh/chinanf-boy/translate-js/branch/master/graph/badge.svg)](https://codecov.io/gh/chinanf-boy/translate-js)
 [![GitHub license](https://img.shields.io/github/license/chinanf-boy/translate-js.svg)](https://github.com/chinanf-boy/translate-js/blob/master/License)
 [![NPM](https://nodei.co/npm/translate-mds.png)](https://nodei.co/npm/translate-mds/)
-
-递归 获取 目录下 所有文件 写入 数组
-
 
 ## 这个项目是 hugo 官方文档 
 
@@ -115,7 +117,7 @@ node index.js md/
 tanslateMds <folder>
 ```
 
-## ⏰ tips 有时会抽风，正在查找
+## ⏰ tips 有时会抽风，正在查找 会卡住 Issue 
 
 ## 不过你只要再运行，自己选择是否重写文件，默认不会
 
