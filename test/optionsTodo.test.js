@@ -1,10 +1,72 @@
 const { test } = require('ava')
 const fs = require('fs')
+let p = '../src/optionsTodo.js'
+const defaultArgs = {
+    "logger": {
+      "level": "verbose"
+    },
+    "api":"baidu",
+    "from":"en",
+    "to":"zh",
+    "num": 5,
+    "rewrite": false
+  }
+const {setDefault} = require(p)
 
-const {setDefault} = require('../src/optionsTodo.js')
+const rNobj =(obj) =>JSON.parse(JSON.stringify(obj))
 
-test("test setDefault",t=>{
+test("setDefault",t=>{
     function sum(a,b){return a+b}
     const s = setDefault(1, sum, 1)
     t.is(s,2)
+})
+
+const {debugTodo} = require(p)
+
+test("debugTodo",t=>{
+    const s = debugTodo(true,rNobj(defaultArgs))
+    t.true(s)
+    const s2 = debugTodo('info',rNobj(defaultArgs))
+    t.is(s2,'info')
+})
+
+const {fromTodo} = require(p)
+
+test("fromTodo",t=>{
+    const s = fromTodo('zh',rNobj(defaultArgs))
+    t.is(s,'zh')
+    const s2 = fromTodo('',rNobj(defaultArgs))
+    t.is(s2,'en')
+})
+const {toTodo} = require(p)
+
+test("toTodo",t=>{
+    const s = toTodo('ja',rNobj(defaultArgs))
+    t.is(s,'ja')
+    const s2 = toTodo('',rNobj(defaultArgs))
+    t.is(s2,'zh')
+})
+const {apiTodo} = require(p)
+
+test("apiTodo",t=>{
+    const s = apiTodo('',rNobj(defaultArgs))
+    t.is(s,'baidu')
+    const s2 = apiTodo('google',rNobj(defaultArgs))
+    t.is(s2,'google')
+})
+const {rewriteTodo} = require(p)
+
+test("rewriteTodo",t=>{
+    const s = rewriteTodo(true,rNobj(defaultArgs))
+    t.is(s,true)
+    const s2 = rewriteTodo('google',rNobj(defaultArgs))
+    t.is(s2,true)
+})
+const {numTodo} = require(p)
+
+test("numTodo",t=>{
+    const s = numTodo(10,rNobj(defaultArgs))
+    t.is(s,10)
+    const s2 = numTodo('google',rNobj(defaultArgs))
+    t.is(s2,5)
 })
