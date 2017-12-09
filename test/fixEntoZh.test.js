@@ -11,8 +11,7 @@ test("fix EntoZh 二分法 分离 字符串", t =>{
 
 test("fix EntoZh 二分法 分离 字符串 Array", t =>{
     let result = fixEntoZh(["你好阿baby'‘～｀","！＠“＃＄＾"])
-
-    t.is(result,"你好阿baby''~`!@\"#$^")
+    t.deepEqual(result,["你好阿baby''~`","!@\"#$^"])
 })
 
 test("二分法 分离 字符串", t =>{
