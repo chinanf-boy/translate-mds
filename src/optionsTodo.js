@@ -18,13 +18,11 @@ function setDefault(option, callback, args){
  * @returns {String}
  */
 function debugTodo(debug, args){
-  if(typeof debug == 'string'){
-    args.logger.level = debug
-    return debug
-  }
   if(debug){
     args.logger.level = 'debug'
-    return debug
+  }
+  if(typeof debug == 'string'){
+    args.logger.level = debug
   }
   return args.logger.level
 }
@@ -38,7 +36,6 @@ function debugTodo(debug, args){
 function fromTodo(tranFrom, args){
 if(tranFrom){
   args.from = tranFrom
-  return tranFrom
 }
 return args.from
 }
@@ -52,7 +49,6 @@ return args.from
 function toTodo(tranTo, args){
 if(tranTo){
   args.to = tranTo
-  return tranTo
 }
 return args.to
 }
@@ -65,8 +61,10 @@ return args.to
  */
 function numTodo(num, args){
   if(typeof num == 'number'){
+    if(num < 0){
+      throw chalk.red('hey num should > 0')
+    }
     args.num = num
-    return num
   }
   return args.num
 }
@@ -80,7 +78,7 @@ function numTodo(num, args){
 function apiTodo(api, args){
   if(api){
     args.api = api
-    return api
+
   }
   return args.api
 }
