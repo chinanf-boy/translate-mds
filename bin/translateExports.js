@@ -60,7 +60,7 @@ const {setObjectKey} = require('../src/setObjectKey.js')
 //
 let results = []
 
-logger.info(chalk.blue('Starting 翻译')+chalk.red(absoluteFile));
+logger.verbose(chalk.blue('Starting 翻译')+chalk.red(absoluteFile));
 // get floder markdown files Array
 const getList = await Listmd(absoluteFile)
 for (i in getList){
@@ -68,19 +68,33 @@ for (i in getList){
     // 去掉 .**.zh 的后缀 和 自己本身 .match(/\.[a-zA-Z]+\.md+/)
     if(value.endsWith(`.${tranTo}.md`) || value.match(/\.[a-zA-Z]+\.md+/) || !value.endsWith('.md'))continue
     let _translate = await fs.readFile(value, 'utf8').then(async (data) =>{
-                let head
+                let head,mdAst,translateMdAst
                 [body, head] = cutMdhead(data)
 
+                
+                
                 // to AST
-                let mdAst = remark.parse(body)
-                
-                let translateMdAst = await setObjectKey(mdAst, api)
-                
+                try{
+                mdAst = remark.parse(body)
+                }catch(x){
+                console.log('remark parse error')
+                throw x
+                }
+                try{
+                translateMdAst = await setObjectKey(mdAst, api)
+                }catch(x){
+                console.log(' translate error')
+                throw x
+                }
+                try{
                 if(translateMdAst){
                     body = remark.stringify(translateMdAst)
                     return head+'\n'+body
                 }
-                
+                }catch(x){
+                console.log(' remark stringify error')
+                    throw x
+                }
                 return false
                 // Ast to markdown
                 // writeDataToFile(head+'\n'+body, value) 
