@@ -9,6 +9,11 @@ const Store = {
 }
 
 // 二分法 获取 
+/**
+ * @description 
+ * @param {String} str 
+ * @returns {String}
+ */
 const halfStr = (str) =>{
     if (str.length <= 1 ) {
         if(reg.test(str) || reg2(str)){
@@ -55,6 +60,11 @@ function charZh2En(str) {
 }
 
 // 主 函数
+/**
+ * @description 
+ * @param {Array|String} data 
+ * @returns {Array|String}
+ */
 const fixEntoZh = function fixEntoZh(data){
 
     if(!(data instanceof Array)){
@@ -66,7 +76,7 @@ const fixEntoZh = function fixEntoZh(data){
             return halfStr(x)
         })
 
-        return data.join('')
+        return data
     }
 
 }
