@@ -37,17 +37,19 @@ Example
   $ translateMds md/ 
   
   [options]
-  -a   API      : default baidu {google,baidu,youdao}
+  -a   API      : default < baidu > {google,baidu,youdao}
 
-  -f   from     : default en
+  -f   from     : default < en >
 
-  -t   to       : default zh
+  -t   to       : default < zh >
 
-  -N   num      : default 5 {async number}
+  -N   num      : default < 5 > {async number}
 
   -D   debug    
   
-  -R   rewrite  : default false {yes/no retranslate and rewrite translate file}
+  -R   rewrite  : default < false > {yes/no retranslate and rewrite translate file}
+
+  -T   timeout  : default {this 功能 待续}
 `);
 
 const APIs = ['google','baidu','youdao']
@@ -65,7 +67,9 @@ let tranFr = setDefault(cli.flags['f'], fromTodo, defaultConfig)
 let tranTo = setDefault(cli.flags['t'], toTodo, defaultConfig)
 let api = setDefault(cli.flags['a'], apiTodo, defaultConfig)
 let rewrite = setDefault(cli.flags['R'], rewriteTodo, defaultConfig)
-let asyscNum = setDefault(cli.flags['N'], numTodo, defaultConfig)
+let asyncNum = setDefault(cli.flags['N'], numTodo, defaultConfig)
+// let Time = setDefault(cli.flags['T'], timeoutTodo, defaultConfig)
+
 // Now rewrite config.json
 await writeJson(configJson, defaultConfig) // 用 defaultConfig 写入 config.json
 const translateMds = require('./bin/translateExports.js')
@@ -91,7 +95,7 @@ function doneShow(str) {
     s.succeed()
 }
 let showAsyncnum = 0
-async.mapSeries(getList,
+async.mapLimit(getList, asyncNum,
   /**
    * @description async Translate filename value , Return true or false
    * @param {String} value
@@ -163,11 +167,8 @@ function timeout(ms) {
   });
 }
 
-const time = 5000
-let timeoutDone
-console.log('while running')
 while(Done){
-  timeoutDone = Done
+  const time = 1000
   await timeout(time)  //translate will change Done num
   // if time ms , the Done num is no change
   // may the project if freeze, this is Bug
@@ -177,12 +178,14 @@ while(Done){
   // keep 
   // const spinner = ora(`Loading translate .. ${path.basename(value)}  `)
   // that running 
+
+
   if(Done > getList.length){
     console.log(Done)
     break
   }
 }
-console.log('while outting')
+// console.log('while outting')
 
 // if(Done == getList.length){
 //   throw new Error(`${time} ok`)
