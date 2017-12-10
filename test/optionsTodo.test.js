@@ -57,16 +57,21 @@ test("apiTodo",t=>{
 const {rewriteTodo} = require(p)
 
 test("rewriteTodo",t=>{
-    const s = rewriteTodo(true,rNobj(defaultArgs))
-    t.is(s,true)
-    const s2 = rewriteTodo('google',rNobj(defaultArgs))
-    t.is(s2,true)
+    const one = rewriteTodo(true,rNobj(defaultArgs))
+    t.is(one,true)
+
+    const two = rewriteTodo('google',rNobj(defaultArgs))
+    t.is(two,true)
+
+    const three = rewriteTodo('',rNobj(defaultArgs))
+    t.is(three,false)
 })
 const {numTodo} = require(p)
 
 test("numTodo",t=>{
     const s = numTodo(10,rNobj(defaultArgs))
     t.is(s,10)
+    
     const s2 = numTodo('google',rNobj(defaultArgs))
     t.is(s2,5)
 })

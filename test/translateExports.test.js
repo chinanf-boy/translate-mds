@@ -8,6 +8,11 @@ test.failing('translate no absolute file fail', async t =>{
     let results = await translate(['./testWrite1.md'])
     t.fail()
 })
+
+test.failing('translate nothing', async t =>{
+    let results = await translate("")
+    t.fail()
+})
 test.failing('translate input Object fail', async t =>{
     let results = await translate({})
     t.fail()

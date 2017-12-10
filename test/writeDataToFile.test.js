@@ -15,13 +15,12 @@ test.failing("get bad filename ",t =>{
 
 test.cb("write data to zh", t =>{
 
-    fs.readFile(__dirname + '/testWrite1.md', 'utf8', (err, data) =>{
+    fs.readFile(__dirname + '/testWrite3.md', 'utf8', (err, data) =>{
         if (err) throw err;
         writeDataToFile(data, __dirname + '/testWrite3.md')
 
         fs.readFile(__dirname + '/testWrite3.zh.md', 'utf8', (err, insidedata) =>{
             if (err) throw err;
-            // console.log('inside')
             t.is(insidedata, data)
             t.end()
         });
@@ -33,3 +32,7 @@ test("filename no .md", t =>{
             t.false(result)
     })
 
+test.failing("filename Array ", t =>{
+        let result = writeDataToFile(['data','data'], __dirname + '')
+        t.fail("no md file")
+})

@@ -61,10 +61,9 @@ return args.to
  */
 function numTodo(num, args){
   if(typeof num == 'number'){
-    if(num < 0){
-      throw chalk.red('hey num should > 0')
+    if(num > 0){
+      args.num = num
     }
-    args.num = num
   }
   return args.num
 }

@@ -63,29 +63,29 @@ async function t(data){
     let head,mdAst,translateMdAst
     [body, head] = cutMdhead(data)
     // to AST
-    try{
+    // try{
     mdAst = remark.parse(body)
-    }catch(x){
-    console.log('remark parse error')
-    throw x
-    }
-    try{
+    // }catch(x){
+    // console.log('remark parse error')
+    // throw x
+    // }
+    // try{
         // translate AST value
     translateMdAst = await setObjectKey(mdAst, api)
-    }catch(x){
-    console.log(' translate error')
-    throw x
-    }
-    try{
+    // }catch(x){
+    // console.log(' translate error')
+    // throw x
+    // }
+    // try{
     if(translateMdAst){
         // Ast to markdown 
         body = remark.stringify(translateMdAst)
         return head+'\n'+body
     }
-    }catch(x){
-    console.log(chalk.red('remark stringify error'))
-        throw x
-    }
+    // }catch(x){
+    // console.log(chalk.red('remark stringify error'))
+    //     throw x
+    // }
     // console.log('t','-----------t')
     return translateMdAst
 }

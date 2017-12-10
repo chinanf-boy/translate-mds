@@ -1,7 +1,7 @@
 {
   "name": "translate-mds",
   "version": "2.5.5",
-  "description": "translate [folder] md file to zh",
+  "description": "translate [folder] md file language to you want",
   "main": "./bin/translateExports.js",
   "engines": {
     "node": ">=8.0.0"
@@ -9,14 +9,15 @@
   "scripts": {
     "demo": "node index.js md/",
     "ava": "ava --verbose --serial",
-    "test": "nyc -a --reporter=lcov --reporter=text --reporter=html npm run ava",
+    "test": "nyc --reporter=lcov --reporter=text --reporter=html npm run ava",
     "pubGitandNpm": "git push origin master && git push --tags"
   },
   "ava": {
     "files": [
       "test/**/*",
       "!test/*.Object.js",
-      "!config.js"
+      "!config.js",
+      "!index.js"
     ]
   },
   "bin": {
@@ -39,7 +40,7 @@
     "translate"
   ],
   "devDependencies": {
-    "ava": "^0.23.0",
+    "ava": "^0.24.0",
     "nyc": "^11.3.0"
   }
 }

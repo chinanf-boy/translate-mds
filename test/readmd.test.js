@@ -14,6 +14,11 @@ test("read md no / folder", async t =>{
     t.is(len.length, 10)
 })
 
+test("read no absolute dir", async t =>{
+    const E = await Listmd("/../md").then(x => x).catch(x =>x)
+    t.true(E instanceof Error)
+})
+
 test.serial.before("read md file", async t =>{
     const len = await Listmd(__dirname+"/testWrite.md").then(x => x)
 
