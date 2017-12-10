@@ -97,12 +97,61 @@ async function setObjectKey(obj, api) {
 
     let allAPi = ['baidu','google','youdao']
     let tranArray = []
-    let thisTranArray 
-    let resultArray
+    let thisTranArray = []
+    let resultArray = []
     let newObj = JSON.parse(JSON.stringify(obj))
+    let sum = 0 // single values
+    /**
+     * @description Find ``obj['type'] === 'value'`` ,and``tranArray.push(obj[key])``
+     * @param {Object} obj 
+     * @param {String[]} tranArray 
+     * @returns {number} - find value number
+     */
+    function deep(obj, tranArray) {
+      Object.keys(obj).forEach(function(key) {
+        
+        // no translate code content
+      if(obj['type'] && ( obj['type'] === 'html' || obj['type'] === 'code')){
+        return sum
+      }
+      (obj[key] && typeof obj[key] === 'object') && deep(obj[key], tranArray)
+      
+
+      if(key === 'value' && obj[key].trim()){
+            tranArray.push(obj[key])
+            sum++
+      }
+      });
+      return sum
+    };
+
+    /**
+     * @description Find ``obj['type'] === 'value'``, and use ``tranArrayZh.shift`` set ``obj['value']`` 
+     * @param {any} obj - AST
+     * @param {String[]} tranArrayZh 
+     * @returns 
+     */
+    function setdeep(obj, tranArrayZh) {
+      Object.keys(obj).forEach(function(key) {
+        
+      if(obj['type'] && ( obj['type'] === 'html' || obj['type'] === 'code')){
+          return sum
+      }
+      
+      (obj[key] && typeof obj[key] === 'object') && setdeep(obj[key], tranArrayZh)
+  
+      if(key === 'value' && obj[key].trim()){
+            if(tranArrayZh.length){
+              obj[key] = tranArrayZh.shift()
+              sum--
+            }
+      }
+      });
+      return sum
+      };
 
     // put obj values to tranArray
-    if(!deep(obj, tranArray)){
+    if(!deep(obj, tranArray)){      
       logger.error('no value', sum)
       return false
     }
@@ -112,74 +161,39 @@ async function setObjectKey(obj, api) {
     }
     // translate tranArray to zh
     // logger.log(tranArray)
-    
-
     allAPi = allAPi.filter(x => x!=api)
-    while(thisTranArray && !resultArray && allAPi.length >=0 && api){
+    allAPi.push(api)
+    for(let i in allAPi){
       logger.log('debug',chalk.yellow('使用',api))  
       resultArray = await translateValue(thisTranArray, api)
-      api = allAPi.shift()
+      api = allAPi[i]
+      if(resultArray && resultArray.length>=thisTranArray.length){
+        break
+      }
     }
-    if(!resultArray ){
-      logger.debug(`\n获取信息错误,原因有二
+
+    //BUG------
+    // while(thisTranArray && (resultArray.length<thisTranArray.length) && allAPi.length >=0 && api){
+    //   logger.log('debug',chalk.yellow('使用',api))  
+    //   resultArray = await translateValue(thisTranArray, api)
+    //   api = allAPi.shift()
+    // }
+    if(!resultArray ||(resultArray.length<thisTranArray.length)){
+      logger.error(`
+      获取信息错误,原因有3
       - 网络失联
-      - 翻译源 api 失败
+      - 翻译源 失败
+      - 抽风
       `)
       return false
     }
 
+    // if(sum != 0)console.log(resultArray.length,'sum', thisTranArray.length)
     logger.log('debug',chalk.whiteBright('Result -->>'),chalk.green(resultArray))
     setdeep(newObj, resultArray)
+    // if(sum != 0)console.log(sum,'sum')
+    
     return newObj
 }
 
-let sum = 0
-
-/**
- * @description Find ``obj['type'] === 'value'`` ,and``tranArray.push(obj[key])``
- * @param {Object} obj 
- * @param {String[]} tranArray 
- * @returns {number} - find value number
- */
-function deep(obj, tranArray) {
-    Object.keys(obj).forEach(function(key) {
-      
-      // no translate code content
-    if(obj['type'] && ( obj['type'] === 'html' || obj['type'] === 'code')){
-      return sum
-    }
-    (obj[key] && typeof obj[key] === 'object') && deep(obj[key], tranArray)
-    
-
-    if(key === 'value' && obj[key].trim()){
-          tranArray.push(obj[key])
-          sum++
-    }
-    });
-    return sum
-  };
-
-/**
- * @description Find ``obj['type'] === 'value'``, and use ``tranArrayZh.shift`` set ``obj['value']`` 
- * @param {any} obj - AST
- * @param {String[]} tranArrayZh 
- * @returns 
- */
-function setdeep(obj, tranArrayZh) {
-    Object.keys(obj).forEach(function(key) {
-      
-    if(obj['type'] && ( obj['type'] === 'html' || obj['type'] === 'code')){
-        return sum
-    }
-    
-    (obj[key] && typeof obj[key] === 'object') && setdeep(obj[key], tranArrayZh)
-
-    if(key === 'value' && obj[key].trim()){
-          obj[key] = tranArrayZh.shift()
-          sum--
-    }
-    });
-    return sum
-  };
-
-  module.exports = { setObjectKey, translateValue, deep, setdeep }
+module.exports = { setObjectKey, translateValue }
