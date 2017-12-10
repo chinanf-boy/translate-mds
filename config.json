@@ -6,5 +6,5 @@
   "from": "en",
   "to": "zh",
   "num": 10,
-  "rewrite": false
+  "rewrite": true
 }

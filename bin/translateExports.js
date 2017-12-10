@@ -13,6 +13,7 @@ let defaultConfig = require(defaultJson) //---
 let jsonFile = path.resolve(__dirname, '../config.json')
 const writeJson  = require('../util/writeJson.js')
 //
+let done = 0
 const { setDefault, debugTodo, fromTodo, toTodo, apiTodo } = require('../src/optionsTodo.js')
 // Main Function
 function O2A(options){
@@ -57,52 +58,53 @@ await writeJson(jsonFile, defaultConfig)
 const {setObjectKey} = require('../src/setObjectKey.js') 
 // const { writeDataToFile } = require('../src/writeDataToFile.js')
 
+async function t(data){
+
+    let head,mdAst,translateMdAst
+    [body, head] = cutMdhead(data)
+    // to AST
+    try{
+    mdAst = remark.parse(body)
+    }catch(x){
+    console.log('remark parse error')
+    throw x
+    }
+    try{
+        // translate AST value
+    translateMdAst = await setObjectKey(mdAst, api)
+    }catch(x){
+    console.log(' translate error')
+    throw x
+    }
+    try{
+    if(translateMdAst){
+        // Ast to markdown 
+        body = remark.stringify(translateMdAst)
+        return head+'\n'+body
+    }
+    }catch(x){
+    console.log(chalk.red('remark stringify error'))
+        throw x
+    }
+    // console.log('t','-----------t')
+    return translateMdAst
+}
 //
 let results = []
 
 logger.verbose(chalk.blue('Starting 翻译')+chalk.red(absoluteFile));
 // get floder markdown files Array
 const getList = await Listmd(absoluteFile)
+
 for (i in getList){
     let value = getList[i]
     // 去掉 .**.zh 的后缀 和 自己本身 .match(/\.[a-zA-Z]+\.md+/)
     if(value.endsWith(`.${tranTo}.md`) || value.match(/\.[a-zA-Z]+\.md+/) || !value.endsWith('.md'))continue
-    let _translate = await fs.readFile(value, 'utf8').then(async (data) =>{
-                let head,mdAst,translateMdAst
-                [body, head] = cutMdhead(data)
-
-                
-                
-                // to AST
-                try{
-                mdAst = remark.parse(body)
-                }catch(x){
-                console.log('remark parse error')
-                throw x
-                }
-                try{
-                translateMdAst = await setObjectKey(mdAst, api)
-                }catch(x){
-                console.log(' translate error')
-                throw x
-                }
-                try{
-                if(translateMdAst){
-                    body = remark.stringify(translateMdAst)
-                    return head+'\n'+body
-                }
-                }catch(x){
-                console.log(' remark stringify error')
-                    throw x
-                }
-                return false
-                // Ast to markdown
-                // writeDataToFile(head+'\n'+body, value) 
-            
-            }).catch(x => {
-                // console.log(chalk.red(x))
-                return false
-            })
+    let readfile = await fs.readFile(value, 'utf8')
+    let _translate = await t(readfile).then(x =>x).catch(x => {
+                    console.log(x)
+                    return false
+                    })
 
     // logger.info(_translate)
         if(_translate){
@@ -110,7 +112,10 @@ for (i in getList){
         }else{
             results.push('')
         }
+        // console.trace(chalk.red('look me'))
+
     }
+// logger.error(++done,'---------------------')
 return results
 }
 
