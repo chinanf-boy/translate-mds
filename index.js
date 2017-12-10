@@ -95,7 +95,19 @@ function doneShow(str) {
     s.succeed()
 }
 let showAsyncnum = 0
-async.mapLimit(getList, asyncNum,
+async.mapLimit(getList, asyncNum, runTranslate,
+  (err, IsTranslateS) =>{
+                  if(err)throw err
+                  Done++
+                  if(IsTranslateS.every(x =>!!x)){
+                      doneShow(`All Done`)
+                  }else{
+                      doneShow(`Some No Done`)
+                  }
+                  // console.log('map Limit outting')
+                }
+)
+
   /**
    * @description async Translate filename value , Return true or false
    * @param {String} value
@@ -147,19 +159,7 @@ async.mapLimit(getList, asyncNum,
     })
     return _translateMds
     //read each file
-  },
-(err, IsTranslateS) =>{
-  if(err)throw err
-  Done++
-  if(IsTranslateS.every(x =>!!x)){
-      doneShow(`All Done`)
-  }else{
-      doneShow(`Some No Done`)
   }
-  console.log('map Limit outting')
-}
-)
-
 
 function timeout(ms) {
   return new Promise((resolve, reject) => {
@@ -181,7 +181,7 @@ while(Done){
 
 
   if(Done > getList.length){
-    console.log(Done)
+    // console.log(Done)
     break
   }
 }

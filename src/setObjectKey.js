@@ -179,7 +179,7 @@ async function setObjectKey(obj, api) {
     //   api = allAPi.shift()
     // }
     if(!resultArray ||(resultArray.length<thisTranArray.length)){
-      logger.error(`
+      logger.debug(`
       获取信息错误,原因有3
       - 网络失联
       - 翻译源 失败

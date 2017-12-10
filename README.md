@@ -28,21 +28,23 @@ cli
 ``` js
 Usage
   $ translateMds [folder name] [options]
-  default:
-    API:youdao
+
 Example
   $ translateMds md/ 
   
   [options]
-  -a   API  : default baidu {google,baidu,youdao}
+  -a   API      : default < baidu > {google,baidu,youdao}
 
-  -f   from : default en
+  -f   from     : default < en >
 
-  -t   to   : default zh
+  -t   to       : default < zh >
 
-  -D debug 
+  -N   num      : default < 5 > {async number}
 
-  -R rewrite
+  -D   debug    : default < false >
+  
+  -R   rewrite  : default < false > {yes/no retranslate and rewrite translate file}
+
 ```
 ---
 
@@ -117,11 +119,16 @@ node index.js md/
 tanslateMds <folder>
 ```
 
-## ⏰ tips 有时会抽风，正在查找 会卡住 Issue 
 
-## 不过你只要再运行，自己选择是否重写文件，默认不会
+> ⏰ tips 有时会抽风，正在查找 会卡住 Issue
 
+>你只要再运行。！！！
 
+# 抱歉 ,我能力不足，node 并发问题在于，我也不知道问题在哪里。
+
+# 问题：忽然间就没有网络流量的速度一样，不知道这是不是，禁止IP ？？？？
+
+# 当 并数是 ``1`` 的时候，很凑巧的，You-dont-know-js 68个md文件，能成功几次，但是当并发数超 1，特别是临近结束的那几个文件，等待就一直在转，这时网络速度变0，这时就需要 ctrl + c ,终止了！
 # [ X ] 提高http之类的md格式准确率
 # [ X ] 自动换 翻译源
 

@@ -25,7 +25,7 @@ const {debugTodo} = require(p)
 
 test("debugTodo",t=>{
     const s = debugTodo(true,rNobj(defaultArgs))
-    t.true(s)
+    t.is(s, 'debug')
     const s2 = debugTodo('info',rNobj(defaultArgs))
     t.is(s2,'info')
 })
