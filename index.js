@@ -133,31 +133,31 @@ async.mapLimit(getList, asyncNum, runTranslate,
     const spinner = ora(`${process.pid} Loading translate .. ${path.basename(value)}  `)
     spinner.color = 'yellow'
     spinner.start();
-    let _translateMds =  await translateMds([value, api, tranFr, tranTo],debug).then(data =>{
-      let endtime = new Date().getTime() - start;
+    let _translateMds =  await translateMds([value, api, tranFr, tranTo],debug)
+    let endtime = new Date().getTime() - start;
       //
   
-      spinner.text +='get data'
-      if(data.every(x =>x!='')){
-        writeDataToFile(data, value) 
-        spinner.text = `已搞定 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'md')} - ${path.basename(value)} ` 
-        spinner.succeed()
-        showAsyncnum--
-      return true
-      }     
-      spinner.text = `没完成 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'md')} - ${value} `
-      spinner.fail()
-      
+    spinner.text +='get data'
+    if(_translateMds.every(x =>x!='')){
+      writeDataToFile(_translateMds, value) 
+      spinner.text = `已搞定 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'md')} - ${path.basename(value)} ` 
+      spinner.succeed()
       showAsyncnum--
+    return true
+    }     
+    spinner.text = `没完成 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'md')} - ${value} `
+    spinner.fail()
+      
+    showAsyncnum--
       // if(asyscNum)
       // throw new Error(`translate ${value} fail`)
-      return false
+    return false
   
-    }).catch(x =>{
-      console.log('bad ass $$$$$$$$$')
-      throw x
-    })
-    return _translateMds
+    // }).catch(x =>{
+    //   console.log('bad ass $$$$$$$$$')
+    //   throw x
+    // })
+    // return _translateMds
     //read each file
   }
 
