@@ -69,7 +69,7 @@ async function translateValue(value, api){
                       }
 
                       // Bug translate.js return result.result Array
-                      if(value.length != result.result.length){
+                      if(value.length < result.result.length){
                         // when \n in text medium，return 2 size Array
                         return result.result
                       }
@@ -156,11 +156,19 @@ async function setObjectKey(obj, api) {
       return false
     }
     if(tranArray.length){
+
+      // remove all \n
+      tranArray = tranArray.map(x=>{
+        if(x.indexOf('\n')>=0){
+          return x.replace(/[\n]/g,'')
+        }
+        return x
+      })
       thisTranArray = tranArray
       tranArray = []
     }
     // translate tranArray to zh
-    // logger.log(tranArray)
+    console.log(thisTranArray.length)
     allAPi = allAPi.filter(x => x!=api)
     allAPi.push(api)
     for(let i in allAPi){

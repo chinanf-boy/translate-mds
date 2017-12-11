@@ -75,6 +75,7 @@ const fixEntoZh = function fixEntoZh(data){
     }else{
         
         data = data.map(x =>{
+            x = x.trim()
             return halfStr(x)
         })
 
