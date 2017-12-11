@@ -92,7 +92,7 @@ async function t(data){
 //
 let results = []
 
-logger.verbose(chalk.blue('Starting 翻译')+chalk.red(absoluteFile));
+// logger.verbose(chalk.blue('Starting 翻译')+chalk.red(absoluteFile));
 // get floder markdown files Array
 const getList = await Listmd(absoluteFile)
 
