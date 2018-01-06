@@ -1,6 +1,6 @@
 {
   "name": "translate-mds",
-  "version": "2.5.7",
+  "version": "2.5.8",
   "description": "translate [folder] md file language to you want",
   "main": "./bin/translateExports.js",
   "engines": {
