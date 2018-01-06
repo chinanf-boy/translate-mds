@@ -44,6 +44,10 @@
   dependencies:
     arrify "^1.0.1"
 
+"@types/blueimp-md5@^2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@types/blueimp-md5/-/blueimp-md5-2.7.0.tgz#404222806800478ca2782e8ad46590aba7f14627"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -3151,10 +3155,11 @@ tough-cookie@~2.3.0:
   dependencies:
     punycode "^1.4.1"
 
-translation.js@^0.6.4:
-  version "0.6.4"
-  resolved "https://registry.yarnpkg.com/translation.js/-/translation.js-0.6.4.tgz#226e8c119698fba5d9955ea1db092085944fd154"
+translation.js@^0.6.8:
+  version "0.6.8"
+  resolved "https://registry.yarnpkg.com/translation.js/-/translation.js-0.6.8.tgz#23d3eb09c0735967c7dec394fe24eb6b34f63813"
   dependencies:
+    "@types/blueimp-md5" "^2.7.0"
     blueimp-md5 "^2.10.0"
 
 trim-newlines@^1.0.0:

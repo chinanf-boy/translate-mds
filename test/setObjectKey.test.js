@@ -1,3 +1,5 @@
+import { setTimeout } from 'timers';
+
 const { test } = require('ava')
 const fs = require('fs')
 const [tree, truetree ] = require('./setObjectKey.Object.js')
@@ -33,10 +35,10 @@ test(' test translate code or html false',async t =>{
     t.false(noValue)
 })
 
-test(' test translateValue ',async t =>{
-    let value = ['hello world','hello world']
-    let result = await translateValue(value, 'baidu').then(x => x)
-    t.deepEqual(result, [`你好世界`,`你好世界`])
+test.serial(' test translateValue ',async t =>{
+    let value = ['hello world']
+    let result = await translateValue(value, 'google')
+    t.is(result.length,1)
 })
 
 // test.before('test only code AST ', t =>{

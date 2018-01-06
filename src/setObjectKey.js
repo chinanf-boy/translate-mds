@@ -12,7 +12,7 @@ logger.level = configs.logger.level
 
 /**
  * @description 
- * @param {String} value 
+ * @param {String|String[]} value 
  * @param {String} api 
  * @returns {String}
  */
@@ -21,7 +21,7 @@ async function translateValue(value, api){
     if(value instanceof Array){
         thisTranString = value.join('\n')
     }else{
-      // console.log('value is string')
+      thisTranString = value
     }
     if(api == 'youdao' && tranT === 'zh'){
       tranT = tranT + '-CN'
@@ -34,7 +34,7 @@ async function translateValue(value, api){
                       to: tranT
                     }).then(result => {
                       if(!result.result){
-                        return ''
+                        throw new Error('「结果为空」')
                       }
                       if(value.length ==  result.result.length){
                         return result.result
@@ -42,11 +42,14 @@ async function translateValue(value, api){
                       // result.result.length,value.length
                       logger.debug(chalk.yellow(`获得 ${api} 数据了~`));
                       // get zh and -> write down same folder { me.md => me.zh.md }
+                      logger.log('debug','----------\n')                      
                       for (i in result.result){
                         if(!value[i]){
-                          logger.log('debug','----------')
+
+                          logger.log('debug','--no equal--------\n')
                         }
                         logger.log('debug','set- '+ chalk.green(value[i]) + ' to-> '+ chalk.yellow(result.result[i]))
+                        
                       }
                       
                       // logger.log('error',value.length)
@@ -70,6 +73,13 @@ async function translateValue(value, api){
 
                       // Bug translate.js return result.result Array
                       if(value.length < result.result.length){
+                        logger.debug(`___________
+                        get the result is not equal , so + the final result 
+                        ************`)
+                        let r_v = result.result.length - value.length
+                        for(let i= 0;i<r_v;i++){
+                          result.result[value.length-1] += result.result[value.length + i]
+                        }
                         // when \n in text medium，return 2 size Array
                         return result.result
                       }
@@ -168,13 +178,14 @@ async function setObjectKey(obj, api) {
       tranArray = []
     }
     // translate tranArray to zh
-    console.log(thisTranArray.length)
     allAPi = allAPi.filter(x => x!=api)
     allAPi.push(api)
     for(let i in allAPi){
-      logger.log('debug',chalk.yellow('使用',api))  
+      logger.log('debug',chalk.yellow('使用',api,'\n'))  
+      
       resultArray = await translateValue(thisTranArray, api)
       api = allAPi[i]
+
       if(resultArray && resultArray.length>=thisTranArray.length){
         break
       }
