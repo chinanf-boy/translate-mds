@@ -118,10 +118,20 @@ async.mapLimit(getList, asyncNum, runTranslate,
     Done++
     
     let localDone = Done
-    if(value.endsWith(`.${tranTo}.md`) || value.match(/\.[a-zA-Z]+\.md+/) || !value.endsWith('.md')) {
-      logger.debug(chalk.blue(`翻译的 或者 不是 md 文件的 有 ${localDone}`));
+
+    if(value.endsWith(`.${tranTo}.md`) || !value.endsWith('.md')) {
+      logger.debug(chalk.blue(`- 已翻译的 
+      - 或者 不是 md 文件的 
+        ${localDone}`));
       return true
     }
+    if( value.match(/\.[a-zA-Z]+\.md+/)){
+      logger.debug(chalk.blue(`- 有后缀为 *.国家简写.md 之类 看起来名字已翻译的 
+        避免出现 .zh.ja.md 的 情况，情况选择 原文件 .md 
+        ${localDone}`));
+      return true
+    }
+    //
     if(!rewrite && fs.existsSync( insert_flg(value,`.${tranTo}`, 3 ))){
       logger.debug(chalk.blue(`已翻译, 不覆盖 ${localDone}`));
       return true
