@@ -87,7 +87,7 @@ async function translateValue(value, api){
 
                     }).catch(error => {
                       if(!error.code){
-                        logger.error(api,chalk.red( error,'出现程序错误'))
+                        logger.debug(api,chalk.red( error,'tjs-程序错误'))
                       }else{
                         logger.debug(api,chalk.red( error.code,'出现了啦，不给数据'))
                       }
