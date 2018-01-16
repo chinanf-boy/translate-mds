@@ -7,6 +7,7 @@ like
 ```
 
 [english](./README.en.md)
+[translate-list](https://github.com/chinanf-boy/translate-list)
 
 * * *
 
