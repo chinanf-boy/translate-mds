@@ -13,6 +13,11 @@
     "pubGitandNpm": "git push origin master && git push --tags",
     "changelog": "github_changelog_generator"
   },
+ "husky": {
+     "hooks": {
+       "pre-commit": "npm test"
+     }
+   },
   "ava": {
     "files": [
       "test/**/*",
@@ -42,6 +47,7 @@
   ],
   "devDependencies": {
     "ava": "^0.24.0",
+    "husky": "^0.15.0-rc.8",
     "nyc": "^11.3.0"
   }
 }
