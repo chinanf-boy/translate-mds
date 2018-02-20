@@ -1,81 +1,100 @@
 # Change Log
 
-## [v2.5.6](https://github.com/chinanf-boy/translate-js/tree/v2.5.6) (2017-12-10)
-[Full Changelog](https://github.com/chinanf-boy/translate-js/compare/v2.5.5...v2.5.6)
+## [Unreleased](https://github.com/chinanf-boy/translate-mds/tree/HEAD)
 
-**Merged pull requests:**
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v2.5.8...HEAD)
 
-- fix while and html markdown [\#9](https://github.com/chinanf-boy/translate-js/pull/9) ([chinanf-boy](https://github.com/chinanf-boy))
+**Fixed bugs:**
 
-## [v2.5.5](https://github.com/chinanf-boy/translate-js/tree/v2.5.5) (2017-12-06)
-[Full Changelog](https://github.com/chinanf-boy/translate-js/compare/v2.5.4...v2.5.5)
-
-## [v2.5.4](https://github.com/chinanf-boy/translate-js/tree/v2.5.4) (2017-12-06)
-[Full Changelog](https://github.com/chinanf-boy/translate-js/compare/v2.5.3...v2.5.4)
-
-## [v2.5.3](https://github.com/chinanf-boy/translate-js/tree/v2.5.3) (2017-12-06)
-[Full Changelog](https://github.com/chinanf-boy/translate-js/compare/v2.5.2...v2.5.3)
-
-**Merged pull requests:**
-
-- Up from and to [\#7](https://github.com/chinanf-boy/translate-js/pull/7) ([chinanf-boy](https://github.com/chinanf-boy))
-- fix .zh.md .zh.ja.md [\#6](https://github.com/chinanf-boy/translate-js/pull/6) ([chinanf-boy](https://github.com/chinanf-boy))
-
-## [v2.5.2](https://github.com/chinanf-boy/translate-js/tree/v2.5.2) (2017-11-24)
-[Full Changelog](https://github.com/chinanf-boy/translate-js/compare/v2.5.1...v2.5.2)
-
-**Merged pull requests:**
-
-- Up from and to [\#4](https://github.com/chinanf-boy/translate-js/pull/4) ([chinanf-boy](https://github.com/chinanf-boy))
-
-## [v2.5.1](https://github.com/chinanf-boy/translate-js/tree/v2.5.1) (2017-11-24)
-[Full Changelog](https://github.com/chinanf-boy/translate-js/compare/v2.5.0...v2.5.1)
-
-## [v2.5.0](https://github.com/chinanf-boy/translate-js/tree/v2.5.0) (2017-11-22)
-[Full Changelog](https://github.com/chinanf-boy/translate-js/compare/v2.4.0...v2.5.0)
+- ㄢ 出现  [\#11](https://github.com/chinanf-boy/translate-mds/issues/11)
+- markdown html 文本 没有过滤 [\#8](https://github.com/chinanf-boy/translate-mds/issues/8)
 
 **Closed issues:**
 
-- 翻译源 google.cn baidu youdao [\#2](https://github.com/chinanf-boy/translate-js/issues/2)
+- 卡住问题, 没有反应，出现在 几十个文件的时候 [\#10](https://github.com/chinanf-boy/translate-mds/issues/10)
 
-## [v2.4.0](https://github.com/chinanf-boy/translate-js/tree/v2.4.0) (2017-11-21)
-[Full Changelog](https://github.com/chinanf-boy/translate-js/compare/v2.3.0...v2.4.0)
+## [v2.5.8](https://github.com/chinanf-boy/translate-mds/tree/v2.5.8) (2018-01-06)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v2.5.7...v2.5.8)
 
-## [v2.3.0](https://github.com/chinanf-boy/translate-js/tree/v2.3.0) (2017-11-21)
-[Full Changelog](https://github.com/chinanf-boy/translate-js/compare/v2.2.0...v2.3.0)
+## [v2.5.7](https://github.com/chinanf-boy/translate-mds/tree/v2.5.7) (2018-01-06)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v2.5.6...v2.5.7)
 
-## [v2.2.0](https://github.com/chinanf-boy/translate-js/tree/v2.2.0) (2017-11-21)
-[Full Changelog](https://github.com/chinanf-boy/translate-js/compare/v2.1.0...v2.2.0)
+## [v2.5.6](https://github.com/chinanf-boy/translate-mds/tree/v2.5.6) (2017-12-10)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v2.5.5...v2.5.6)
 
-## [v2.1.0](https://github.com/chinanf-boy/translate-js/tree/v2.1.0) (2017-11-21)
-[Full Changelog](https://github.com/chinanf-boy/translate-js/compare/v2.0.2...v2.1.0)
+**Merged pull requests:**
+
+- fix while and html markdown [\#9](https://github.com/chinanf-boy/translate-mds/pull/9) ([chinanf-boy](https://github.com/chinanf-boy))
+
+## [v2.5.5](https://github.com/chinanf-boy/translate-mds/tree/v2.5.5) (2017-12-06)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v2.5.4...v2.5.5)
+
+## [v2.5.4](https://github.com/chinanf-boy/translate-mds/tree/v2.5.4) (2017-12-06)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v2.5.3...v2.5.4)
+
+## [v2.5.3](https://github.com/chinanf-boy/translate-mds/tree/v2.5.3) (2017-12-06)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v2.5.2...v2.5.3)
+
+**Merged pull requests:**
+
+- Up from and to [\#7](https://github.com/chinanf-boy/translate-mds/pull/7) ([chinanf-boy](https://github.com/chinanf-boy))
+- fix .zh.md .zh.ja.md [\#6](https://github.com/chinanf-boy/translate-mds/pull/6) ([chinanf-boy](https://github.com/chinanf-boy))
+
+## [v2.5.2](https://github.com/chinanf-boy/translate-mds/tree/v2.5.2) (2017-11-24)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v2.5.1...v2.5.2)
+
+**Merged pull requests:**
+
+- Up from and to [\#4](https://github.com/chinanf-boy/translate-mds/pull/4) ([chinanf-boy](https://github.com/chinanf-boy))
+
+## [v2.5.1](https://github.com/chinanf-boy/translate-mds/tree/v2.5.1) (2017-11-24)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v2.5.0...v2.5.1)
+
+## [v2.5.0](https://github.com/chinanf-boy/translate-mds/tree/v2.5.0) (2017-11-22)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v2.4.0...v2.5.0)
 
 **Closed issues:**
 
-- 翻译出来的文本 [\#1](https://github.com/chinanf-boy/translate-js/issues/1)
+- 翻译源 google.cn baidu youdao [\#2](https://github.com/chinanf-boy/translate-mds/issues/2)
 
-## [v2.0.2](https://github.com/chinanf-boy/translate-js/tree/v2.0.2) (2017-11-20)
-[Full Changelog](https://github.com/chinanf-boy/translate-js/compare/v2.0.1...v2.0.2)
+## [v2.4.0](https://github.com/chinanf-boy/translate-mds/tree/v2.4.0) (2017-11-21)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v2.3.0...v2.4.0)
 
-## [v2.0.1](https://github.com/chinanf-boy/translate-js/tree/v2.0.1) (2017-11-20)
-[Full Changelog](https://github.com/chinanf-boy/translate-js/compare/v2.0.0...v2.0.1)
+## [v2.3.0](https://github.com/chinanf-boy/translate-mds/tree/v2.3.0) (2017-11-21)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v2.2.0...v2.3.0)
 
-## [v2.0.0](https://github.com/chinanf-boy/translate-js/tree/v2.0.0) (2017-11-20)
-[Full Changelog](https://github.com/chinanf-boy/translate-js/compare/v1.4.0...v2.0.0)
+## [v2.2.0](https://github.com/chinanf-boy/translate-mds/tree/v2.2.0) (2017-11-21)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v2.1.0...v2.2.0)
 
-## [v1.4.0](https://github.com/chinanf-boy/translate-js/tree/v1.4.0) (2017-11-18)
-[Full Changelog](https://github.com/chinanf-boy/translate-js/compare/v1.3.1...v1.4.0)
+## [v2.1.0](https://github.com/chinanf-boy/translate-mds/tree/v2.1.0) (2017-11-21)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v2.0.2...v2.1.0)
 
-## [v1.3.1](https://github.com/chinanf-boy/translate-js/tree/v1.3.1) (2017-11-18)
-[Full Changelog](https://github.com/chinanf-boy/translate-js/compare/v1.3.0...v1.3.1)
+**Closed issues:**
 
-## [v1.3.0](https://github.com/chinanf-boy/translate-js/tree/v1.3.0) (2017-11-18)
-[Full Changelog](https://github.com/chinanf-boy/translate-js/compare/v1.2.0...v1.3.0)
+- 翻译出来的文本 [\#1](https://github.com/chinanf-boy/translate-mds/issues/1)
 
-## [v1.2.0](https://github.com/chinanf-boy/translate-js/tree/v1.2.0) (2017-11-17)
-[Full Changelog](https://github.com/chinanf-boy/translate-js/compare/v1.1.0...v1.2.0)
+## [v2.0.2](https://github.com/chinanf-boy/translate-mds/tree/v2.0.2) (2017-11-20)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v2.0.1...v2.0.2)
 
-## [v1.1.0](https://github.com/chinanf-boy/translate-js/tree/v1.1.0) (2017-11-17)
+## [v2.0.1](https://github.com/chinanf-boy/translate-mds/tree/v2.0.1) (2017-11-20)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v2.0.0...v2.0.1)
+
+## [v2.0.0](https://github.com/chinanf-boy/translate-mds/tree/v2.0.0) (2017-11-20)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v1.4.0...v2.0.0)
+
+## [v1.4.0](https://github.com/chinanf-boy/translate-mds/tree/v1.4.0) (2017-11-18)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v1.3.1...v1.4.0)
+
+## [v1.3.1](https://github.com/chinanf-boy/translate-mds/tree/v1.3.1) (2017-11-18)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v1.3.0...v1.3.1)
+
+## [v1.3.0](https://github.com/chinanf-boy/translate-mds/tree/v1.3.0) (2017-11-18)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v1.2.0...v1.3.0)
+
+## [v1.2.0](https://github.com/chinanf-boy/translate-mds/tree/v1.2.0) (2017-11-17)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v1.1.0...v1.2.0)
+
+## [v1.1.0](https://github.com/chinanf-boy/translate-mds/tree/v1.1.0) (2017-11-17)
 
 
 \* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
