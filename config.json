@@ -1,10 +1,10 @@
 {
   "logger": {
-    "level": "debug"
+    "level": "info"
   },
   "api": "baidu",
-  "from": "zh",
-  "to": "en",
+  "from": "en",
+  "to": "zh",
   "num": 5,
-  "rewrite": true
+  "rewrite": false
 }
