@@ -8,6 +8,10 @@ tranF = configs['from']
 tranT = configs['to']
 logger.level = configs.logger.level
 
+// Fix result.length no equal
+const { translateLengthEquals } = require("./Fix/lengthEqual.js")
+
+// 
 // get translate result
 
 /**
@@ -36,6 +40,11 @@ async function translateValue(value, api){
                       if(!result.result){
                         throw new Error('「结果为空」')
                       }
+                      // Fix use Fix/lengthEqual.js
+                      if(value.length < result.result.length){                     
+                        translateLengthEquals(value, result.result)
+                      }
+                      
                       if(value.length ==  result.result.length){
                         return result.result
                       }
@@ -63,7 +72,7 @@ async function translateValue(value, api){
                               result.result.push(youdao)
                             }
                           }
-                          logger.log('debug',JSON.stringify(result.result,null,2),chalk.cyan('集合 --------中 '))
+                          // logger.log('debug',JSON.stringify(result.result,null,2),chalk.cyan('集合 --------中 '))
                           return result.result
                       
                         }).catch(x => logger.error(`${youdao}炸了`,x))
@@ -73,6 +82,7 @@ async function translateValue(value, api){
 
                       // Bug translate.js return result.result Array
                       if(value.length < result.result.length){
+                        
                         logger.debug(`___________
                         get the result is not equal , so + the final result 
                         ************`)

@@ -7,16 +7,19 @@ function translateLengthEquals( source, tranTxt){
     for( let i in source){ // typeof i == string
 
             let howMany = 0
+            // let s = source[i]
 
             matchArr.map(function( val ){
 
-                while (source[i].indexOf(val) != -1){
+                while (source[i].indexOf(val) != -1  // string with match
+                    && source[i].indexOf(val) != (source[i].length - val.length) ){ 
+                    // string ending  with match, don't Add number
+                    
                     source[i] = source[i].replace(val, "")
                     howMany ++ // how many ". "/ etc
                 }
             })
-
-            !!(howMany) && mergeAndCut(tranTxt, +i, howMany-1) // pay attion two + ,  string/number 
+            !!(howMany) && mergeAndCut(tranTxt, +i, howMany) // pay attion two + ,  string/number 
     }
 
 }
@@ -28,6 +31,7 @@ function mergeAndCut(Arr, index, howMany){
     }
 
     (howMany > 1) && mergeAndCut(Arr, index+1, (howMany-1))
+    
     // [1,2,3] => [12,2,3]
     Arr[index] = Arr[index] + Arr[index+1]
     // [12,2,3] => [12,3] 
