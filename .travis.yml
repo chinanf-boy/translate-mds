@@ -15,4 +15,4 @@ deploy:
   on:
     branch: master
     tags: true
-    repo: chinanf-boy/translate-js
+    repo: chinanf-boy/translate-mds

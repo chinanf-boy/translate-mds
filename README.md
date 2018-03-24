@@ -12,9 +12,9 @@ like
 ---
 
 [![explain](http://llever.com/explain.svg)](https://github.com/chinanf-boy/explain-translateMds)
-[![Build Status](https://travis-ci.org/chinanf-boy/translate-js.svg?branch=master)](https://travis-ci.org/chinanf-boy/translate-js)
-[![codecov](https://codecov.io/gh/chinanf-boy/translate-js/branch/master/graph/badge.svg)](https://codecov.io/gh/chinanf-boy/translate-js)
-[![GitHub license](https://img.shields.io/github/license/chinanf-boy/translate-js.svg)](https://github.com/chinanf-boy/translate-js/blob/master/License)
+[![Build Status](https://travis-ci.org/chinanf-boy/translate-mds.svg?branch=master)](https://travis-ci.org/chinanf-boy/translate-mds)
+[![codecov](https://codecov.io/gh/chinanf-boy/translate-mds/branch/master/graph/badge.svg)](https://codecov.io/gh/chinanf-boy/translate-mds)
+[![GitHub license](https://img.shields.io/github/license/chinanf-boy/translate-mds.svg)](https://github.com/chinanf-boy/translate-mds/blob/master/License)
 [![NPM](https://nodei.co/npm/translate-mds.png)](https://nodei.co/npm/translate-mds/)
 
 ---
@@ -121,7 +121,7 @@ let results = await translate([__dirname+'/md/'])
 下载这个项目
 
 ```
-git clone https://github.com/chinanf-boy/translate-js.git
+git clone https://github.com/chinanf-boy/translate-mds.git
 ```
 
 ## Demo
@@ -138,7 +138,7 @@ node index.js md/
 
 > Done !! Or
 
-[查看我 you dont know js 翻译](https://github.com/chinanf-boy/You-Dont-Know-JS)
+[查看我 you dont know js 翻译](https://github.com/chinanf-boy/You-Dont-Know-Js)
 
 ---
 
@@ -176,4 +176,4 @@ tanslateMds <folder>
 
 使用 [``translate.js``](https://github.com/Selection-Translator/translation.js) 完成 与翻译网站的交互
 
-还有个 [异步Promise 递归的 例子](https://github.com/chinanf-boy/translate-js/blob/master/src/setObjectKey.js#L78)
+还有个 [异步Promise 递归的 例子](https://github.com/chinanf-boy/translate-mds/blob/master/src/setObjectKey.js#L78)

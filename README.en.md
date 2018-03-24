@@ -12,9 +12,9 @@ like
 * * *
 
 [![explain](http://llever.com/explain.svg)](https://github.com/chinanf-boy/explain-translateMds)
-[![Build Status](https://travis-ci.org/chinanf-boy/translate-js.svg?branch=master)](https://travis-ci.org/chinanf-boy/translate-js)
-[![codecov](https://codecov.io/gh/chinanf-boy/translate-js/branch/master/graph/badge.svg)](https://codecov.io/gh/chinanf-boy/translate-js)
-[![GitHub license](https://img.shields.io/github/license/chinanf-boy/translate-js.svg)](https://github.com/chinanf-boy/translate-js/blob/master/License)
+[![Build Status](https://travis-ci.org/chinanf-boy/translate-mds.svg?branch=master)](https://travis-ci.org/chinanf-boy/translate-mds)
+[![codecov](https://codecov.io/gh/chinanf-boy/translate-mds/branch/master/graph/badge.svg)](https://codecov.io/gh/chinanf-boy/translate-mds)
+[![GitHub license](https://img.shields.io/github/license/chinanf-boy/translate-mds.svg)](https://github.com/chinanf-boy/translate-mds/blob/master/License)
 [![NPM](https://nodei.co/npm/translate-mds.png)](https://nodei.co/npm/translate-mds/)
 
 * * *
@@ -120,7 +120,7 @@ let results = await translate([__dirname+'/md/'])
 
 Download this project
 
-    git clone https://github.com/chinanf-boy/translate-js.git
+    git clone https://github.com/chinanf-boy/translate-mds.git
 
 ## demo
 
@@ -136,7 +136,7 @@ node index.js md/
 
 > done !! or
 
-[Check me you dont know js translation](https://github.com/chinanf-boy/You-Dont-Know-JS)
+[Check me you dont know js translation](https://github.com/chinanf-boy/You-Dont-Know-Js)
 
 * * *
 
@@ -154,7 +154,7 @@ Sorry, my lack of capacity, node concurrency problem is that I do not know where
 
 Question: Suddenly there is no network traffic speed, do not know if this is not forbidden IP ????
 
-When the number is `` 1``, it is a coincidence that You-dont-know-js 68 md files can succeed several times, but when the number of concurrent occurrences exceeds 1, especially
+When the number is `` 1``, it is a coincidence that You-dont-know-mds 68 md files can succeed several times, but when the number of concurrent occurrences exceeds 1, especially
 
 Near the end of the few documents, the wait has been turn, then the network speed becomes 0, then you need ctrl c, terminated!
 
@@ -172,4 +172,4 @@ Use[`remark`](https://github.com/wooorm/remark)Improve accuracy
 
 Use[`translate.js`](https://github.com/Selection-Translator/translation.js)Complete the interaction with the translation website
 
-There is one[Examples of asynchronous promise recursion](https://github.com/chinanf-boy/translate-js/blob/master/src/setObjectKey.js#L78)
+There is one[Examples of asynchronous promise recursion](https://github.com/chinanf-boy/translate-mds/blob/master/src/setObjectKey.js#L78)
