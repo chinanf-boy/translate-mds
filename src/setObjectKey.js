@@ -84,7 +84,7 @@ async function translateValue(value, api){
                       if(value.length < result.result.length){
                         
                         logger.debug(`___________
-                        get the result is not equal , so + the final result 
+                        get the result is not equal , so + the final result\n 
                         ************`)
                         let r_v = result.result.length - value.length
                         for(let i= 0;i<r_v;i++){
