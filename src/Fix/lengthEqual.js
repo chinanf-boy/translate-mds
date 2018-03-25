@@ -1,25 +1,30 @@
 function translateLengthEquals( source, tranTxt){
 
     let matchArr = [ ". ", "！"]
+    let trim = ["'", '"']
     let ReturnArr = []
     let Tindex = 0
 
     for( let i in source){ // typeof i == string
-
-            let howMany = 0
+        
+        source[i] = source[i].trim()
+        let howMany = 0
             // let s = source[i]
 
-            matchArr.map(function( val ){
-
-                while (source[i].indexOf(val) != -1  // string with match
-                    && source[i].indexOf(val) != (source[i].length - val.length) ){ 
-                    // string ending  with match, don't Add number
-                    
-                    source[i] = source[i].replace(val, "")
-                    howMany ++ // how many ". "/ etc
-                }
-            })
-            !!(howMany) && mergeAndCut(tranTxt, +i, howMany) // pay attion two + ,  string/number 
+        matchArr.map(function( val ){
+        if(trim.some(x =>(source[i].startsWith(x) && source[i].endsWith(x)))){
+            return val
+        }
+        
+        while (source[i].indexOf(val) != -1  // string with match
+            && source[i].indexOf(val) != (source[i].length - val.length) ){ 
+            // string ending  with match, don't Add number
+            
+            source[i] = source[i].replace(val, "?")
+            howMany ++ // how many ". "/ etc
+        }
+        })
+        !!(howMany) && mergeAndCut(tranTxt, +i, howMany) // pay attion two + ,  string/number 
     }
 
 }

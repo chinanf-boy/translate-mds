@@ -10,6 +10,8 @@ logger.level = configs.logger.level
 
 // Fix result.length no equal
 const { translateLengthEquals } = require("./Fix/lengthEqual.js")
+const { fixFileTooBig, thirdArray } = require("./Fix/fixFileTooBig.js")
+
 
 // 
 // get translate result
@@ -18,7 +20,7 @@ const { translateLengthEquals } = require("./Fix/lengthEqual.js")
  * @description 
  * @param {String|String[]} value 
  * @param {String} api 
- * @returns {String}
+ * @returns {String[]}
  */
 async function translateValue(value, api){
     let thisTranString
@@ -40,25 +42,10 @@ async function translateValue(value, api){
                       if(!result.result){
                         throw new Error('「结果为空」')
                       }
-                      // Fix use Fix/lengthEqual.js
-                      if(value.length < result.result.length){                     
-                        translateLengthEquals(value, result.result)
-                      }
+
                       
                       if(value.length ==  result.result.length){
                         return result.result
-                      }
-                      // result.result.length,value.length
-                      logger.debug(chalk.yellow(`获得 ${api} 数据了~`));
-                      // get zh and -> write down same folder { me.md => me.zh.md }
-                      logger.log('debug','----------\n')                      
-                      for (i in result.result){
-                        if(!value[i]){
-
-                          logger.log('debug','--no equal--------\n')
-                        }
-                        logger.log('debug','set- '+ chalk.green(value[i]) + ' to-> '+ chalk.yellow(result.result[i]))
-                        
                       }
                       
                       // logger.log('error',value.length)
@@ -80,20 +67,20 @@ async function translateValue(value, api){
 
                       }
 
-                      // Bug translate.js return result.result Array
-                      if(value.length < result.result.length){
+                      // // Bug translate.js return result.result Array
+                      // if(value.length < result.result.length){
                         
-                        logger.debug(`___________
-                        get the result is not equal , so + the final result\n 
-                        ************`)
-                        let r_v = result.result.length - value.length
-                        for(let i= 0;i<r_v;i++){
-                          result.result[value.length-1] += result.result[value.length + i]
-                        }
-                        // when \n in text medium，return 2 size Array
-                        return result.result
-                      }
-
+                      //   logger.debug(`___________
+                      //   get the result is not equal , so + the final result\n 
+                      //   ************`)
+                      //   let r_v = result.result.length - value.length
+                      //   for(let i= 0;i<r_v;i++){
+                      //     result.result[value.length-1] += result.result[value.length + i]
+                      //   }
+                      //   // when \n in text medium，return 2 size Array
+                      //   return result.result
+                      // }
+                      return result.result
 
                     }).catch(error => {
                       if(!error.code){
@@ -175,8 +162,8 @@ async function setObjectKey(obj, api) {
       logger.error('no value', sum)
       return false
     }
-    if(tranArray.length){
 
+    if(tranArray.length){
       // remove all \n
       tranArray = tranArray.map(x=>{
         if(x.indexOf('\n')>=0){
@@ -187,20 +174,47 @@ async function setObjectKey(obj, api) {
       thisTranArray = tranArray
       tranArray = []
     }
-    // translate tranArray to zh
-    allAPi = allAPi.filter(x => x!=api)
-    allAPi.push(api)
-    for(let i in allAPi){
-      logger.log('debug',chalk.yellow('使用',api,'\n'))  
-      
-      resultArray = await translateValue(thisTranArray, api)
-      api = allAPi[i]
+    
+          
 
-      if(resultArray && resultArray.length>=thisTranArray.length){
-        break
+    // Fix file Too Big
+    let chunkTranArray = fixFileTooBig(thisTranArray)  
+    let hasThird = thirdArray(chunkTranArray)
+    let getI = hasThird.map(x =>x[0])
+    
+    for(let third in chunkTranArray){
+
+      // auto change translate source
+      allAPi = allAPi.filter(x => x!=api)
+      allAPi.push(api)
+      for(let i in allAPi){
+
+        let thisResult
+        logger.log('debug',chalk.yellow('使用',api,'\n')) 
+
+        if((hasThird.length > 0) && getI.includes(third)){
+          let t0 = await translateValue(chunkTranArray[third][0], api)
+          let t1 = await translateValue(chunkTranArray[third][1], api)
+          
+          thisResult = t0.concat(t1)
+
+        }else if(hasThird.length == 0){
+ 
+          thisResult = await translateValue(chunkTranArray[third], api)
+        }
+
+        api = allAPi[i]
+
+        if(thisResult.length > 0 ){
+
+          resultArray.push(thisResult)
+          const upFirst = (sum, val) => sum.concat(val);
+          resultArray = resultArray.reduce(upFirst, [])
+          break
+        }
+
       }
     }
-
     //BUG------
     // while(thisTranArray && (resultArray.length<thisTranArray.length) && allAPi.length >=0 && api){
     //   logger.log('debug',chalk.yellow('使用',api))  
@@ -217,10 +231,28 @@ async function setObjectKey(obj, api) {
       return false
     }
 
-    // if(sum != 0)console.log(resultArray.length,'sum', thisTranArray.length)
+    // Fix use Fix/lengthEqual.js
+    if(thisTranArray.length < resultArray.length){   
+      console.log(thisTranArray.length, resultArray.length)                  
+      translateLengthEquals(thisTranArray, resultArray)
+      console.log(thisTranArray.length, resultArray.length)  
+      logger.debug(chalk.yellow(`获得 ${api} 数据了~`));
+      // get zh and -> write down same folder { me.md => me.zh.md }
+      logger.log('debug','----------\n')                      
+      for (i in resultArray){
+        if(!thisTranArray[i]){
+
+          logger.log('debug','--no equal--------\n')
+        }
+        logger.log('debug','set- '+ chalk.green(thisTranArray[i]) + ' to-> '+ chalk.yellow(resultArray[i]))
+        
+      }               
+      
+    }
+    
+
     logger.log('debug',chalk.whiteBright('Result -->>'),chalk.green(resultArray))
-    setdeep(newObj, resultArray)
-    // if(sum != 0)console.log(sum,'sum')
+    setdeep(newObj, resultArray) // [[1],[2]] => [1,2]
     
     return newObj
 }
