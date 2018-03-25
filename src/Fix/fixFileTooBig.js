@@ -24,18 +24,6 @@ function fixFileTooBig(bigArr){
         for( let m in chunkArr){
             chunkArr[m] = fixFileTooBig(chunkArr[m])
         }
-        // chunkArr.map(function(Arr){
-            
-        //     let backA = fixFileTooBig(Arr)
-        //     return backA 
-        // })
-
-        //  *****  Bug message *******
-        //      {map} fucntion can not
-        // 
-        // 「return」 struct:
-        //                  backA: [[],[]]
-        // *****   ___________ *******
 
         return chunkArr
     }else
