@@ -20,7 +20,7 @@ test.failing('translate input Object fail', async t =>{
 test.serial('translate absolute file ', async t =>{
     let results = await translate({aFile:__dirname+'/testWrite1.md', api:'baidu'})
     results = results.join('')
-    t.true(JSON.stringify(results).length>550)
+    t.true(JSON.stringify(results).length > 10)
 })
 
 test.serial('translate absolute file from zh to en', async t =>{
@@ -37,22 +37,3 @@ test.serial('translate absolute folder auto', async t =>{
 //     let results = await translate([`*******/You_Don\'t\ _Know_JS/You-Dont-Know-JS`,'baidu'], 'verbose')
 //     t.is(results.length,5)
 // })
-// test async translate
-// while del serial , config.json is error
-// before data
-// {
-//     "from": "en",
-//     "to": "zh"
-// }
-// other write data
-// {
-//     "from": "en",
-//     "to": "zh",
-//      "t": "1"  
-// }
-// Data json show
-// {
-//     "from": "en",
-//     "to": "zh"
-// }"   // other write here is not emtpy
-// }
