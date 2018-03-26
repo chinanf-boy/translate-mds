@@ -189,7 +189,7 @@ async function setObjectKey(obj, api) {
       allAPi.push(api)
       for(let i in allAPi){
 
-        let thisResult
+        let thisResult = []
         logger.log('debug',chalk.yellow('使用',api,'\n')) 
 
         if((hasThird.length > 0) && getI.includes(third)){
@@ -197,15 +197,16 @@ async function setObjectKey(obj, api) {
           let t1 = await translateValue(chunkTranArray[third][1], api)
           
           thisResult = t0.concat(t1)
+          // console.log(thisResult)
 
         }else if(hasThird.length == 0){
- 
           thisResult = await translateValue(chunkTranArray[third], api)
         }
 
         api = allAPi[i]
 
         if(thisResult.length > 0 ){
+          // console.log(thisResult.length)
 
           resultArray.push(thisResult)
           const upFirst = (sum, val) => sum.concat(val);
@@ -215,20 +216,19 @@ async function setObjectKey(obj, api) {
 
       }
     }
-    //BUG------
-    // while(thisTranArray && (resultArray.length<thisTranArray.length) && allAPi.length >=0 && api){
-    //   logger.log('debug',chalk.yellow('使用',api))  
-    //   resultArray = await translateValue(thisTranArray, api)
-    //   api = allAPi.shift()
-    // }
-    if(!resultArray ||(resultArray.length<thisTranArray.length)){
-      logger.debug(`
+
+    if(resultArray.length == 0){
+      logger.error(`
       获取信息错误,原因有3
       - 网络失联
-      - 翻译源 失败
+      - 翻译源 失败 > 文件太大了
       - 抽风
       `)
       return false
+    }
+    
+    if(resultArray.length < thisTranArray.length){
+      logger.debug(`只有一部分翻译成功`)
     }
 
     // Fix use Fix/lengthEqual.js
@@ -238,12 +238,9 @@ async function setObjectKey(obj, api) {
 
       logger.debug(chalk.yellow(`获得 ${api} 数据了~`));
       // get zh and -> write down same folder { me.md => me.zh.md }
-      logger.log('debug','----------\n')                      
+                     
       for (i in resultArray){
-        if(!thisTranArray[i]){
-
-          logger.log('debug','--no equal--------\n')
-        }
+        
         logger.log('debug','set- '+ chalk.green(thisTranArray[i]) + ' to-> '+ chalk.yellow(resultArray[i]))
         
       }               
