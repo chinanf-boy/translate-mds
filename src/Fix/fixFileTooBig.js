@@ -10,19 +10,22 @@ function fixFileTooBig(bigArr){
     let bigl_2 =  Math.ceil(bigL/2)
     // length > 30
     if(bigL > MAXLENGTH){
+
         let n = Math.ceil(bigL / MAXLENGTH) // how many chunk
         let chunkLength = Math.ceil(bigL/n) // single chunk:Array almost length
 
         for(let numChunk = 0; numChunk < n ; numChunk ++){ // for chunk length
-
+            
             // while index+length > bigArr.length ,
             // we most shrot length in indexMergeArr
             chunkArr.push( indexMergeArr(bigArr, (numChunk*chunkLength), chunkLength) )
         } 
-        // count string > 300
 
+        // count string > 300
         for( let m in chunkArr){
-            chunkArr[m] = fixFileTooBig(chunkArr[m])
+            if(chunkArr[m].join("").length > MAXstring){
+                chunkArr[m] = fixFileTooBig(chunkArr[m])
+            }
         }
 
         return chunkArr
