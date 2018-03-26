@@ -3,11 +3,12 @@
 like
 
 ``` bash
-.md to .zh.md
+.md to .「all-language」.md
 ```
 
-[english](./README.en.md)
-[翻译列表](https://github.com/chinanf-boy/translate-list)
+[english](./README.en.md) 
+
+> check [翻译列表](https://github.com/chinanf-boy/translate-list)
 
 ---
 
@@ -19,7 +20,7 @@ like
 
 ---
 
-## 这个项目是 为了 hugo 翻译 的 `工具`
+## 0. 这个项目是 为了 所有-的-markdown-编写-文件📃 翻译 的 `工具`
 
 ``` js
 npm install -g translate-mds
@@ -34,7 +35,7 @@ translateMds md/
 translateMds test.md
 ```
 
-## 命令行选项
+## 1. 命令行选项
 
 ``` js
 Usage
@@ -59,7 +60,7 @@ Example
 ```
 ---
 
-## 项目引用
+## 2. 项目引用
 
 ``` js
 const translate = require('translate-mds')
@@ -74,7 +75,9 @@ let results = await translate([__dirname+'/md/'])
 
 > ...
 
-## translate(options,debug)
+---
+
+## 3. translate(options,debug)
 
 ## options 当用 []
 
@@ -114,39 +117,26 @@ let results = await translate([__dirname+'/md/'])
 - debug
 
 > ``default : verbose``
-# 下面的Demo 你 应该 
 
 ---
 
-下载这个项目
-
-```
-git clone https://github.com/chinanf-boy/translate-mds.git
-```
-
-## Demo
+## 4. Demo
 
 [![asciicast](https://asciinema.org/a/aPDJ0Vdt3awZs8NJV8DtYH0ww.png)](https://asciinema.org/a/aPDJ0Vdt3awZs8NJV8DtYH0ww)
 
-# Video sometime very quick
+## 5. My-example
 
-- So the cmd Step is 
-
-``` js
-node index.js md/
-```
-
-> Done !! Or
-
+[翻译列表](https://github.com/chinanf-boy/translate-list) or
 [查看我 you dont know js 翻译](https://github.com/chinanf-boy/You-Dont-Know-Js)
 
 ---
 
-所有的 ``.zh.md`` 都是通过 下面命令
 
-```
-tanslateMds <folder>
-```
+## 5.5 欢迎👏 ISSUE 和 PULL
+
+---
+
+### 6. Tips
 
 ~~> ⏰ tips 有时会抽风，正在查找 会卡住 Issue~~
 
@@ -154,15 +144,15 @@ tanslateMds <folder>
 
 ---
 
-## 问题
+## 7. 问题
 
 ~~- 并发问题，停滞ip~~ ， 通过升级 api 获取完成
 
-- 文件过大，无法翻译
+~~- 文件过大，无法翻译~~
 
 ---
 
-### 特性
+### 8. 特性
 
 - [x] 提高http之类的md格式准确率
 
