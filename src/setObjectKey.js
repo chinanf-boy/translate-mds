@@ -8,6 +8,8 @@ tranF = configs['from']
 tranT = configs['to']
 logger.level = configs.logger.level
 
+// Fix china symbal 
+const { fixEntoZh } = require("./fixEntoZh.js")
 // Fix result.length no equal
 const { translateLengthEquals } = require("./Fix/lengthEqual.js")
 const { fixFileTooBig, thirdArray } = require("./Fix/fixFileTooBig.js")
@@ -246,9 +248,9 @@ async function setObjectKey(obj, api) {
       }               
       
     }
-    
 
-    logger.log('debug',chalk.whiteBright('Result -->>'),chalk.green(resultArray))
+    resultArray = fixEntoZh(resultArray)
+    
     setdeep(newObj, resultArray) // [[1],[2]] => [1,2]
     
     return newObj

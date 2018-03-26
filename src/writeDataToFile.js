@@ -1,5 +1,4 @@
 const fs = require('fs')
-const { fixEntoZh } = require('./fixEntoZh')
 const chalk = require('chalk');
 const { logger } = require('../config/loggerConfig.js')
 const configs = require('../config.json')
@@ -24,9 +23,8 @@ const writeDataToFile = (data, file_dir) => {
     zhfile = insert_flg(file_dir, `.${tranT}`, 3)
 
     // data is Array
-    //fixE2Z
     if(data instanceof Array){
-        data = fixEntoZh(data).join("\n")
+        data = data.join("\n")
     }
     
     
@@ -34,7 +32,6 @@ const writeDataToFile = (data, file_dir) => {
         if (err) 
             throw err;
         logger.debug(chalk.magenta( `\n ${tranT} file saved! -->> \n`),chalk.blue(zhfile));
-        logger.debug(chalk.red('translate-info.log in your Project'))
     });
 }
 
