@@ -10,13 +10,12 @@ const async = require('async')
 const fs = require('fs')
 const asyncfs = require('mz/fs')
 const path = require('path')
-// const tjs = require('translation.js')
 const {Listmd} = require('./src/readmd.js')
 const meow = require('meow');
 const ora = require('ora')
 const chalk = require('chalk');
-// const cutMdhead = require('./src/cutMdhead.js')
 const remark = require('remark')
+
 // option todo list
 const { setDefault, debugTodo, fromTodo, toTodo, apiTodo, rewriteTodo, numTodo } = require('./src/optionsTodo.js')
 
@@ -25,9 +24,10 @@ const { logger } = require('./config/loggerConfig.js') // winston config
 let defaultJson = './config/defaultConfig.json' // default config---
 let defaultConfig = require(defaultJson) //---
 let configJson = path.resolve(__dirname, 'config.json')
+
 // write config.json
 const writeJson  = require('./util/writeJson.js')
-// next ready auto select api source
+
 // cli cmd 
 const cli = meow(`
 Usage
@@ -58,9 +58,8 @@ var dir = cli.input[0]
 if(!dir){
   return console.log(chalk.green("--> V"+cli.pkg.version,cli.help))
 }
-// change defaultConfig from cli
-// if true return first option
-// else return 
+
+// default config
 let debug = setDefault(cli.flags['D'], debugTodo, defaultConfig)
 logger.level = debug
 let tranFr = setDefault(cli.flags['f'], fromTodo, defaultConfig)
@@ -68,16 +67,14 @@ let tranTo = setDefault(cli.flags['t'], toTodo, defaultConfig)
 let api = setDefault(cli.flags['a'], apiTodo, defaultConfig)
 let rewrite = setDefault(cli.flags['R'], rewriteTodo, defaultConfig)
 let asyncNum = setDefault(cli.flags['N'], numTodo, defaultConfig)
-// let Time = setDefault(cli.flags['T'], timeoutTodo, defaultConfig)
 
 // Now rewrite config.json
 await writeJson(configJson, defaultConfig) // 用 defaultConfig 写入 config.json
 const translateMds = require('./bin/translateExports.js')
 
-// and then, setObjectKey.js can require the new config.json 
-// const {setObjectKey} = require('./src/setObjectKey.js')
+// after config.json ready
 const { writeDataToFile, insert_flg } = require('./src/writeDataToFile.js')
-//ready
+
 logger.info(chalk.blue('Starting 翻译')+chalk.red(dir));
 
 // main func
@@ -104,72 +101,65 @@ async.mapLimit(getList, asyncNum, runTranslate,
                   }else{
                       doneShow(`Some No Done`)
                   }
-                  // console.log('map Limit outting')
                 }
 )
 
-  /**
-   * @description async Translate filename value , Return true or false
-   * @param {String} value
-   * @returns {Boolean}
-   */
-  
-  async function runTranslate(value){
-    Done++
-    
-    let localDone = Done
+/**
+ * @description async Translate filename value , Return true or false
+ * @param {String} value
+ * @returns {Boolean}
+ */
 
-    if(value.endsWith(`.${tranTo}.md`) || !value.endsWith('.md')) {
-      logger.debug(chalk.blue(`- 已翻译的 
-      - 或者 不是 md 文件的 
-        ${localDone}`));
-      return true
-    }
-    if( value.match(/\.[a-zA-Z]+\.md+/)){
-      logger.debug(chalk.blue(`- 有后缀为 *.国家简写.md 之类 看起来名字已翻译的 
-        避免出现 .zh.ja.md 的 情况，情况选择 原文件 .md 
-        ${localDone}`));
-      return true
-    }
-    //
-    if(!rewrite && fs.existsSync( insert_flg(value,`.${tranTo}`, 3 ))){
-      logger.debug(chalk.blue(`已翻译, 不覆盖 ${localDone}`));
-      return true
-    }
-    // throw new Error('why')
-    showAsyncnum++
-    let start = new Date().getTime();
-    //
-    const spinner = ora(`${process.pid} Loading translate .. ${path.basename(value)}  `)
-    spinner.color = 'yellow'
-    spinner.start();
-    let _translateMds =  await translateMds([value, api, tranFr, tranTo],debug)
-    let endtime = new Date().getTime() - start;
-      //
+async function runTranslate(value){
+  Done++
   
-    spinner.text +='get data'
-    if(_translateMds.every(x =>x!='')){
-      writeDataToFile(_translateMds, value) 
-      spinner.text = `已搞定 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'md')} - ${path.basename(value)} ` 
-      spinner.succeed()
-      showAsyncnum--
+  let localDone = Done
+
+
+  // filter same file
+  if(value.endsWith(`.${tranTo}.md`) || !value.endsWith('.md')) {
+    logger.debug(chalk.blue(`- 已翻译的 
+    - 或者 不是 md 文件的 
+      ${localDone}`));
     return true
-    }     
-    spinner.text = `没完成 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'md')} - ${value} `
-    spinner.fail()
-      
-    showAsyncnum--
-      // if(asyscNum)
-      // throw new Error(`translate ${value} fail`)
-    return false
-  
-    // }).catch(x =>{
-    //   console.log('bad ass $$$$$$$$$')
-    //   throw x
-    // })
-    // return _translateMds
-    //read each file
   }
+  if( value.match(/\.[a-zA-Z]+\.md+/)){
+    logger.debug(chalk.blue(`- 有后缀为 *.国家简写.md 之类 看起来名字已翻译的 
+      避免出现 .zh.ja.md 的 情况，情况选择 原文件 .md 
+      ${localDone}`));
+    return true
+  }
+
+  if(!rewrite && fs.existsSync( insert_flg(value,`.${tranTo}`, 3 ))){
+    logger.debug(chalk.blue(`已翻译, 不覆盖 ${localDone}`));
+    return true
+  }
+
+  // open async num
+  showAsyncnum++
+  let start = new Date().getTime();
+
+  const spinner = ora(`${process.pid} Loading translate .. ${path.basename(value)}  `)
+  spinner.color = 'yellow'
+  spinner.start();
+  let _translateMds =  await translateMds([value, api, tranFr, tranTo],debug)
+  let endtime = new Date().getTime() - start;
+
+  spinner.text +='get data'
+  if(_translateMds.every(x =>x!='')){
+    writeDataToFile(_translateMds, value) 
+    spinner.text = `已搞定 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'md')} - ${path.basename(value)} ` 
+    spinner.succeed()
+    showAsyncnum--
+  return true
+  }     
+  spinner.text = `没完成 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'md')} - ${value} `
+  spinner.fail()
+    
+  showAsyncnum--
+
+  return false
+}
 
 function timeout(ms) {
   return new Promise((resolve, reject) => {
@@ -177,43 +167,12 @@ function timeout(ms) {
   });
 }
 
+// async.mapLimit will outside, must lock in 
 while(Done){
   const time = 1000
-  await timeout(time)  //translate will change Done num
-  // if time ms , the Done num is no change
-  // may the project if freeze, this is Bug
-  // bug i dont know , Bug from where
-  // seem like when project running and the network no download speed
-  // just like Frozen
-  // keep 
-  // const spinner = ora(`Loading translate .. ${path.basename(value)}  `)
-  // that running 
+  await timeout(time)
 
-
-  if(Done > getList.length){
-    // console.log(Done)
+  if(Done > getList.length)
     break
-  }
 }
-// console.log('while outting')
-
-// if(Done == getList.length){
-//   throw new Error(`${time} ok`)
-
-  
-// }
-// if(Done == timeoutDone){
-//   console.log('/###################',process.pid)  
-//   console.log(':))))))))))')
-//   throw  new Error(`${time} timeout`)
-//   console.log('/###################',process.pid)
-// }
-// }
-
-// logger.info(getList) 
-// false
-// 因为 getList.map
-// 困不住 await
-// 用 for 才行
-// ../bin/translateExports.js #44
 })()

@@ -25,7 +25,6 @@ const writeDataToFile = (data, file_dir) => {
 
     // data is Array
     //fixE2Z
-    
     if(data instanceof Array){
         data = fixEntoZh(data).join("\n")
     }
@@ -34,7 +33,7 @@ const writeDataToFile = (data, file_dir) => {
     fs.writeFile(zhfile+'', data, (err) => {
         if (err) 
             throw err;
-        logger.log('debug',chalk.magenta( `\n ${tranT} file saved! -->> \n`),chalk.blue(zhfile));
+        logger.debug(chalk.magenta( `\n ${tranT} file saved! -->> \n`),chalk.blue(zhfile));
         logger.debug(chalk.red('translate-info.log in your Project'))
     });
 }

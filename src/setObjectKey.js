@@ -232,10 +232,10 @@ async function setObjectKey(obj, api) {
     }
 
     // Fix use Fix/lengthEqual.js
-    if(thisTranArray.length < resultArray.length){   
-      console.log(thisTranArray.length, resultArray.length)                  
+    if(thisTranArray.length < resultArray.length){     
+                     
       translateLengthEquals(thisTranArray, resultArray)
-      console.log(thisTranArray.length, resultArray.length)  
+
       logger.debug(chalk.yellow(`获得 ${api} 数据了~`));
       // get zh and -> write down same folder { me.md => me.zh.md }
       logger.log('debug','----------\n')                      
