@@ -105,6 +105,7 @@ async function translateValue(value, api){
 async function setObjectKey(obj, api) {
 
     let allAPi = ['baidu','google','youdao']
+    let howManyValNoTran = 0
     let tranArray = []
     let thisTranArray = []
     let resultArray = []
@@ -207,15 +208,46 @@ async function setObjectKey(obj, api) {
 
         api = allAPi[i]
 
-        if(thisResult.length > 0 ){
-          // console.log(thisResult.length)
+        // result 1 return translate value
+        if(hasThird.length > 0){ // which one  
+          let c0 = chunkTranArray[third][0]
+          let c1 = chunkTranArray[third][1]
 
-          resultArray.push(thisResult)
-          const upFirst = (sum, val) => sum.concat(val);
-          resultArray = resultArray.reduce(upFirst, [])
-          break
+          if(thisResult.length > 0 && thisResult.length >= c0.concat(c1).length){
+              
+              // string > 300
+              resultArray = resultArray.concat(thisResult)
+              break
+          }
+        }else{
+          if(thisResult.length > 0 && thisResult.length >= chunkTranArray[third].length){
+              
+              // string < 300
+              resultArray = resultArray.concat(thisResult)
+              break
+          }
         }
 
+        // result 2 return source value
+        if( (+i + 1) == allAPi.length){
+                                         // ending is no result
+          if(hasThird.length > 0){ // which one , put source value in result
+            let c0 = chunkTranArray[third][0]
+            let c1 = chunkTranArray[third][1]
+
+            howManyValNoTran += (c0.length + c1.length) // count how many string no translate
+
+            resultArray = resultArray.concat(c0.concat(c1))
+          
+          }else{
+
+            howManyValNoTran += chunkTranArray[third].length // count how many string no translate
+
+            resultArray = resultArray.concat(chunkTranArray[third])              
+
+          }
+
+        }
       }
     }
 
@@ -229,8 +261,8 @@ async function setObjectKey(obj, api) {
       return false
     }
     
-    if(resultArray.length < thisTranArray.length){
-      logger.debug(`只有一部分翻译成功`)
+    if(howManyValNoTran > 0){
+      logger.info(`该文件没翻译成功的有${howManyValNoTran}/${thisTranArray}`)
     }
 
     // Fix use Fix/lengthEqual.js
