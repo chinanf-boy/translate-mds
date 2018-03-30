@@ -7,12 +7,13 @@ let tranF, tranT
 tranF = configs['from']
 tranT = configs['to']
 logger.level = configs.logger.level
+let MAXstring = 300
 
 // Fix china symbal 
 const { fixEntoZh } = require("./fixEntoZh.js")
 // Fix result.length no equal
 const { translateLengthEquals } = require("./Fix/lengthEqual.js")
-const { fixFileTooBig, thirdArray } = require("./Fix/fixFileTooBig.js")
+const { fixFileTooBig, indexMergeArr } = require("./Fix/fixFileTooBig.js")
 
 
 // 
@@ -182,11 +183,10 @@ async function setObjectKey(obj, api) {
 
     // Fix file Too Big
     let chunkTranArray = fixFileTooBig(thisTranArray)  
-    let hasThird = thirdArray(chunkTranArray)
-    let getI = hasThird.map(x =>x[0])
     
     for(let third in chunkTranArray){
 
+      let thisChunkTran = chunkTranArray[third]
       // auto change translate source
       allAPi = allAPi.filter(x => x!=api)
       allAPi.push(api)
@@ -195,59 +195,39 @@ async function setObjectKey(obj, api) {
         let thisResult = []
         logger.log('debug',chalk.yellow('使用',api,'\n')) 
 
-        if((hasThird.length > 0) && getI.includes(third)){
-          let t0 = await translateValue(chunkTranArray[third][0], api)
-          let t1 = await translateValue(chunkTranArray[third][1], api)
+        if(chunkTranArray[third].join("").length > MAXstring){ // string > 300
+          let thisChunkTranL_2 = Math.ceil( thisChunkTran.length/2 )
+
+          let left = indexMergeArr(thisChunkTran, 0, thisChunkTranL_2)
+          let right = indexMergeArr(thisChunkTran, thisChunkTranL_2 , thisChunkTranL_2)
+          
+          let t0 = await translateValue(left, api)
+          let t1 = await translateValue(right, api)
           
           thisResult = t0.concat(t1)
-          // console.log(thisResult)
 
-        }else if(hasThird.length == 0){
+        }else{
           thisResult = await translateValue(chunkTranArray[third], api)
         }
 
         api = allAPi[i]
 
-        // result 1 return translate value
-        if(hasThird.length > 0){ // which one  
-          let c0 = chunkTranArray[third][0]
-          let c1 = chunkTranArray[third][1]
+        // result-1 return translate value, break for allAPi
+        if(thisResult.length > 0 && thisResult.length >= chunkTranArray[third].length){
 
-          if(thisResult.length > 0 && thisResult.length >= c0.concat(c1).length){
-              
-              // string > 300
-              resultArray = resultArray.concat(thisResult)
-              break
-          }
-        }else{
-          if(thisResult.length > 0 && thisResult.length >= chunkTranArray[third].length){
-              
-              // string < 300
-              resultArray = resultArray.concat(thisResult)
-              break
-          }
+            resultArray = resultArray.concat(thisResult)
+            break
         }
 
-        // result 2 return source value
+        // result-2 return source value
         if( (+i + 1) == allAPi.length){
                                          // ending is no result
-          if(hasThird.length > 0){ // which one , put source value in result
-            let c0 = chunkTranArray[third][0]
-            let c1 = chunkTranArray[third][1]
-
-            howManyValNoTran += (c0.length + c1.length) // count how many string no translate
-
-            resultArray = resultArray.concat(c0.concat(c1))
-          
-          }else{
-
             howManyValNoTran += chunkTranArray[third].length // count how many string no translate
 
             resultArray = resultArray.concat(chunkTranArray[third])              
 
-          }
-
         }
+
       }
     }
 

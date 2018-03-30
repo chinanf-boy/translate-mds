@@ -1,5 +1,5 @@
 const MAXLENGTH = 30;
-const MAXstring = 300
+
 /**
  * @description fix file-value Too big
  * @param {Array} bigArr 
@@ -20,37 +20,6 @@ function fixFileTooBig(bigArr){
             // we most shrot length in indexMergeArr
             chunkArr.push( indexMergeArr(bigArr, (numChunk*chunkLength), chunkLength) )
         } 
-
-        // count string > 300
-        for( let m in chunkArr){
-            if(chunkArr[m].join("").length > MAXstring){
-                chunkArr[m] = fixFileTooBig(chunkArr[m])
-            }
-        }
-
-        return chunkArr
-    }else
-    // length <= 30 
-    if(bigArr.join("").length > MAXstring){ // & string > 100
-// so deep  
-// [       
-//     [], 
-//     [], 
-//     [], 
-//     []
-// ] 
-//   => 
-// [
-//     [
-//         [], string < 100 , but more one Array ceil
-//         [], string < 100 , we should thirdArray
-//     ],
-//     [],
-//     [],
-//     []
-// ]
-        chunkArr[0] = indexMergeArr(bigArr, 0, bigl_2)
-        chunkArr[1] = indexMergeArr(bigArr, bigl_2, (bigL-bigl_2))
         return chunkArr
     }else { // string <= 100
         chunkArr.push(bigArr)
@@ -82,25 +51,4 @@ function indexMergeArr(Arr, B, L){
     return backArr
 }
 
-/**
- * @description renturn the Array Third Arr
- * @param {Array} Arr 
- * @returns {Array}
- */
-function thirdArray(Arr){
-    let hasArr = []
-    for(let one in Arr){
-
-        if(Array.isArray(Arr[one])){
-
-            for (let two in Arr[one]){
-
-                if(Array.isArray(Arr[one][two])){
-                    hasArr.push([one,two])
-                }
-            }
-        }
-    }
-    return hasArr
-}
-module.exports = { fixFileTooBig, indexMergeArr, thirdArray }
+module.exports = { fixFileTooBig, indexMergeArr }

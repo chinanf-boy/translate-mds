@@ -1,17 +1,28 @@
 # Change Log
 
-## [Unreleased](https://github.com/chinanf-boy/translate-mds/tree/HEAD)
+## [v3.0.1](https://github.com/chinanf-boy/translate-mds/tree/v3.0.1) (2018-03-26)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.0...v3.0.1)
 
-[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v2.5.8...HEAD)
+## [v3.0.0](https://github.com/chinanf-boy/translate-mds/tree/v3.0.0) (2018-03-26)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v2.5.8...v3.0.0)
 
 **Fixed bugs:**
 
+- 英文句子中带有 句号 `.` --\> 导致翻译位置错位 [\#15](https://github.com/chinanf-boy/translate-mds/issues/15)
+- 文件过大-翻译失败 [\#14](https://github.com/chinanf-boy/translate-mds/issues/14)
+- 翻译前的中文符号 导致 翻译源 不对应 [\#13](https://github.com/chinanf-boy/translate-mds/issues/13)
 - ㄢ 出现  [\#11](https://github.com/chinanf-boy/translate-mds/issues/11)
 - markdown html 文本 没有过滤 [\#8](https://github.com/chinanf-boy/translate-mds/issues/8)
 
 **Closed issues:**
 
+- 本项目的 `api` 作者更新  [\#12](https://github.com/chinanf-boy/translate-mds/issues/12)
 - 卡住问题, 没有反应，出现在 几十个文件的时候 [\#10](https://github.com/chinanf-boy/translate-mds/issues/10)
+
+**Merged pull requests:**
+
+- Fix file Too Big [\#17](https://github.com/chinanf-boy/translate-mds/pull/17) ([chinanf-boy](https://github.com/chinanf-boy))
+- Fix translate.length no equal [\#16](https://github.com/chinanf-boy/translate-mds/pull/16) ([chinanf-boy](https://github.com/chinanf-boy))
 
 ## [v2.5.8](https://github.com/chinanf-boy/translate-mds/tree/v2.5.8) (2018-01-06)
 [Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v2.5.7...v2.5.8)
