@@ -69,7 +69,7 @@ let rewrite = setDefault(cli.flags['R'], rewriteTodo, defaultConfig)
 let asyncNum = setDefault(cli.flags['N'], numTodo, defaultConfig)
 
 // Now rewrite config.json
-await writeJson(configJson, defaultConfig) // 用 defaultConfig 写入 config.json
+await writeJson(configJson, defaultConfig) // 用 更改的 defaultConfig 写入 config.json
 const translateMds = require('./bin/translateExports.js')
 
 // after config.json ready
@@ -142,6 +142,7 @@ async function runTranslate(value){
   const spinner = ora(`${process.pid} Loading translate .. ${path.basename(value)}  `)
   spinner.color = 'yellow'
   spinner.start();
+  
   let _translateMds =  await translateMds([value, api, tranFr, tranTo],debug)
   let endtime = new Date().getTime() - start;
 
