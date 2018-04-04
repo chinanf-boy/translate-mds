@@ -1,5 +1,11 @@
 # Change Log
 
+## [v3.0.3](https://github.com/chinanf-boy/translate-mds/tree/v3.0.3) (2018-04-03)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.2...v3.0.3)
+
+## [v3.0.2](https://github.com/chinanf-boy/translate-mds/tree/v3.0.2) (2018-03-27)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.1...v3.0.2)
+
 ## [v3.0.1](https://github.com/chinanf-boy/translate-mds/tree/v3.0.1) (2018-03-26)
 [Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.0...v3.0.1)
 

@@ -26,9 +26,10 @@ function O2A(options){
  * @description translateMds main 
  * @param {Array|Object} options 
  * @param {Boolean|String} debug 
+ * @param {boolean} [isCli=false] 
  * @returns {Array<String>}
  */
-async function translateMds(options,debug){
+async function translateMds(options,debug,isCli = false){
 
     let absoluteFile, api, tranFrom, tranTo
     if(!options) throw logger.error('options is NULL')
@@ -45,14 +46,16 @@ async function translateMds(options,debug){
     }
     // change defaultConfig from options
     // return first option
-    debug = setDefault(debug, debugTodo, defaultConfig)
+    if(!isCli){
+        debug = setDefault(debug, debugTodo, defaultConfig)
+        tranFrom = setDefault(tranFrom, fromTodo, defaultConfig)
+        tranTo = setDefault(tranTo, toTodo, defaultConfig)
+        api = setDefault(api, apiTodo, defaultConfig)
+    
+        // rewrite config.json
+        await writeJson(jsonFile, defaultConfig) 
+    }
     logger.level = debug
-    tranFrom = setDefault(tranFrom, fromTodo, defaultConfig)
-    tranTo = setDefault(tranTo, toTodo, defaultConfig)
-    api = setDefault(api, apiTodo, defaultConfig)
-
-    // rewrite config.json
-    await writeJson(jsonFile, defaultConfig) 
 
     // setObjectKey.js after rewrite config.json
     const {setObjectKey} = require('../src/setObjectKey.js') 

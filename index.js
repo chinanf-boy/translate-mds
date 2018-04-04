@@ -5,8 +5,9 @@ process.on('uncaughtException', function(err){
   console.error('got an error: %s', err);
   process.exit(1);
 });
-const async = require('async')
+console.time("time")
 
+const async = require('async')
 const fs = require('fs')
 const asyncfs = require('mz/fs')
 const path = require('path')
@@ -101,6 +102,7 @@ async.mapLimit(getList, asyncNum, runTranslate,
                   }else{
                       doneShow(`Some No Done`)
                   }
+                  console.timeEnd("time")
                 }
 )
 
@@ -143,7 +145,7 @@ async function runTranslate(value){
   spinner.color = 'yellow'
   spinner.start();
   
-  let _translateMds =  await translateMds([value, api, tranFr, tranTo],debug)
+  let _translateMds =  await translateMds([value, api, tranFr, tranTo],debug, true)
   let endtime = new Date().getTime() - start;
 
   spinner.text +='get data'
@@ -170,7 +172,7 @@ function timeout(ms) {
 
 // async.mapLimit will outside, must lock in 
 while(Done){
-  const time = 1000
+  const time = 100
   await timeout(time)
 
   if(Done > getList.length)
