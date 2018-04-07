@@ -20,7 +20,7 @@ const remark = require('remark')
 // option todo list
 const { setDefault, debugTodo, fromTodo, toTodo, apiTodo, rewriteTodo, numTodo } = require('./src/optionsTodo.js')
 
-// config 
+// config
 const { logger } = require('./config/loggerConfig.js') // winston config
 let defaultJson = './config/defaultConfig.json' // default config---
 let defaultConfig = require(defaultJson) //---
@@ -29,14 +29,14 @@ let configJson = path.resolve(__dirname, 'config.json')
 // write config.json
 const writeJson  = require('./util/writeJson.js')
 
-// cli cmd 
+// cli cmd
 const cli = meow(`
 Usage
   $ translateMds [folder name] [options]
 
 Example
-  $ translateMds md/ 
-  
+  $ translateMds md/
+
   [options]
   -a   API      : default < baidu > {google,baidu,youdao}
 
@@ -46,8 +46,8 @@ Example
 
   -N   num      : default < 5 > {async number}
 
-  -D   debug    
-  
+  -D   debug
+
   -R   rewrite  : default < false > {yes/no retranslate and rewrite translate file}
 
   -T   timeout  : default {this 功能 待续}
@@ -114,20 +114,20 @@ async.mapLimit(getList, asyncNum, runTranslate,
 
 async function runTranslate(value){
   Done++
-  
+
   let localDone = Done
 
 
   // filter same file
   if(value.endsWith(`.${tranTo}.md`) || !value.endsWith('.md')) {
-    logger.debug(chalk.blue(`- 已翻译的 
-    - 或者 不是 md 文件的 
+    logger.debug(chalk.blue(`- 已翻译的
+    - 或者 不是 md 文件的
       ${localDone}`));
     return true
   }
   if( value.match(/\.[a-zA-Z]+\.md+/)){
-    logger.debug(chalk.blue(`- 有后缀为 *.国家简写.md 之类 看起来名字已翻译的 
-      避免出现 .zh.ja.md 的 情况，情况选择 原文件 .md 
+    logger.debug(chalk.blue(`- 有后缀为 *.国家简写.md 之类 看起来名字已翻译的
+      避免出现 .zh.ja.md 的 情况，情况选择 原文件 .md
       ${localDone}`));
     return true
   }
@@ -143,22 +143,21 @@ async function runTranslate(value){
 
   const spinner = ora(`${process.pid} Loading translate .. ${path.basename(value)}  `)
   spinner.color = 'yellow'
-  spinner.start();
-  
+
   let _translateMds =  await translateMds([value, api, tranFr, tranTo],debug, true)
   let endtime = new Date().getTime() - start;
 
-  spinner.text +='get data'
+	spinner.start()
   if(_translateMds.every(x =>x!='')){
-    writeDataToFile(_translateMds, value) 
-    spinner.text = `已搞定 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'md')} - ${path.basename(value)} ` 
+    writeDataToFile(_translateMds, value)
+    spinner.text = `已搞定 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'md')} - ${path.basename(value)} `
     spinner.succeed()
     showAsyncnum--
   return true
-  }     
+  }
   spinner.text = `没完成 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'md')} - ${value} `
   spinner.fail()
-    
+
   showAsyncnum--
 
   return false
@@ -170,7 +169,7 @@ function timeout(ms) {
   });
 }
 
-// async.mapLimit will outside, must lock in 
+// async.mapLimit will outside, must lock in
 while(Done){
   const time = 100
   await timeout(time)

@@ -1,5 +1,6 @@
 const tjs = require('translation.js')
 const chalk = require('chalk')
+const ora = require("ora")
 const {logger} = require('../config/loggerConfig.js')
 // get config.json
 const configs = require('../config.json')
@@ -9,20 +10,20 @@ tranT = configs['to']
 logger.level = configs.logger.level
 let MAXstring = 300
 
-// Fix china symbal 
+// Fix china symbal
 const { fixEntoZh } = require("./fixEntoZh.js")
 // Fix result.length no equal
 const { translateLengthEquals } = require("./Fix/lengthEqual.js")
 const { fixFileTooBig, indexMergeArr } = require("./Fix/fixFileTooBig.js")
 
 
-// 
+//
 // get translate result
 
 /**
- * @description 
- * @param {String|String[]} value 
- * @param {String} api 
+ * @description
+ * @param {String|String[]} value
+ * @param {String} api
  * @returns {String[]}
  */
 async function translateValue(value, api){
@@ -46,11 +47,11 @@ async function translateValue(value, api){
                         throw new Error('「结果为空」')
                       }
 
-                      
+
                       if(value.length ==  result.result.length){
                         return result.result
                       }
-                      
+
                       // logger.log('error',value.length)
                       if(value.length > result.result.length){
                         return translateValue(value.slice(result.result.length),api).then(youdao =>{
@@ -64,7 +65,7 @@ async function translateValue(value, api){
                           }
                           // logger.log('debug',JSON.stringify(result.result,null,2),chalk.cyan('集合 --------中 '))
                           return result.result
-                      
+
                         }).catch(x => logger.error(`${youdao}炸了`,x))
                         // Promise.reject("bad youdao fanyi no get \\n")
 
@@ -72,9 +73,9 @@ async function translateValue(value, api){
 
                       // // Bug translate.js return result.result Array
                       // if(value.length < result.result.length){
-                        
+
                       //   logger.debug(`___________
-                      //   get the result is not equal , so + the final result\n 
+                      //   get the result is not equal , so + the final result\n
                       //   ************`)
                       //   let r_v = result.result.length - value.length
                       //   for(let i= 0;i<r_v;i++){
@@ -94,14 +95,14 @@ async function translateValue(value, api){
                       return ""
 
                     })
-      
+
 }
 
 /**
- * @description translate AST Key == value, return new Object 
+ * @description translate AST Key == value, return new Object
  * @param {Object} obj - AST
  * @param {String} api - defuault api
- * @returns {Object} - newObject 
+ * @returns {Object} - newObject
  */
 async function setObjectKey(obj, api) {
 
@@ -114,19 +115,19 @@ async function setObjectKey(obj, api) {
     let sum = 0 // single values
     /**
      * @description Find ``obj['type'] === 'value'`` ,and``tranArray.push(obj[key])``
-     * @param {Object} obj 
-     * @param {String[]} tranArray 
+     * @param {Object} obj
+     * @param {String[]} tranArray
      * @returns {number} - find value number
      */
     function deep(obj, tranArray) {
       Object.keys(obj).forEach(function(key) {
-        
+
         // no translate code content
       if(obj['type'] && ( obj['type'] === 'html' || obj['type'] === 'code')){
         return sum
       }
       (obj[key] && typeof obj[key] === 'object') && deep(obj[key], tranArray)
-      
+
 
       if(key === 'value' && obj[key].trim()){
             tranArray.push(obj[key])
@@ -137,20 +138,20 @@ async function setObjectKey(obj, api) {
     };
 
     /**
-     * @description Find ``obj['type'] === 'value'``, and use ``tranArrayZh.shift`` set ``obj['value']`` 
+     * @description Find ``obj['type'] === 'value'``, and use ``tranArrayZh.shift`` set ``obj['value']``
      * @param {any} obj - AST
-     * @param {String[]} tranArrayZh 
-     * @returns 
+     * @param {String[]} tranArrayZh
+     * @returns
      */
     function setdeep(obj, tranArrayZh) {
       Object.keys(obj).forEach(function(key) {
-        
+
       if(obj['type'] && ( obj['type'] === 'html' || obj['type'] === 'code')){
           return sum
       }
-      
+
       (obj[key] && typeof obj[key] === 'object') && setdeep(obj[key], tranArrayZh)
-  
+
       if(key === 'value' && obj[key].trim()){
             if(tranArrayZh.length){
               obj[key] = tranArrayZh.shift()
@@ -162,7 +163,7 @@ async function setObjectKey(obj, api) {
       };
 
     // put obj values to tranArray
-    if(!deep(obj, tranArray)){      
+    if(!deep(obj, tranArray)){
       logger.error('no value', sum)
       return false
     }
@@ -178,93 +179,106 @@ async function setObjectKey(obj, api) {
       thisTranArray = tranArray
       tranArray = []
     }
-    
-          
+
+
 
     // Fix file Too Big
-    let chunkTranArray = fixFileTooBig(thisTranArray)  
-    
+    let chunkTranArray = fixFileTooBig(thisTranArray)
+		const Loading = ora("Loading").start()
+
     for(let third in chunkTranArray){
 
       let thisChunkTran = chunkTranArray[third]
       // auto change translate source
       allAPi = allAPi.filter(x => x!=api)
       allAPi.push(api)
+			let thisResult = []
+
       for(let i in allAPi){
 
-        let thisResult = []
-        logger.log('debug',chalk.yellow('使用',api,'\n')) 
+				Loading.text = `use ${api} - If slow , may be you should try again`
 
         if(chunkTranArray[third].join("").length > MAXstring){ // string > 300
           let thisChunkTranL_2 = Math.ceil( thisChunkTran.length/2 )
 
           let left = indexMergeArr(thisChunkTran, 0, thisChunkTranL_2)
           let right = indexMergeArr(thisChunkTran, thisChunkTranL_2 , thisChunkTranL_2)
-          
+
           let t0 = await translateValue(left, api)
           let t1 = await translateValue(right, api)
-          
+
           thisResult = t0.concat(t1)
 
         }else{
           thisResult = await translateValue(chunkTranArray[third], api)
-        }
+        } // get Result Arr
 
         api = allAPi[i]
 
         // result-1 return translate value, break for allAPi
         if(thisResult.length > 0 && thisResult.length >= chunkTranArray[third].length){
 
-            resultArray = resultArray.concat(thisResult)
             break
         }
 
         // result-2 return source value
         if( (+i + 1) == allAPi.length){
-                                         // ending is no result
-            howManyValNoTran += chunkTranArray[third].length // count how many string no translate
+				// ending is no result
 
-            resultArray = resultArray.concat(chunkTranArray[third])              
+						// count how many string no translate
+						howManyValNoTran += chunkTranArray[third].length
+						thisResult = chunkTranArray[third] // Add source tran
 
         }
 
-      }
+			}
+			// Fix use Fix/lengthEqual.js in every Chunk
+			if(thisChunkTran.length < thisResult.length){
+
+				translateLengthEquals(thisChunkTran, thisResult) // Fix
+
+
+				for (let i in thisChunkTran){ // Debug
+					if(thisChunkTran.length != thisResult.length)
+					logger.debug('set- '+ i + ': ' + chalk.green(thisChunkTran[i]) + ' to-> '+ i + ': '+ chalk.yellow(thisResult[i]))
+
+				}
+
+				if(thisChunkTran.length != thisResult.length){ // can't Fix
+					howManyValNoTran += chunkTranArray[third].length
+					thisResult = chunkTranArray[third] // Add source tran
+				}
+
+			}
+			resultArray = resultArray.concat(thisResult) // Add result
+
+			Loading.text = `Loading - ${resultArray.length}/${thisTranArray.length}` // Info
     }
 
     if(resultArray.length == 0){
       logger.error(`
       获取信息错误,原因有3
-      - 网络失联
-      - 翻译源 失败 > 文件太大了
-      - 抽风
+      1. 网络失联 2. 翻译源 失败 > 文件太大了 3. 抽风
       `)
       return false
     }
-    
+
     if(howManyValNoTran > 0){
-      logger.info(`该文件没翻译成功的有${howManyValNoTran}/${thisTranArray}`)
+			Loading.text = `该文件没翻译成功的有${howManyValNoTran}/${thisTranArray}`
     }
+		Loading.stop()
 
-    // Fix use Fix/lengthEqual.js
-    if(thisTranArray.length < resultArray.length){     
-                     
-      translateLengthEquals(thisTranArray, resultArray)
+    // // Fix use Fix/lengthEqual.js
+    // if(thisTranArray.length < resultArray.length){
 
-      logger.debug(chalk.yellow(`获得 ${api} 数据了~`));
-      // get zh and -> write down same folder { me.md => me.zh.md }
-                     
-      for (i in resultArray){
-        
-        logger.log('debug','set- '+ chalk.green(thisTranArray[i]) + ' to-> '+ chalk.yellow(resultArray[i]))
-        
-      }               
-      
-    }
+		// 	translateLengthEquals(thisTranArray, resultArray)
+
+    // }
 
     resultArray = fixEntoZh(resultArray)
-    
-    setdeep(newObj, resultArray) // [[1],[2]] => [1,2]
-    
+
+		setdeep(newObj, resultArray) // [[1],[2]] => [1,2]
+
     return newObj
 }
 
