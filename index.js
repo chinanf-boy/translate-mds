@@ -76,14 +76,14 @@ const translateMds = require('./bin/translateExports.js')
 // after config.json ready
 const { writeDataToFile, insert_flg } = require('./src/writeDataToFile.js')
 
-logger.info(chalk.blue('Starting 翻译')+chalk.red(dir));
+console.log(chalk.blue('Starting 翻译')+chalk.red(dir));
 
 // main func
 
 // get floder markdown files Array
 const getList = await Listmd(path.resolve(process.cwd(),dir))
 
-logger.info(chalk.blue(`总文件数 ${getList.length}, 有些文件会跳过`));
+console.log(chalk.blue(`总文件数 ${getList.length}, 有些文件会跳过`));
 
 let Done = 0
 let noDone = []

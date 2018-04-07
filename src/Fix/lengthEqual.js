@@ -1,6 +1,6 @@
 function translateLengthEquals( source, tranTxt){
 
-    let matchArr = [ ". ", "！"]
+    let matchArr = [ ". ", "！","; "]
     let trim = ["'", '"']
     let ReturnArr = []
     let Tindex = 0
