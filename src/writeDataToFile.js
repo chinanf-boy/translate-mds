@@ -1,12 +1,13 @@
 const fs = require('fs')
 const chalk = require('chalk');
 const { logger } = require('../config/loggerConfig.js')
-const configs = require('../config.json')
+const { getOptions } = require('../config/work-options.js')
+let configs = getOptions()
 const tranT = configs.to
 function insert_flg(str, flg, Uindex) {
     var newstr = "";
     if(!str || !flg){
-        throw logger.error('filename<',str,'>can not add',flg) 
+        throw logger.error('filename<',str,'>can not add',flg)
     }
     var len = str.length
     var tmp = str.substring(0, len - Uindex);
@@ -26,10 +27,10 @@ const writeDataToFile = (data, file_dir) => {
     if(data instanceof Array){
         data = data.join("\n")
     }
-    
-    
+
+
     fs.writeFile(zhfile+'', data, (err) => {
-        if (err) 
+        if (err)
             throw err;
         logger.debug(chalk.magenta( `\n ${tranT} file saved! -->> \n`),chalk.blue(zhfile));
     });

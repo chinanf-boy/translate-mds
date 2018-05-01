@@ -1,6 +1,6 @@
-let Options = {
+const Dconfig = require('./defaultConfig.json')
 
-}
+let Options = Dconfig
 
 function setOptions(options){
 	Options = options

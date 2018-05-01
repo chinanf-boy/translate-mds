@@ -33,7 +33,6 @@ test.serial.cb("write data to zh", t =>{
     fs.readFile(__dirname + '/testWrite3.md', 'utf8', (err, data) =>{
         if (err) throw err;
         writeDataToFile(data, __dirname + '/testWrite3.md')
-        console.log("write")
         fs.readFile(__dirname + '/testWrite3.zh.md', 'utf8', (err, insidedata) =>{
             if (err) throw err;
             t.true(insidedata.length > 0)

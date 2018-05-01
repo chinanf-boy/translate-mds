@@ -25,10 +25,6 @@ const { logger } = require('./config/loggerConfig.js') // winston config
 let defaultJson = './config/defaultConfig.json' // default config---
 let defaultConfig = require(defaultJson) //---
 let workOptions = require('./config/work-options')
-let configJson = path.resolve(__dirname, 'config.json')
-
-// write config.json
-const writeJson  = require('./util/writeJson.js')
 
 // cli cmd
 const cli = meow(`
@@ -70,14 +66,13 @@ let api = setDefault(cli.flags['a'], apiTodo, defaultConfig)
 let rewrite = setDefault(cli.flags['R'], rewriteTodo, defaultConfig)
 let asyncNum = setDefault(cli.flags['N'], numTodo, defaultConfig)
 
-// Now rewrite config.json
-await writeJson(configJson, defaultConfig) // 用 更改的 defaultConfig 写入 config.json
+// 用 更改的 defaultConfig 写入 workOptions
 
-workOptions.setOptions(JSON.parse(defaultConfig))
+workOptions.setOptions(defaultConfig)
 
 const translateMds = require('./bin/translateExports.js')
 
-// after config.json ready
+// after workOptions ready
 const { writeDataToFile, insert_flg } = require('./src/writeDataToFile.js')
 
 console.log(chalk.blue('Starting 翻译')+chalk.red(dir));

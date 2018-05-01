@@ -3,7 +3,8 @@ const chalk = require('chalk')
 const ora = require("ora")
 const {logger} = require('../config/loggerConfig.js')
 // get config.json
-const configs = require('../config.json')
+const {getOptions} = require('../config/work-options.js')
+const configs = getOptions()
 let tranF, tranT
 tranF = configs['from']
 tranT = configs['to']

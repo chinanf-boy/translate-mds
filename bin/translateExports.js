@@ -10,8 +10,7 @@ const remark = require('remark')
 const { logger } = require('../config/loggerConfig.js') // winston config
 let defaultJson = '../config/defaultConfig.json' // default config---
 let defaultConfig = require(defaultJson) //---
-let jsonFile = path.resolve(__dirname, '../config.json')
-const writeJson  = require('../util/writeJson.js')
+let workOptions = require('../config/work-options')
 //
 let done = 0
 const { setDefault, debugTodo, fromTodo, toTodo, apiTodo } = require('../src/optionsTodo.js')
@@ -23,10 +22,10 @@ function O2A(options){
 }
 
 /**
- * @description translateMds main 
- * @param {Array|Object} options 
- * @param {Boolean|String} debug 
- * @param {boolean} [isCli=false] 
+ * @description translateMds main
+ * @param {Array|Object} options
+ * @param {Boolean|String} debug
+ * @param {boolean} [isCli=false]
  * @returns {Array<String>}
  */
 async function translateMds(options,debug,isCli = false){
@@ -51,20 +50,20 @@ async function translateMds(options,debug,isCli = false){
         tranFrom = setDefault(tranFrom, fromTodo, defaultConfig)
         tranTo = setDefault(tranTo, toTodo, defaultConfig)
         api = setDefault(api, apiTodo, defaultConfig)
-    
+
         // rewrite config.json
-        await writeJson(jsonFile, defaultConfig) 
+		workOptions.setOptions(defaultConfig)
     }
     logger.level = debug
 
     // setObjectKey.js after rewrite config.json
-    const {setObjectKey} = require('../src/setObjectKey.js') 
+    const {setObjectKey} = require('../src/setObjectKey.js')
 
     async function t(data){
 
         let head,mdAst,translateMdAst
         [body, head] = cutMdhead(data)
-        
+
         // to AST
         mdAst = remark.parse(body)
 
@@ -72,7 +71,7 @@ async function translateMds(options,debug,isCli = false){
         translateMdAst = await setObjectKey(mdAst, api)
 
         if(translateMdAst){
-            // Ast to markdown 
+            // Ast to markdown
             body = remark.stringify(translateMdAst)
             return head+'\n'+body
         }
@@ -90,7 +89,7 @@ async function translateMds(options,debug,isCli = false){
 
         // 去掉 .**.zh 的后缀 和 自己本身 .match(/\.[a-zA-Z]+\.md+/)
         if(value.endsWith(`.${tranTo}.md`) || value.match(/\.[a-zA-Z]+\.md+/) || !value.endsWith('.md'))continue
-        
+
         let readfile = await fs.readFile(value, 'utf8')
 
         let _translate = await t(readfile).then(x =>x).catch(x => {

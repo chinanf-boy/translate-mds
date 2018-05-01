@@ -7,7 +7,7 @@ test("fixFileTooBig 1 <= length <= 30 & 1<= string<=300", t =>{
     let a = []
     let n = 30;
     let n1 = n
-    
+
     while(n--){
         a.push(`${n}+hello`)
     }
@@ -35,10 +35,9 @@ test("indexMergeArr Arr ", t =>{
     t.is(b[0], 2)
 })
 
-test.failing("indexMergeArr Arr fail", t =>{
+test.failing("indexMergeArr B fail", t =>{
     let a = [1,2,3,4]
-    let b = indexMergeArr(a, -1, 7)
-    t.fail('out Arr.length');
+    t.throws(indexMergeArr(a, -1, 7))
 })
 
 test("indexMergeArr Arr >[0] + [1]", t =>{
