@@ -6,14 +6,19 @@ const Store = {
     "/ ": "/",
     "ℴ": "-",
     "”": '"',
-    "。": ". "
+	"。": ". ",
+	"|": "|",
+	"「":"「 ",
+	"」":" 」",
+	"（":" (",
+	"）":") "
 
 }
 
-// 二分法 获取 
+// 二分法 获取
 /**
- * @description 
- * @param {String} str 
+ * @description
+ * @param {String} str
  * @returns {String}
  */
 const halfStr = (str) =>{
@@ -41,7 +46,7 @@ const reg2 = (str) => {
         }
     }
     return false
-} 
+}
 
 const numStore = [8220, 8216]
 
@@ -54,7 +59,7 @@ function charZh2En(str) {
             // 第一优先级
             tmp += Store[str[i]]
         }else{
-            // 第二优先级
+			// 第二优先级
             tmp += String.fromCharCode(str.charCodeAt(i) - 65248)
         }
     }
@@ -63,8 +68,8 @@ function charZh2En(str) {
 
 // 主 函数
 /**
- * @description 
- * @param {Array|String} data 
+ * @description
+ * @param {Array|String} data
  * @returns {Array|String}
  */
 const fixEntoZh = function fixEntoZh(data){
@@ -73,7 +78,7 @@ const fixEntoZh = function fixEntoZh(data){
         data = data.trim()
         return halfStr(data)
     }else{
-        
+
         data = data.map(x =>{
             x = x.trim()
             return halfStr(x)
