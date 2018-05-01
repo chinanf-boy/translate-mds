@@ -24,6 +24,7 @@ const { setDefault, debugTodo, fromTodo, toTodo, apiTodo, rewriteTodo, numTodo }
 const { logger } = require('./config/loggerConfig.js') // winston config
 let defaultJson = './config/defaultConfig.json' // default config---
 let defaultConfig = require(defaultJson) //---
+let workOptions = require('./config/work-options')
 let configJson = path.resolve(__dirname, 'config.json')
 
 // write config.json
@@ -71,6 +72,9 @@ let asyncNum = setDefault(cli.flags['N'], numTodo, defaultConfig)
 
 // Now rewrite config.json
 await writeJson(configJson, defaultConfig) // 用 更改的 defaultConfig 写入 config.json
+
+workOptions.setOptions(JSON.parse(defaultConfig))
+
 const translateMds = require('./bin/translateExports.js')
 
 // after config.json ready
