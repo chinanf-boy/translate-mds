@@ -54,7 +54,6 @@ async function translateMds(options,debug,isCli = false){
         // rewrite config.json
 		workOptions.setOptions(defaultConfig)
     }
-    logger.level = debug
 
     // setObjectKey.js after rewrite config.json
     const {setObjectKey} = require('../src/setObjectKey.js')

@@ -21,7 +21,6 @@ const remark = require('remark')
 const { setDefault, debugTodo, fromTodo, toTodo, apiTodo, rewriteTodo, numTodo } = require('./src/optionsTodo.js')
 
 // config
-const { logger } = require('./config/loggerConfig.js') // winston config
 let defaultJson = './config/defaultConfig.json' // default config---
 let defaultConfig = require(defaultJson) //---
 let workOptions = require('./config/work-options')
@@ -59,7 +58,6 @@ if(!dir){
 
 // default config
 let debug = setDefault(cli.flags['D'], debugTodo, defaultConfig)
-logger.level = debug
 let tranFr = setDefault(cli.flags['f'], fromTodo, defaultConfig)
 let tranTo = setDefault(cli.flags['t'], toTodo, defaultConfig)
 let api = setDefault(cli.flags['a'], apiTodo, defaultConfig)
@@ -67,15 +65,15 @@ let rewrite = setDefault(cli.flags['R'], rewriteTodo, defaultConfig)
 let asyncNum = setDefault(cli.flags['N'], numTodo, defaultConfig)
 
 // 用 更改的 defaultConfig 写入 workOptions
-
 workOptions.setOptions(defaultConfig)
 
+const { logger, loggerStart, loggerText, loggerStop } = require('./config/loggerConfig.js') // winston config
 const translateMds = require('./bin/translateExports.js')
 
 // after workOptions ready
 const { writeDataToFile, insert_flg } = require('./src/writeDataToFile.js')
 
-console.log(chalk.blue('Starting 翻译')+chalk.red(dir));
+console.log(chalk.blue('Starting 翻译')+chalk.red(dir+" with China source"));
 
 // main func
 
@@ -92,6 +90,7 @@ function doneShow(str) {
     s.succeed()
 }
 let showAsyncnum = 0
+loggerStart("++++ 😊")
 async.mapLimit(getList, asyncNum, runTranslate,
   (err, IsTranslateS) =>{
                   if(err)throw err
@@ -100,7 +99,8 @@ async.mapLimit(getList, asyncNum, runTranslate,
                       doneShow(`All Done`)
                   }else{
                       doneShow(`Some No Done`)
-                  }
+									}
+									loggerStop()
                   console.timeEnd("time")
                 }
 )
@@ -112,6 +112,8 @@ async.mapLimit(getList, asyncNum, runTranslate,
  */
 
 async function runTranslate(value){
+	let State = true
+
   Done++
 
   let localDone = Done
@@ -119,47 +121,56 @@ async function runTranslate(value){
 
   // filter same file
   if(value.endsWith(`.${tranTo}.md`) || !value.endsWith('.md')) {
-    logger.debug(chalk.blue(`- 已翻译的
-    - 或者 不是 md 文件的
-      ${localDone}`));
-    return true
+    loggerText(chalk.blue(`- 已翻译的 - 或者 不是 md 文件的 ${localDone}`));
+    return State
   }
   if( value.match(/\.[a-zA-Z]+\.md+/)){
-    logger.debug(chalk.blue(`- 有后缀为 *.国家简写.md 之类 看起来名字已翻译的
-      避免出现 .zh.ja.md 的 情况，情况选择 原文件 .md
-      ${localDone}`));
-    return true
+		loggerText(chalk.blue(`- 有后缀为 *.国家简写.md 之类 看起来名字已翻译的
+		避免出现 .zh.ja.md 的 情况，情况选择 原文件 .md ${localDone}`));
+    return State
   }
 
   if(!rewrite && fs.existsSync( insert_flg(value,`.${tranTo}`, 3 ))){
-    logger.debug(chalk.blue(`已翻译, 不覆盖 ${localDone}`));
-    return true
+    loggerText(chalk.blue(`已翻译, 不覆盖 ${localDone}`));
+    return State
   }
+
+	loggerText(`1. do 第${localDone}文件 ${path.basename(value)}`)
 
   // open async num
   showAsyncnum++
   let start = new Date().getTime();
 
-  const spinner = ora(`${process.pid} Loading translate .. ${path.basename(value)}  `)
-  spinner.color = 'yellow'
 
   let _translateMds =  await translateMds([value, api, tranFr, tranTo],debug, true)
   let endtime = new Date().getTime() - start;
 
-	spinner.start()
-  if(_translateMds.every(x =>x!='')){
-    writeDataToFile(_translateMds, value)
-    spinner.text = `已搞定 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'md')} - ${path.basename(value)} `
-    spinner.succeed()
-    showAsyncnum--
-  return true
-  }
-  spinner.text = `没完成 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'md')} - ${value} `
-  spinner.fail()
+	const spinner = ora("single file final ending")
 
+  if(_translateMds.every(x =>x!='')){ // translate no ok
+		await writeDataToFile(_translateMds, value).then(text =>loggerText(text)).catch(Err =>{
+			State = false // write data no ok
+			loggerText(Err.message, {level:"error"})
+		})
+
+		if(State){
+			spinner.start()
+			spinner.text = `已搞定 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'ms')} - ${path.basename(value)} `
+			spinner.succeed()
+		}
+
+	}else{
+		State = false // translate no ok
+		if(!State){ // write data no ok | translate no ok
+			spinner.start()
+			spinner.text = `没完成 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'ms')} - ${value} `
+			spinner.fail()
+		}
+	}
   showAsyncnum--
+	loggerText('++++ 😊')
 
-  return false
+  return State
 }
 
 function timeout(ms) {
@@ -173,7 +184,8 @@ while(Done){
   const time = 100
   await timeout(time)
 
-  if(Done > getList.length)
+  if(Done > getList.length){
     break
+	}
 }
 })()

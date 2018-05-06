@@ -13,31 +13,16 @@ test.failing("get bad filename ",t =>{
     t.fail('这里是传入不正确的文件名')
 })
 
-test("filename no .md", t =>{
-            let result = writeDataToFile('data', __dirname + '')
-            t.false(result)
+test.failing("filename no .md", async t =>{
+        await writeDataToFile('data', __dirname + '')
+
 })
 
-test.serial("writeData with Array ", t =>{
-    let result = writeDataToFile(["hello！", "world"], __dirname + '/testWrite3.md')
-    t.true(result == undefined)
+test.serial("writeData with Array ", async t =>{
+    let result = await writeDataToFile(["hello！", "world"], __dirname + '/testWrite3.md')
+    t.true(result.includes('file saved'))
 })
 
-test.failing("filename Array ", t =>{
-        let result = writeDataToFile(['data','data'], __dirname + '')
-        t.fail("no md file")
-})
-
-test.serial.cb("write data to zh", t =>{
-
-    fs.readFile(__dirname + '/testWrite3.md', 'utf8', (err, data) =>{
-        if (err) throw err;
-        writeDataToFile(data, __dirname + '/testWrite3.md')
-        fs.readFile(__dirname + '/testWrite3.zh.md', 'utf8', (err, insidedata) =>{
-            if (err) throw err;
-            t.true(insidedata.length > 0)
-        });
-        t.end()
-    });
-
+test.failing("filename Array ", async t =>{
+        await writeDataToFile(['data','data'], __dirname + '')
 })
