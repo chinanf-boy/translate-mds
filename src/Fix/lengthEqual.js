@@ -1,12 +1,14 @@
+let Equal;
 function translateLengthEquals( source, tranTxt){
 
     let skipArr = ["... ", "e.g. ", "etc. ", "i.e. "]
-    let matchArr = [ ". ", "! ", "; ", "！"]
+    let matchArr = [ ". ", "! ", "; ", "！", "? "]
     let trim = ["'", '"']
     let ReturnArr = []
     let Tindex = 0
-
+	Equal = source.length
     for( let i in source){ // typeof i == string
+		// if(Equal == tranTxt.length) return
 
         source[i] = source[i].trim()
         let howMany = 0
@@ -24,15 +26,16 @@ function translateLengthEquals( source, tranTxt){
 					let L = skip.length - val.length
 					return source[i].indexOf(val) == source[i].indexOf(skip) + L
 				})){
-					source[i] = source[i].replace(val, "? ") // over val
+					source[i] = source[i].replace(val, "🥄 ") // over val
 					continue;
 				}else{
-					source[i] = source[i].replace(val, "? ") // over val
+					source[i] = source[i].replace(val, "🥄 ") // over val
 					howMany ++ // how many ". "/ etc
 				}
 
 			}
 		})
+
         !!(howMany) && mergeAndCut(tranTxt, +i, howMany) // pay attion two + ,  string/number
     }
 
@@ -46,6 +49,7 @@ function mergeAndCut(Arr, index, howMany){
 
     (howMany > 1) && mergeAndCut(Arr, index+1, (howMany-1))
 
+	// if(Equal == Arr.length) return
     // [1,2,3] => [12,2,3]
     Arr[index] = Arr[index] + Arr[index+1]
     // [12,2,3] => [12,3]
@@ -55,7 +59,7 @@ function mergeAndCut(Arr, index, howMany){
             break
         }
         Arr[i] = Arr[i + 1]
-    }
+	}
 }
 
 module.exports = { translateLengthEquals, mergeAndCut }
