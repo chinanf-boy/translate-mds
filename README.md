@@ -1,4 +1,4 @@
-# translate .md to *.md 
+# translate .md to *.md
 
 like
 
@@ -6,7 +6,7 @@ like
 .md to .「all-language」.md
 ```
 
-[english](./README.en.md) 
+[english](./README.en.md)
 
 > check [翻译列表](https://github.com/chinanf-boy/translate-list)
 
@@ -42,8 +42,8 @@ Usage
   $ translateMds [folder name] [options]
 
 Example
-  $ translateMds md/ 
-  
+  $ translateMds md/
+
   [options]
   -a   API      : default < baidu > {google,baidu,youdao}
 
@@ -54,7 +54,7 @@ Example
   -N   num      : default < 5 > {async number}
 
   -D   debug    : default < false >
-  
+
   -R   rewrite  : default < false > {yes/no retranslate and rewrite translate file}
 
 ```
@@ -69,7 +69,7 @@ let results = await translate([__dirname+'/testWrite1.md'])
 //or
 let results = await translate([__dirname+'/md/'])
 // results is Array
-
+results = [{text:_translteText, error:String}]
 
 ```
 
@@ -82,13 +82,14 @@ let results = await translate([__dirname+'/md/'])
 ## options 当用 []
 
 [ aFile,api,tF,tT ] = options
+
 ## options 当 用 {}
 
 > optioins = {aFile: `String` ,api: `String` ,tF: `String` tT: `String` }
 
 ---
 
-- aFile 
+- aFile
 
 > absolute file
 

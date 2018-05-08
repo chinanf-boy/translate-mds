@@ -7,17 +7,21 @@ const {setObjectKey, translateValue} = require('../src/setObjectKey.js')
 var newObject = (oldObject) =>JSON.parse(JSON.stringify(oldObject));
 
 test(' test baidu',async t =>{
-    let newTree = await setObjectKey(newObject(tree), 'baidu')
+	let newTree = await setObjectKey(newObject(tree), 'baidu')
+	delete newTree.Error
     t.deepEqual(newTree, truetree)
 })
 
 test(' test youdao',async t =>{
-    let newTree = await setObjectKey(newObject(tree), 'youdao')
+	let newTree = await setObjectKey(newObject(tree), 'youdao')
+	delete newTree.Error
     t.deepEqual(newTree, truetree)
 })
 
 test(' test google',async t =>{
-    let newTree = await setObjectKey(newObject(tree), 'google')
+	let newTree = await setObjectKey(newObject(tree), 'google')
+	delete newTree.Error
+
     t.deepEqual(newTree, truetree)
 })
 

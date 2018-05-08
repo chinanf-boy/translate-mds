@@ -146,27 +146,37 @@ async function runTranslate(value){
   let endtime = new Date().getTime() - start;
 
 	const spinner = ora("single file final ending")
+	let Err
+	if(_translateMds.every(x =>!x.error && x.text)){ // translate no ok
 
-  if(_translateMds.every(x =>x!='')){ // translate no ok
-		await writeDataToFile(_translateMds, value).then(text =>loggerText(text)).catch(Err =>{
+		let _tranData = _translateMds.map(x =>x.text)
+
+		await writeDataToFile(_tranData, value).then(text =>loggerText(text)).catch(Err =>{
 			State = false // write data no ok
+			Err = Err.message
 			loggerText(Err.message, {level:"error"})
 		})
+	}
 
-		if(State){
-			spinner.start()
-			spinner.text = `已搞定 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'ms')} - ${path.basename(value)} `
-			spinner.succeed()
-		}
-
-	}else{
-		State = false // translate no ok
-		if(!State){ // write data no ok | translate no ok
-			spinner.start()
-			spinner.text = `没完成 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'ms')} - ${value} `
-			spinner.fail()
+	for(let _t of _translateMds){
+		if(_t.error){
+			Err =  _t.error
+			break
 		}
 	}
+
+	if(State && !Err){
+		spinner.start()
+		spinner.text = `已搞定 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'ms')} - ${path.basename(value)} `
+		spinner.succeed()
+	}else{
+	State = false // translate no ok
+	if(!State){ // write data no ok | translate no ok
+		spinner.start()
+		spinner.text = `没完成 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'ms')} - ${path.relative(process.cwd(),value)} \n ${Err}`
+		spinner.fail()
+	}}
+
   showAsyncnum--
 	loggerText('++++ 😊')
 
@@ -188,4 +198,5 @@ while(Done){
     break
 	}
 }
+process.exit(0)
 })()

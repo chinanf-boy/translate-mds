@@ -1,6 +1,6 @@
 const tjs = require('translation.js')
 const chalk = require('chalk')
-// const ora = require("ora")
+const ora = require("ora")
 const {logger, loggerStart, loggerStop, loggerText } = require('../config/loggerConfig.js')
 // get config.json
 const {getOptions} = require('../config/work-options.js')
@@ -265,10 +265,6 @@ async function setObjectKey(obj, api) {
       return false
     }
 
-    if(howManyValNoTran > 0){
-			loggerText(`该文件没翻译成功的有${howManyValNoTran}/${thisTranArray.length}`)
-		}
-
     // // Fix use Fix/lengthEqual.js
     // if(thisTranArray.length < resultArray.length){
 
@@ -280,6 +276,12 @@ async function setObjectKey(obj, api) {
 
 
 		setdeep(newObj, resultArray) // [[1],[2]] => [1,2]
+
+
+    if(howManyValNoTran > 0){
+			newObj.Error = `没翻译成功的有 ${howManyValNoTran}/${thisTranArray.length}`
+		}
+
 
     return newObj
 }

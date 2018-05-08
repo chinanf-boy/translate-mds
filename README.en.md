@@ -41,8 +41,8 @@ Usage
   $ translateMds [folder name] [options]
 
 Example
-  $ translateMds md/ 
-  
+  $ translateMds md/
+
   [options]
   -a   API      : default < baidu > {google,baidu,youdao}
 
@@ -53,7 +53,7 @@ Example
   -N   num      : default < 5 > {async number}
 
   -D   debug    : default < false >
-  
+
   -R   rewrite  : default < false > {yes/no retranslate and rewrite translate file}
 ```
 
@@ -68,6 +68,8 @@ let results = await translate([__dirname+'/testWrite1.md'])
 //or
 let results = await translate([__dirname+'/md/'])
 // results is Array
+results = [{text:_translteText, error:String}]
+
 ```
 
 > ...
