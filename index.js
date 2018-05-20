@@ -68,7 +68,7 @@ let asyncNum = setDefault(cli.flags['N'], numTodo, defaultConfig)
 workOptions.setOptions(defaultConfig)
 
 const { logger, loggerStart, loggerText, loggerStop } = require('./config/loggerConfig.js') // winston config
-const translateMds = require('./bin/translateExports.js')
+const translateMds = require('./src/translateMds.js')
 
 // after workOptions ready
 const { writeDataToFile, insert_flg } = require('./src/writeDataToFile.js')
