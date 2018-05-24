@@ -54,7 +54,13 @@ Example
 
   -D   debug    : default < false >
 
-  -R   rewrite  : default < false > {yes/no retranslate and rewrite translate file}
+	-R   rewrite  : default < false > {yes/no retranslate and rewrite translate file}
+
+	-M   matchs    : default [ ". ", "! ", "; ", "！", "? ", "e.g. "] match this str, merge translate
+								 use: -M ". ,! ," will concat
+
+	-S   skips     : default ["... ", "etc. ", "i.e. "] match this str will, skip merge translate
+								 use: -S "... ,etc. " will concat
 ```
 
 * * *
