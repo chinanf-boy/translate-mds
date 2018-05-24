@@ -1,8 +1,8 @@
 let Equal;
 function translateLengthEquals( source, tranTxt){
 
-    let skipArr = ["... ", "e.g. ", "etc. ", "i.e. "]
-    let matchArr = [ ". ", "! ", "; ", "！", "? "]
+    let skipArr = ["... ", "etc. ", "i.e. "]
+    let matchArr = [ ". ", "! ", "; ", "！", "? ", "e.g. "]
     let trim = ["'", '"']
     let ReturnArr = []
     let Tindex = 0
@@ -21,13 +21,23 @@ function translateLengthEquals( source, tranTxt){
 
 			while( source[i].indexOf(val) != -1 ){
 
-				if(skipArr.some(function(skip){
+				let skipIndexs = []
 
-					let L = skip.length - val.length
-					return source[i].indexOf(val) == source[i].indexOf(skip) + L
-				})){
-					source[i] = source[i].replace(val, "🥄 ") // over val
+				skipArr.forEach(function(skip){
+
+					if(source[i].includes(skip)){
+						skipIndexs.push(skip)
+					}
+
+				})
+
+				if(skipIndexs.length){
+
+					skipIndexs.forEach(skip =>{
+						source[i] = source[i].replace(skip, "👌 ") // over val
+					})
 					continue;
+
 				}else{
 					source[i] = source[i].replace(val, "🥄 ") // over val
 					howMany ++ // how many ". "/ etc

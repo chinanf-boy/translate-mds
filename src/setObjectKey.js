@@ -241,7 +241,9 @@ async function setObjectKey(obj, api) {
 
 					loggerText(`-- source: ${thisChunkTran.length}/${thisResult.length}: translte ---`)
 
-					for (let i in thisChunkTran){ // Debug
+					let BigOne = thisChunkTran.length > thisResult.length ? thisChunkTran : thisResult
+
+					for (let i in BigOne){ // Debug
 						logger.debug('2. set- '+ i + ': ' + chalk.green(thisChunkTran[i]) + ' to-> '+ i + ': '+ chalk.yellow(thisResult[i]))
 					}
 
