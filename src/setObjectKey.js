@@ -238,9 +238,10 @@ async function setObjectKey(obj, api) {
 				translateLengthEquals(thisChunkTran, thisResult) // Fix
 
 				if(thisChunkTran.length != thisResult.length){
-					loggerText(`-- source: ${thisChunkTran.length}/${thisResult.length}: translte ---`)
-				for (let i in thisChunkTran){ // Debug
 
+					loggerText(`-- source: ${thisChunkTran.length}/${thisResult.length}: translte ---`)
+
+					for (let i in thisChunkTran){ // Debug
 						logger.debug('2. set- '+ i + ': ' + chalk.green(thisChunkTran[i]) + ' to-> '+ i + ': '+ chalk.yellow(thisResult[i]))
 					}
 
@@ -252,6 +253,16 @@ async function setObjectKey(obj, api) {
 				}
 
 			}
+
+			if(thisChunkTran.length == thisResult.length){
+				// Fix Upper/Lower case
+				for (let i in thisChunkTran){
+					if(thisChunkTran[i].trim().toLowerCase() == thisResult[i].trim().toLowerCase()){
+						thisResult[i] = thisChunkTran[i]
+					}
+				}
+			}
+
 			resultArray = resultArray.concat(thisResult) // Add result
 
 			loggerText(`3. translate loading - ${resultArray.length}/${thisTranArray.length}`)

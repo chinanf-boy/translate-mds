@@ -10,7 +10,7 @@ const tree = {
         "children": [
           {
             "type": "text",
-            "value": "Hello",
+            "value": "1. InPath",
             "position": {
               "start": {
                 "line": 1,
@@ -39,7 +39,7 @@ const tree = {
             "offset": 8
           },
           "indent": [],
-          "value": "world"
+          "value": "2. OutPath"
         }
       }
     ],
@@ -68,12 +68,12 @@ const truetree = {
         "children": [
           {
             "type": "text",
-            "value": "你好",
+            "value": "1. InPath",
             "position": {
               "start": {
                 "line": 1,
                 "column": 4,
-            "value": "你好",             
+            "value": "你好",
                 "offset": 3
               },
               "end": {
@@ -97,7 +97,7 @@ const truetree = {
             "offset": 8
           },
           "indent": [],
-          "value": "世界"          
+          "value": "2. OutPath"
         }
       }
     ],
