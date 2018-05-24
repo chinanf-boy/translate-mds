@@ -67,8 +67,6 @@ function loggerText(str, options = {level:"debug",color:"green"}){
 		if (options.level) {
 			let level = options.level
 			LOGGER[level](str)
-		} else {
-			LOGGER.debug(str)
 		}
 	}
 }
@@ -80,6 +78,9 @@ function loggerText(str, options = {level:"debug",color:"green"}){
  * @param {string} options.level
  */
 function loggerStop(str, options = {level:"debug"}){
+	if(!LOGGER){
+		return false
+	}
 	if (!D) {
 		if (options.ora && str) {
 			let ora = options.ora
@@ -89,7 +90,7 @@ function loggerStop(str, options = {level:"debug"}){
 		}
 	} else {
 		if (str) {
-
+			LOGGER[options.level](str)
 		}
 	}
 

@@ -22,3 +22,8 @@ test.serial(' logger stop', t => {
 	loggerStop()
 	t.true(!getLogger())
 });
+
+test.serial(' logger stop with no start ', t => {
+
+	t.true(!loggerStop("ok done"))
+});

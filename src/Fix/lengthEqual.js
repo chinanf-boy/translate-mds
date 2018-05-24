@@ -9,7 +9,6 @@ function translateLengthEquals( source, tranTxt){
 
     let skipArr = ["... ", "etc. ", "i.e. "].concat(skips)
 	let matchArr = [ ". ", "! ", "; ", "！", "? ", "e.g. "].concat(matchs)
-	console.log(skipArr, matchArr)
     let trim = ["'", '"']
     let ReturnArr = []
     let Tindex = 0

@@ -37,7 +37,6 @@ test("matchAndSkip",t=>{
 	t.is(s.length, 2)
 	const s2 = matchAndSkip({n:"info",type:'M'},rNobj(defaultArgs))
 	t.is(s2.length, 1)
-	console.log(s2)
 	const s3 = matchAndSkip("",rNobj(defaultArgs))
 	t.is(s3.length, 0)
 })
