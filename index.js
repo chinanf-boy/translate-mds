@@ -18,7 +18,7 @@ const chalk = require('chalk');
 const remark = require('remark')
 
 // option todo list
-const { setDefault, debugTodo, fromTodo, toTodo, apiTodo, rewriteTodo, numTodo } = require('./src/optionsTodo.js')
+const { setDefault, debugTodo, fromTodo, toTodo, apiTodo, rewriteTodo, numTodo,matchAndSkip } = require('./src/optionsTodo.js')
 
 // config
 let defaultJson = './config/defaultConfig.json' // default config---
@@ -46,7 +46,11 @@ Example
 
   -R   rewrite  : default < false > {yes/no retranslate and rewrite translate file}
 
-  -T   timeout  : default {this 功能 待续}
+	-M   matchs    : default [ ". ", "! ", "; ", "！", "? ", "e.g. "] match this str, merge translate
+								 use: -M ". ,! ,"
+
+	-S   skips     : default ["... ", "etc. ", "i.e. "] match this str will, skip merge translate
+								 use: -S "... ,etc. "
 `);
 
 const APIs = ['google','baidu','youdao']
@@ -63,6 +67,9 @@ let tranTo = setDefault(cli.flags['t'], toTodo, defaultConfig)
 let api = setDefault(cli.flags['a'], apiTodo, defaultConfig)
 let rewrite = setDefault(cli.flags['R'], rewriteTodo, defaultConfig)
 let asyncNum = setDefault(cli.flags['N'], numTodo, defaultConfig)
+setDefault({n:cli.flags['M'],type:'M'}, matchAndSkip, defaultConfig)
+setDefault({n:cli.flags['S'],type:'S'}, matchAndSkip, defaultConfig)
+
 
 // 用 更改的 defaultConfig 写入 workOptions
 workOptions.setOptions(defaultConfig)

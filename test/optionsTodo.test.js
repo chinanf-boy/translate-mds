@@ -30,6 +30,18 @@ test("debugTodo",t=>{
     t.is(s2,'info')
 })
 
+const {matchAndSkip} = require(p)
+
+test("matchAndSkip",t=>{
+    const s = matchAndSkip({n:"info,nihao",type:'M'},rNobj(defaultArgs))
+	t.is(s.length, 2)
+	const s2 = matchAndSkip({n:"info",type:'M'},rNobj(defaultArgs))
+	t.is(s2.length, 1)
+	console.log(s2)
+	const s3 = matchAndSkip("",rNobj(defaultArgs))
+	t.is(s3.length, 0)
+})
+
 const {fromTodo} = require(p)
 
 test("fromTodo",t=>{
@@ -71,7 +83,7 @@ const {numTodo} = require(p)
 test("numTodo",t=>{
     const s = numTodo(10,rNobj(defaultArgs))
     t.is(s,10)
-    
+
     const s2 = numTodo('google',rNobj(defaultArgs))
     t.is(s2,5)
 })

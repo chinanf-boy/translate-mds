@@ -1,8 +1,15 @@
+const {
+	getOptions
+} = require('../../config/work-options.js')
+let configs = getOptions()
+const { matchs, skips } = configs
+
 let Equal;
 function translateLengthEquals( source, tranTxt){
 
-    let skipArr = ["... ", "etc. ", "i.e. "]
-    let matchArr = [ ". ", "! ", "; ", "！", "? ", "e.g. "]
+    let skipArr = ["... ", "etc. ", "i.e. "].concat(skips)
+	let matchArr = [ ". ", "! ", "; ", "！", "? ", "e.g. "].concat(matchs)
+	console.log(skipArr, matchArr)
     let trim = ["'", '"']
     let ReturnArr = []
     let Tindex = 0

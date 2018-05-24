@@ -1,10 +1,10 @@
 
 // defaultConfig options
 /**
- * @description 
- * @param {String|Boolean} option 
- * @param {Function} callback 
- * @param {any} args 
+ * @description
+ * @param {String|Boolean} option
+ * @param {Function} callback
+ * @param {any} args
  * @returns {Function}
  */
 function setDefault(option, callback, args){
@@ -12,9 +12,29 @@ function setDefault(option, callback, args){
 }
 
 /**
- * @description 
- * @param {String|Boolean} debug 
- * @param {any} args 
+ * @description add match and skip Arr
+ * @param {any} mS
+ * @param {string} mS.n
+ * @param {any} args
+ */
+function matchAndSkip(mS, args){
+	let BeArr = []
+	if(mS.n){
+		BeArr = BeArr.concat(mS.n.trim().split(','))
+	}
+		// init
+	if(mS.type == 'M'){
+		args.matchs = BeArr
+	}else{
+		args.skips = BeArr
+	}
+	return BeArr
+}
+
+/**
+ * @description
+ * @param {String|Boolean} debug
+ * @param {any} args
  * @returns {String}
  */
 function debugTodo(debug, args){
@@ -28,9 +48,9 @@ function debugTodo(debug, args){
 }
 
 /**
- * @description 
- * @param {String} tranFrom 
- * @param {any} args 
+ * @description
+ * @param {String} tranFrom
+ * @param {any} args
  * @returns {String}
  */
 function fromTodo(tranFrom, args){
@@ -41,9 +61,9 @@ return args.from
 }
 
 /**
- * @description 
- * @param {String} tranTo 
- * @param {any} args 
+ * @description
+ * @param {String} tranTo
+ * @param {any} args
  * @returns {String}
  */
 function toTodo(tranTo, args){
@@ -54,9 +74,9 @@ return args.to
 }
 
 /**
- * @description 
- * @param {number} num 
- * @param {any} args 
+ * @description
+ * @param {number} num
+ * @param {any} args
  * @returns {number}
  */
 function numTodo(num, args){
@@ -70,8 +90,8 @@ function numTodo(num, args){
 
 /**
  * @description api {``baidu | google | youdao``}
- * @param {String} api 
- * @param {any} args 
+ * @param {String} api
+ * @param {any} args
  * @returns {String}
  */
 function apiTodo(api, args){
@@ -83,9 +103,9 @@ function apiTodo(api, args){
 }
 
 /**
- * @description 
- * @param {Boolean} rewrite 
- * @param {any} args 
+ * @description
+ * @param {Boolean} rewrite
+ * @param {any} args
  * @returns {Boolean}
  */
 function rewriteTodo(rewrite, args) {
@@ -93,4 +113,4 @@ function rewriteTodo(rewrite, args) {
   args.rewrite = rewrite? true : false
   return args.rewrite
 }
-module.exports = {setDefault, debugTodo, fromTodo, toTodo, apiTodo, rewriteTodo, numTodo }
+module.exports = {setDefault, debugTodo, fromTodo, toTodo, apiTodo, rewriteTodo, numTodo,matchAndSkip }
