@@ -1,5 +1,29 @@
 # Change Log
 
+## [Unreleased](https://github.com/chinanf-boy/translate-mds/tree/HEAD)
+
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.8...HEAD)
+
+**Closed issues:**
+
+- 大小写 [\#19](https://github.com/chinanf-boy/translate-mds/issues/19)
+
+## [v3.0.8](https://github.com/chinanf-boy/translate-mds/tree/v3.0.8) (2018-05-24)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.7...v3.0.8)
+
+## [v3.0.7](https://github.com/chinanf-boy/translate-mds/tree/v3.0.7) (2018-05-20)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.6...v3.0.7)
+
+## [v3.0.6](https://github.com/chinanf-boy/translate-mds/tree/v3.0.6) (2018-05-06)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.5...v3.0.6)
+
+## [v3.0.5](https://github.com/chinanf-boy/translate-mds/tree/v3.0.5) (2018-05-01)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.4...v3.0.5)
+
+**Closed issues:**
+
+- 当 travis Ci 与 npm 配合 [\#3](https://github.com/chinanf-boy/translate-mds/issues/3)
+
 ## [v3.0.4](https://github.com/chinanf-boy/translate-mds/tree/v3.0.4) (2018-04-07)
 [Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.3...v3.0.4)
 
