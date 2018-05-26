@@ -117,7 +117,6 @@ async function setObjectKey(obj, api) {
 		let sum = 0 // single values
 
 		let types = ['html', 'code'].concat(TYPES)
-		console.log(types)
     /**
      * @description Find ``obj['type'] === 'value'`` ,and``tranArray.push(obj[key])``
      * @param {Object} obj
