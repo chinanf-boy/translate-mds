@@ -22,7 +22,8 @@ const {
 	debugTodo,
 	fromTodo,
 	toTodo,
-	apiTodo
+	apiTodo,
+	matchAndSkip
 } = require('./optionsTodo.js')
 
 // Object to Array
@@ -67,7 +68,8 @@ async function translateMds(options, debug, isCli = false) {
 		tranFrom = setDefault(tranFrom, fromTodo, defaultConfig)
 		tranTo = setDefault(tranTo, toTodo, defaultConfig)
 		api = setDefault(api, apiTodo, defaultConfig)
-
+		setDefault({n:options.Matchs,type:'M'}, matchAndSkip, defaultConfig)
+		setDefault({n:options.Skips,type:'S'}, matchAndSkip, defaultConfig)
 		// rewrite config.json
 		workOptions.setOptions(defaultConfig)
 	}
