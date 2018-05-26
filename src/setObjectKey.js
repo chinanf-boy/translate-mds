@@ -5,9 +5,10 @@ const {logger, loggerStart, loggerStop, loggerText } = require('../config/logger
 // get config.json
 const {getOptions} = require('../config/work-options.js')
 const configs = getOptions()
-let tranF, tranT
+let tranF, tranT, TYPES
 tranF = configs['from']
 tranT = configs['to']
+TYPES = configs['types']
 // logger.level = configs.logger.level
 let MAXstring = 300
 
@@ -113,7 +114,10 @@ async function setObjectKey(obj, api) {
     let thisTranArray = []
     let resultArray = []
     let newObj = JSON.parse(JSON.stringify(obj))
-    let sum = 0 // single values
+		let sum = 0 // single values
+
+		let types = ['html', 'code'].concat(TYPES)
+		console.log(types)
     /**
      * @description Find ``obj['type'] === 'value'`` ,and``tranArray.push(obj[key])``
      * @param {Object} obj
@@ -124,7 +128,7 @@ async function setObjectKey(obj, api) {
       Object.keys(obj).forEach(function(key) {
 
         // no translate code content
-      if(obj['type'] && ( obj['type'] === 'html' || obj['type'] === 'code')){
+      if(obj['type'] && ( types.some(t =>obj['type'] == t) )){
         return sum
       }
       (obj[key] && typeof obj[key] === 'object') && deep(obj[key], tranArray)
@@ -147,7 +151,7 @@ async function setObjectKey(obj, api) {
     function setdeep(obj, tranArrayZh) {
       Object.keys(obj).forEach(function(key) {
 
-      if(obj['type'] && ( obj['type'] === 'html' || obj['type'] === 'code')){
+      if(obj['type'] && ( types.some(t =>obj['type'] == t) )){
           return sum
       }
 

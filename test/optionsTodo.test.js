@@ -41,6 +41,13 @@ test("matchAndSkip",t=>{
 	t.is(s3.length, 0)
 })
 
+const {typesTodo} = require(p)
+
+test("typesTodo",t=>{
+    const s = typesTodo({n:"info,nihao",type:'T'},rNobj(defaultArgs))
+	t.is(s.length, 2)
+})
+
 const {fromTodo} = require(p)
 
 test("fromTodo",t=>{

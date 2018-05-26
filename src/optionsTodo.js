@@ -32,6 +32,24 @@ function matchAndSkip(mS, args){
 }
 
 /**
+ * @description add md AST types
+ * @param {any} mS
+ * @param {string} mS.n
+ * @param {any} args
+ */
+function typesTodo(mS, args){
+	let BeArr = []
+	if(mS.n){
+		BeArr = BeArr.concat(mS.n.trim().split(','))
+	}
+		// init
+	if(mS.type == 'T'){
+		args.types = BeArr
+	}
+	return BeArr
+}
+
+/**
  * @description
  * @param {String|Boolean} debug
  * @param {any} args
@@ -113,4 +131,4 @@ function rewriteTodo(rewrite, args) {
   args.rewrite = rewrite? true : false
   return args.rewrite
 }
-module.exports = {setDefault, debugTodo, fromTodo, toTodo, apiTodo, rewriteTodo, numTodo,matchAndSkip }
+module.exports = {setDefault, debugTodo, fromTodo, toTodo, apiTodo, rewriteTodo, numTodo,matchAndSkip,typesTodo }

@@ -37,7 +37,7 @@ translateMds test.md
 
 ## 1. 命令行选项
 
-``` js
+``` bash
 Usage
   $ translateMds [folder name] [options]
 
@@ -57,11 +57,18 @@ Example
 
   -R   rewrite  : default < false > {yes/no retranslate and rewrite translate file}
 
-	-M   matchs    : default [ ". ", "! ", "; ", "！", "? ", "e.g. "] match this str, merge translate
-								 use: -M ". ,! ," will concat
+# high user
 
-	-S   skips     : default ["... ", "etc. ", "i.e. "] match this str will, skip merge translate
-								 use: -S "... ,etc. " will concat
+  -M   matchs   : default [ ". ", "! ", "; ", "！", "? ", "e.g. "] match this str, merge translate
+
+# use: -M ". ,! ," will concat
+
+  -S   skips    : default ["... ", "etc. ", "i.e. "] match this str will, skip merge translate
+
+# use: -S "... ,etc. " will concat
+
+  -T   types    : default ["html", "code"] pass the md AST type
+
 ```
 ---
 
