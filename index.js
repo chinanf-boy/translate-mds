@@ -24,6 +24,8 @@ const { setDefault, debugTodo, fromTodo, toTodo, apiTodo, rewriteTodo, numTodo,m
 let defaultJson = './config/defaultConfig.json' // default config---
 let defaultConfig = require(defaultJson) //---
 let workOptions = require('./config/work-options')
+let g = chalk.green
+let y = chalk.cyan
 
 // cli cmd
 const cli = meow(`
@@ -33,28 +35,45 @@ Usage
 Example
   $ translateMds md/
 
-  [options]
-  -a   API      : default < baidu > {google,baidu,youdao}
+  ${chalk.blue('[options]')}
 
-  -f   from     : default < en >
+  ${g('-a   API')}      : default < baidu >
 
-  -t   to       : default < zh >
+  ${y('{google|baidu|youdao}')}
 
-  -N   num      : default < 5 > {async number}
+  ${g('-f   from ')}    : default < en >
 
-  -D   debug
+  ${g('-t   to   ')}    : default < zh >
 
-  -R   rewrite  : default < false > {yes/no retranslate and rewrite translate file}
+  ${g('-N   num  ')}    : default < 5 >
 
-🌟high user options❤️
+  ${y('{async number}')}
 
-	-M   matchs    : default [ ". ", "! ", "; ", "！", "? ", "e.g. "] match this str, merge translate
-								 use: -M ". ,! ,"
+  ${g('-R   rewrite')}  : default < false >
 
-	-S   skips     : default ["... ", "etc. ", "i.e. "] match this str will, skip merge translate
-								 use: -S "... ,etc. "
+  ${y('{yes/no rewrite translate file}')}
 
-	-T   types     : default ["html", "code"] pass the md AST type
+🌟${chalk.magenta('[high user options]')}❤️
+
+  ${g('-D   debug')}
+
+  ${g('-M   match')}    : default [ ". ", "! ", "; ", "！", "? ", "e.g. "]
+
+  ${y('{match this str, merge translate}')}
+
+  > use: -M ". ,! ,"
+
+  ${g('-S   skips')}    : default ["... ", "etc. ", "i.e. "]
+
+  ${y('{match this str will, skip merge translate}')}
+
+  > use: -S "... ,etc. "
+
+  ${g('-T   types')}    : default ["html", "code"]
+
+  ${y('{pass the md AST type}')}
+
+  > use: -T "h1"
 
 `);
 
@@ -62,7 +81,7 @@ const APIs = ['google','baidu','youdao']
 // Fix write file Path is absoulte
 var dir = cli.input[0]
 if(!dir){
-  return console.log(chalk.green("--> V"+cli.pkg.version,cli.help))
+  return console.log(g("--> V"+cli.pkg.version),cli.help)
 }
 
 // default config
