@@ -6,8 +6,8 @@ like
 .md to .zh.md
 ```
 
-[english](./README.en.md)
-[translate-list](https://github.com/chinanf-boy/translate-list)
+[english](./README.en.md) |
+[translate-list](https://github.com/chinanf-boy/translate-list) |
 
 * * *
 
@@ -18,6 +18,10 @@ like
 [![NPM](https://nodei.co/npm/translate-mds.png)](https://nodei.co/npm/translate-mds/)
 
 * * *
+
+<a href="https://patreon.com/yobrave">
+<img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" height="50">
+</a>
 
 ## This project is for hugo translation`tool`
 
