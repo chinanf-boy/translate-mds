@@ -293,8 +293,6 @@ async function setObjectKey(obj, api) {
 
     resultArray = fixEntoZh(resultArray)
 
-		console.log(resultArray.join("\n"))
-
 		setdeep(newObj, resultArray) // [[1],[2]] => [1,2]
 
 
