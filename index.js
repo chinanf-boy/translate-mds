@@ -55,7 +55,11 @@ Example
 
 🌟${chalk.magenta('[high user options]')}❤️
 
-  ${g('-D   debug')}
+	${g('-D   debug')}
+
+	${g('-G   google.com')} : default < false >
+
+  ${y('{ cn => com with Google api }')}
 
   ${g('-F   force')}    : default < false >
 
@@ -99,8 +103,8 @@ setDefault({n:cli.flags['M'],type:'M'}, matchAndSkip, defaultConfig)
 setDefault({n:cli.flags['S'],type:'S'}, matchAndSkip, defaultConfig)
 setDefault({n:cli.flags['T'],type:'T'}, typesTodo, defaultConfig)
 let Force = cli.flags['F'] ? true : false
-
-
+let COM = cli.flags['G'] ? true : false
+defaultConfig.com = COM
 
 // 用 更改的 defaultConfig 写入 workOptions
 workOptions.setOptions(defaultConfig)

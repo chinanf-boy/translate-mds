@@ -5,10 +5,11 @@ const {logger, loggerStart, loggerStop, loggerText } = require('../config/logger
 // get config.json
 const {getOptions} = require('../config/work-options.js')
 const configs = getOptions()
-let tranF, tranT, TYPES
+let tranF, tranT, TYPES, COM
 tranF = configs['from']
 tranT = configs['to']
 TYPES = configs['types']
+COM   = configs['com']
 // logger.level = configs.logger.level
 let MAXstring = 300
 
@@ -39,7 +40,8 @@ async function translateValue(value, api){
     return tjs[api].translate({
                       text: thisTranString,
                       from: tranF,
-                      to: tranT
+											to: tranT,
+											com: COM
                     }).then(result => {
                       if(!result.result){
                         throw new Error('「结果为空」')
