@@ -174,7 +174,7 @@ async function setObjectKey(obj, api) {
       // remove all \n
       tranArray = tranArray.map(x=>{
         if(x.indexOf('\n')>=0){
-          return x.replace(/[\n]/g,'')
+          return x.replace(/[\n]/g,' ')
         }
         return x
       })
