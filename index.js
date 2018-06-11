@@ -57,15 +57,19 @@ Example
 
   ${g('-D   debug')}
 
+  ${g('-F   force')}    : default < false >
+
+  ${y('{ If, translate result is no 100%, force wirte md file }')}
+
   ${g('-M   match')}    : default [ ". ", "! ", "; ", "！", "? ", "e.g. "]
 
-  ${y('{match this str, merge translate}')}
+  ${y('{match this str, merge translate result }')}
 
   > use: -M ". ,! ,"
 
   ${g('-S   skips')}    : default ["... ", "etc. ", "i.e. "]
 
-  ${y('{match this str will, skip merge translate}')}
+  ${y('{match this str will, skip merge translate result }')}
 
   > use: -S "... ,etc. "
 
@@ -94,6 +98,7 @@ let asyncNum = setDefault(cli.flags['N'], numTodo, defaultConfig)
 setDefault({n:cli.flags['M'],type:'M'}, matchAndSkip, defaultConfig)
 setDefault({n:cli.flags['S'],type:'S'}, matchAndSkip, defaultConfig)
 setDefault({n:cli.flags['T'],type:'T'}, typesTodo, defaultConfig)
+let Force = cli.flags['F'] ? true : false
 
 
 
@@ -180,7 +185,7 @@ async function runTranslate(value){
 
 	const spinner = ora("single file final ending")
 	let Err
-	if(_translateMds.every(x =>!x.error && x.text)){ // translate no ok
+	if(_translateMds.every(x =>!x.error && x.text) || Force ){ // translate no ok
 
 		let _tranData = _translateMds.map(x =>x.text)
 
