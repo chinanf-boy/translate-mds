@@ -1,8 +1,19 @@
 # Change Log
 
-## [Unreleased](https://github.com/chinanf-boy/translate-mds/tree/HEAD)
+## [v3.0.13](https://github.com/chinanf-boy/translate-mds/tree/v3.0.13) (2018-06-11)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.12...v3.0.13)
 
-[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.8...HEAD)
+## [v3.0.12](https://github.com/chinanf-boy/translate-mds/tree/v3.0.12) (2018-06-11)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.11...v3.0.12)
+
+## [v3.0.11](https://github.com/chinanf-boy/translate-mds/tree/v3.0.11) (2018-05-26)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.10...v3.0.11)
+
+## [v3.0.10](https://github.com/chinanf-boy/translate-mds/tree/v3.0.10) (2018-05-24)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.9...v3.0.10)
+
+## [v3.0.9](https://github.com/chinanf-boy/translate-mds/tree/v3.0.9) (2018-05-24)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.8...v3.0.9)
 
 **Closed issues:**
 

@@ -62,6 +62,16 @@ Example
 
 # high user
 
+	-D   debug
+
+  -G   google.com : default < false >
+
+  { cn => com with Google api }
+
+  -F   force    : default < false >
+
+  { If, translate result is no 100%, force wirte md file }
+
   -M   matchs   : default [ ". ", "! ", "; ", "！", "? ", "e.g. "] match this str, merge translate
 
 # use: -M ". ,! ," will concat
