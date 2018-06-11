@@ -35,13 +35,9 @@ async function translateValue(value, api){
     }else{
       thisTranString = value
     }
-    if(api == 'youdao' && tranT === 'zh'){
-      tranT = tranT + '-CN'
-		}
 
-    return tjs.translate({
+    return tjs[api].translate({
                       text: thisTranString,
-                      api: api,
                       from: tranF,
                       to: tranT
                     }).then(result => {
@@ -94,7 +90,7 @@ async function translateValue(value, api){
                       }else{
                         loggerText(`${api},${error.code} 出现了啦，不给数据`,{level:"error", color:"red"})
                       }
-                      return ""
+                      return []
 
                     })
 
@@ -108,7 +104,7 @@ async function translateValue(value, api){
  */
 async function setObjectKey(obj, api) {
 
-    let allAPi = ['baidu','google','youdao']
+		let allAPi = ['baidu','google','youdao']
     let howManyValNoTran = 0
     let tranArray = []
     let thisTranArray = []
@@ -201,25 +197,32 @@ async function setObjectKey(obj, api) {
 
 				loggerText(`2. use ${chalk.green(api)} - ${chalk.red("If slow , may be you should try again")}`)
 
-        if(chunkTranArray[third].join("").length > MAXstring){ // string > 300
+				if(thisChunkTran.join("").length > MAXstring){ // string > 300
+
           let thisChunkTranL_2 = Math.ceil( thisChunkTran.length/2 )
 
           let left = indexMergeArr(thisChunkTran, 0, thisChunkTranL_2)
           let right = indexMergeArr(thisChunkTran, thisChunkTranL_2 , thisChunkTranL_2)
 
-          let t0 = await translateValue(left, api)
+					loggerText(`2. translate ${chalk.cyan(left.join(" "))} ${chalk.green(left.length)}`)
+					let t0 = await translateValue(left, api)
+					loggerText(`2. translate ${chalk.cyan(right.join(" "))} ${chalk.green(right.length)}`)
           let t1 = await translateValue(right, api)
 
           thisResult = t0.concat(t1)
 
         }else{
-          thisResult = await translateValue(chunkTranArray[third], api)
+					loggerText(`2. translate ${chalk.cyan(thisChunkTran.join(" "))} ${chalk.green(thisChunkTran.length)}`)
+
+					thisResult = await translateValue(thisChunkTran, api)
+
+					loggerText(`2. this result ${thisResult.join(" ")} ${chalk.green(thisResult.length)}`)
         } // get Result Arr
 
         api = allAPi[i]
 
         // result-1 return translate value, break for allAPi
-        if(thisResult.length > 0 && thisResult.length >= chunkTranArray[third].length){
+        if(thisResult.length > 0 && thisResult.length >= thisChunkTran.length){
 
             break
         }
@@ -229,8 +232,8 @@ async function setObjectKey(obj, api) {
 				// ending is no result
 
 						// count how many string no translate
-						howManyValNoTran += chunkTranArray[third].length
-						thisResult = chunkTranArray[third] // Add source tran
+						howManyValNoTran += thisChunkTran.length
+						thisResult = thisChunkTran // Add source tran
 
         }
 
@@ -253,8 +256,8 @@ async function setObjectKey(obj, api) {
 				}
 
 				if(thisChunkTran.length != thisResult.length){ // can't Fix
-					howManyValNoTran += chunkTranArray[third].length
-					thisResult = chunkTranArray[third] // Add source tran
+					howManyValNoTran += thisChunkTran.length
+					thisResult = thisChunkTran // Add source tran
 				}
 
 			}
@@ -290,6 +293,7 @@ async function setObjectKey(obj, api) {
 
     resultArray = fixEntoZh(resultArray)
 
+		console.log(resultArray.join("\n"))
 
 		setdeep(newObj, resultArray) // [[1],[2]] => [1,2]
 

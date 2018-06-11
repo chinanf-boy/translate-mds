@@ -179,8 +179,8 @@ results = [{text:_translteText, error:String}]
 
 ---
 
-使用 [``remark``](https://github.com/wooorm/remark) 提高精准度
+使用 [`remark`](https://github.com/wooorm/remark) 提高精准度
 
-使用 [``translate.js``](https://github.com/Selection-Translator/translation.js) 完成 与翻译网站的交互
+使用 [`translation.js`](https://github.com/Selection-Translator/translation.js) 完成 与翻译网站的交互
 
 还有个 [异步Promise 递归的 例子](https://github.com/chinanf-boy/translate-mds/blob/master/src/setObjectKey.js#L78)

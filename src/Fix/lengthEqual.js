@@ -64,7 +64,9 @@ function mergeAndCut(Arr, index, howMany){
     }
 
     (howMany > 1) && mergeAndCut(Arr, index+1, (howMany-1))
-
+	if(Equal == Arr.length) {
+		return
+	}
 	// if(Equal == Arr.length) return
     // [1,2,3] => [12,2,3]
     Arr[index] = Arr[index] + Arr[index+1]

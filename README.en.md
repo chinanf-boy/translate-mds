@@ -188,6 +188,6 @@ Near the end of the few documents, the wait has been turn, then the network spee
 
 Use[`remark`](https://github.com/wooorm/remark)Improve accuracy
 
-Use[`translate.js`](https://github.com/Selection-Translator/translation.js)Complete the interaction with the translation website
+Use[`translation.js`](https://github.com/Selection-Translator/translation.js)Complete the interaction with the translation website
 
 There is one[Examples of asynchronous promise recursion](https://github.com/chinanf-boy/translate-mds/blob/master/src/setObjectKey.js#L78)
