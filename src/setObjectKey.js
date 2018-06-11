@@ -88,9 +88,9 @@ async function translateValue(value, api){
 
                     }).catch(error => {
                       if(!error.code){
-                        loggerText(`${api},${error} tjs-程序错误`, {level:"error", color:"red"})
+                        logger.debug(`${api},${error} tjs-程序错误`, {level:"error", color:"red"})
                       }else{
-                        loggerText(`${api},${error.code} 出现了啦，不给数据`,{level:"error", color:"red"})
+                        logger.debug(`${api},${error.code} 出现了啦，不给数据`,{level:"error", color:"red"})
                       }
                       return []
 
@@ -206,19 +206,19 @@ async function setObjectKey(obj, api) {
           let left = indexMergeArr(thisChunkTran, 0, thisChunkTranL_2)
           let right = indexMergeArr(thisChunkTran, thisChunkTranL_2 , thisChunkTranL_2)
 
-					loggerText(`2. translate ${chalk.cyan(left.join(" "))} ${chalk.green(left.length)}`)
+					logger.debug(`2. translate ${chalk.cyan(left.join(" "))} ${chalk.green(left.length)}`)
 					let t0 = await translateValue(left, api)
-					loggerText(`2. translate ${chalk.cyan(right.join(" "))} ${chalk.green(right.length)}`)
+					logger.debug(`2. translate ${chalk.cyan(right.join(" "))} ${chalk.green(right.length)}`)
           let t1 = await translateValue(right, api)
 
           thisResult = t0.concat(t1)
 
         }else{
-					loggerText(`2. translate ${chalk.cyan(thisChunkTran.join(" "))} ${chalk.green(thisChunkTran.length)}`)
+					logger.debug(`2. translate ${chalk.cyan(thisChunkTran.join(" "))} ${chalk.green(thisChunkTran.length)}`)
 
 					thisResult = await translateValue(thisChunkTran, api)
 
-					loggerText(`2. this result ${thisResult.join(" ")} ${chalk.green(thisResult.length)}`)
+					logger.debug(`2. this result ${thisResult.join(" ")} ${chalk.green(thisResult.length)}`)
         } // get Result Arr
 
         api = allAPi[i]

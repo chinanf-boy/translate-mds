@@ -57,7 +57,7 @@ Example
 
 	${g('-D   debug')}
 
-	${g('-G   google.com')} : default < false >
+  ${g('-G   google.com')} : default < false >
 
   ${y('{ cn => com with Google api }')}
 
