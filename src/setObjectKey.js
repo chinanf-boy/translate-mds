@@ -1,6 +1,7 @@
 const tjs = require('translation.js')
 const chalk = require('chalk')
 const ora = require("ora")
+const debug = require("debug")("mds:tran")
 const {logger, loggerStart, loggerStop, loggerText } = require('../config/loggerConfig.js')
 // get config.json
 const {getOptions} = require('../config/work-options.js')
@@ -206,19 +207,19 @@ async function setObjectKey(obj, api) {
           let left = indexMergeArr(thisChunkTran, 0, thisChunkTranL_2)
           let right = indexMergeArr(thisChunkTran, thisChunkTranL_2 , thisChunkTranL_2)
 
-					logger.debug(`2. translate ${chalk.cyan(left.join(" "))} ${chalk.green(left.length)}`)
+					debug(`2. translate ${chalk.cyan(left.join(" "))} ${chalk.green(left.length)}\n\n`)
 					let t0 = await translateValue(left, api)
-					logger.debug(`2. translate ${chalk.cyan(right.join(" "))} ${chalk.green(right.length)}`)
+					debug(`2. translate ${chalk.cyan(right.join(" "))} ${chalk.green(right.length)}\n\n`)
           let t1 = await translateValue(right, api)
 
           thisResult = t0.concat(t1)
 
         }else{
-					logger.debug(`2. translate ${chalk.cyan(thisChunkTran.join(" "))} ${chalk.green(thisChunkTran.length)}`)
+					debug(`2. translate ${chalk.cyan(thisChunkTran.join(" "))} ${chalk.green(thisChunkTran.length)}\n\n`)
 
 					thisResult = await translateValue(thisChunkTran, api)
 
-					logger.debug(`2. this result ${thisResult.join(" ")} ${chalk.green(thisResult.length)}`)
+					debug(`2. this result ${thisResult.join(" ")} ${chalk.green(thisResult.length)}\n\n`)
         } // get Result Arr
 
         api = allAPi[i]
