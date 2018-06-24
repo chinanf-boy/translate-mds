@@ -18,7 +18,7 @@ test.failing('translate input Object fail', async t =>{
     t.fail()
 })
 test.serial('translate absolute file ', async t =>{
-	let results = await translate({aFile:__dirname+'/testWrite1.md', api:'baidu'})
+	let results = await translate({aFile:__dirname+'/testWrite1.md', api:'google'})
 	results = results.map(x =>x.text)
     results = results.join('')
     t.true(JSON.stringify(results).length > 10)
@@ -31,7 +31,7 @@ test.serial('translate absolute file from zh to en', async t =>{
 })
 
 test.serial('translate absolute folder auto', async t =>{
-	let results = await translate([path.resolve(__dirname,'../md/'),'baidu'], 'info')
+	let results = await translate([path.resolve(__dirname,'../md/'),'google'], 'info')
 	results = results.map(x =>x.text)
     t.is(results.length,5)
 })
