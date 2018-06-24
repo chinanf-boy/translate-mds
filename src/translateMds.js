@@ -97,7 +97,10 @@ async function translateMds(options, debug, isCli = false) {
 
 		if (translateMdAst) {
 			// Ast to markdown
-			body = remark.stringify(translateMdAst)
+			body = remark().use({
+				settings: {commonmark: true, emphasis: '*', strong: '*'}
+			}).stringify(translateMdAst)
+
 			return [head + '\n' + body, E]
 		}
 

@@ -140,7 +140,7 @@ async.mapLimit(getList, asyncNum, runTranslate,
                   if(IsTranslateS.every(x =>!!x)){
                       doneShow(`All Done`)
                   }else{
-                      doneShow(`Some No Done`)
+                      doneShow(`Some No Done , use cli-option { -D } find the Err`)
 									}
 									loggerStop()
                   console.timeEnd("time")
