@@ -198,7 +198,7 @@ async function setObjectKey(obj, api) {
 
       for(let i in allAPi){
 
-				loggerText(`2. use ${chalk.green(api)} - ${chalk.red("If slow , may be you should try again or use -D ")}`)
+				loggerText(`2. use ${chalk.green(api)} ${resultArray.length}/${thisTranArray.length} - ${chalk.red("If slow , may be you should try again or use -D ")}`)
 
 				if(thisChunkTran.join("").length > MAXstring){ // string > 300
 
