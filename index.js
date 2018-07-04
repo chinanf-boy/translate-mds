@@ -26,6 +26,7 @@ let defaultConfig = require(defaultJson) //---
 let workOptions = require('./config/work-options')
 let g = chalk.green
 let y = chalk.cyan
+let yow = chalk.yellow
 
 // cli cmd
 const cli = meow(`
@@ -140,7 +141,9 @@ async.mapLimit(getList, asyncNum, runTranslate,
                   if(IsTranslateS.every(x =>!!x)){
                       doneShow(`All Done`)
                   }else{
-                      doneShow(`Some No Done , use cli-option { -D } find the Err`)
+											console.log()
+											doneShow(`Some No Done , ${yow("use")} cli-option${chalk.red(' { -D } ')} find the Err`)
+                      doneShow(`Or ${yow("use")} cli-option${chalk.red(' { -F } ')} Force put the translate Result`)
 									}
 									loggerStop()
                   console.timeEnd("time")
