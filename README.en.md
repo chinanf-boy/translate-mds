@@ -23,20 +23,22 @@ like
 * * *
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
-
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
--   [This project is for all-of-markdown-writing-files translation`工具`](#%E8%BF%99%E4%B8%AA%E9%A1%B9%E7%9B%AE%E6%98%AF-%E4%B8%BA%E4%BA%86-%E6%89%80%E6%9C%89-%E7%9A%84-markdown-%E7%BC%96%E5%86%99-%E6%96%87%E4%BB%B6-%E7%BF%BB%E8%AF%91-%E7%9A%84-%E5%B7%A5%E5%85%B7)
--   [Demo](#demo)
--   [Command line options](#%E5%91%BD%E4%BB%A4%E8%A1%8C%E9%80%89%E9%A1%B9)
--   [Project reference](#%E9%A1%B9%E7%9B%AE%E5%BC%95%E7%94%A8)
-    -   [translate(options,debug)](#translateoptionsdebug)
-    -   [Options when using \[\]](#options-%E5%BD%93%E7%94%A8-)
-    -   [Options when using {}](#options-%E5%BD%93-%E7%94%A8-)
--   [My-translate-list](#my-translate-list)
--   [common problem](#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
-    -   [Welcome 👏 ISSUE and PULL](#%E6%AC%A2%E8%BF%8E-issue-%E5%92%8C-pull)
--   [characteristic](#%E7%89%B9%E6%80%A7)
+
+- [This project is for all-of-markdown-writing-files translation`工具`](#this-project-is-for-all-of-markdown-writing-files-translation%E5%B7%A5%E5%85%B7)
+- [Demo](#demo)
+- [Command line options](#command-line-options)
+- [Project reference](#project-reference)
+  - [translate(options,debug)](#translateoptionsdebug)
+  - [Options when using `[]`](#options-when-using-)
+  - [Options when using `{}`](#options-when-using-)
+- [My-translate-list](#my-translate-list)
+- [common problem](#common-problem)
+  - [1.  Sometimes the wind will get stuck and stagnate.](#1--sometimes-the-wind-will-get-stuck-and-stagnate)
+  - [2.  There are a number of totals that have not been translated successfully](#2--there-are-a-number-of-totals-that-have-not-been-translated-successfully)
+  - [Welcome 👏 ISSUE and PULL](#welcome--issue-and-pull)
+- [characteristic](#characteristic)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -57,7 +59,7 @@ translateMds test.md
 
 ## Demo
 
-[![asciicast](https://asciinema.org/a/aPDJ0Vdt3awZs8NJV8DtYH0ww.png)](https://asciinema.org/a/aPDJ0Vdt3awZs8NJV8DtYH0ww)
+![demo](./imgs/demo.gif)
 
 ## Command line options
 
@@ -118,11 +120,11 @@ results = [{text:_translteText, error:String}]
 
 ### translate(options,debug)
 
-### Options when using \[]
+### Options when using `[]`
 
 [aFile, api, tF, tT]= options
 
-### Options when using {}
+### Options when using `{}`
 
 > Optiioins = {aFile:`String`, api:`String`, tF:`String`tT:`String`}
 
@@ -142,7 +144,7 @@ results = [{text:_translteText, error:String}]
 
 ## common problem
 
-1.  Sometimes the wind will get stuck and stagnate.
+### 1.  Sometimes the wind will get stuck and stagnate.
 
 ```js
 If slow , may be you should try again or use -D
@@ -150,7 +152,7 @@ If slow , may be you should try again or use -D
 
 The problem comes from the API, you just have to run it again.
 
-2.  There are a number of totals that have not been translated successfully
+### 2.  There are a number of totals that have not been translated successfully
 
 > Quantity is no translation success / total is the total number of single file translations
 

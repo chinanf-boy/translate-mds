@@ -31,10 +31,12 @@ like
 - [命令行选项](#%E5%91%BD%E4%BB%A4%E8%A1%8C%E9%80%89%E9%A1%B9)
 - [项目引用](#%E9%A1%B9%E7%9B%AE%E5%BC%95%E7%94%A8)
   - [translate(options,debug)](#translateoptionsdebug)
-  - [options 当用 []](#options-%E5%BD%93%E7%94%A8-)
-  - [options 当 用 {}](#options-%E5%BD%93-%E7%94%A8-)
+  - [options 当用 `[]`](#options-%E5%BD%93%E7%94%A8-)
+  - [options 当 用 `{}`](#options-%E5%BD%93-%E7%94%A8-)
 - [My-translate-list](#my-translate-list)
 - [常见问题](#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
+  - [1. 有时会抽风会卡住,停滞](#1-%E6%9C%89%E6%97%B6%E4%BC%9A%E6%8A%BD%E9%A3%8E%E4%BC%9A%E5%8D%A1%E4%BD%8F%E5%81%9C%E6%BB%9E)
+  - [2. 没翻译成功的有 数量/总数](#2-%E6%B2%A1%E7%BF%BB%E8%AF%91%E6%88%90%E5%8A%9F%E7%9A%84%E6%9C%89-%E6%95%B0%E9%87%8F%E6%80%BB%E6%95%B0)
   - [欢迎👏 ISSUE 和 PULL](#%E6%AC%A2%E8%BF%8E-issue-%E5%92%8C-pull)
 - [特性](#%E7%89%B9%E6%80%A7)
 
@@ -57,7 +59,7 @@ translateMds test.md
 
 ## Demo
 
-[![asciicast](https://asciinema.org/a/aPDJ0Vdt3awZs8NJV8DtYH0ww.png)](https://asciinema.org/a/aPDJ0Vdt3awZs8NJV8DtYH0ww)
+![demo](./imgs/demo.gif)
 
 ## 命令行选项
 
@@ -120,11 +122,11 @@ results = [{text:_translteText, error:String}]
 
 ### translate(options,debug)
 
-### options 当用 []
+### options 当用 `[]`
 
 [ aFile,api,tF,tT ] = options
 
-### options 当 用 {}
+### options 当 用 `{}`
 
 > optioins = {aFile: `String` ,api: `String` ,tF: `String` tT: `String` }
 
@@ -145,7 +147,7 @@ name | default | desc
 
 ## 常见问题
 
-1. 有时会抽风会卡住,停滞
+### 1. 有时会抽风会卡住,停滞
 
 ``` js
 If slow , may be you should try again or use -D
@@ -153,7 +155,7 @@ If slow , may be you should try again or use -D
 
 问题来自 API, 你只要再运行.
 
-2. 没翻译成功的有 数量/总数
+### 2. 没翻译成功的有 数量/总数
 
 > 数量是 没有翻译成功/总数是 单个文件翻译总数
 
