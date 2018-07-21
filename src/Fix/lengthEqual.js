@@ -7,8 +7,8 @@ const { matchs, skips } = configs
 let Equal;
 function translateLengthEquals( source, tranTxt){
 
-    let skipArr = ["... ", "etc. ", "i.e. "].concat(skips)
-	let matchArr = [ ". ", "! ", "; ", "！", "? ", "e.g. "].concat(matchs)
+    let skipArr = ["... ", "etc. ", "i.e. ", "e.g. "].concat(skips)
+	let matchArr = [ ". ", "! ", "; ", "！", "? "].concat(matchs)
     let trim = ["'", '"']
     let ReturnArr = []
     let Tindex = 0
