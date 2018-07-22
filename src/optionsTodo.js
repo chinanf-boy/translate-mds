@@ -20,7 +20,7 @@ function setDefault(option, callback, args){
 function matchAndSkip(mS, args){
 	let BeArr = []
 	if(mS.n){
-		BeArr = BeArr.concat(mS.n.trim().split(','))
+		BeArr = BeArr.concat(mS.n.split(','))
 	}
 		// init
 	if(mS.type == 'M'){

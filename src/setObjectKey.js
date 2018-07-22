@@ -207,15 +207,12 @@ async function setObjectKey(obj, api) {
           let left = indexMergeArr(thisChunkTran, 0, thisChunkTranL_2)
           let right = indexMergeArr(thisChunkTran, thisChunkTranL_2 , thisChunkTranL_2)
 
-					debug(`2.${api} translate ${chalk.cyan(left.join(" "))} ${chalk.green(left.length)}\n\n`)
 					let t0 = await translateValue(left, api)
-					debug(`2.${api} translate ${chalk.cyan(right.join(" "))} ${chalk.green(right.length)}\n\n`)
           let t1 = await translateValue(right, api)
 
           thisResult = t0.concat(t1)
 
         }else{
-					debug(`2.${api} translate ${chalk.cyan(thisChunkTran.join(" "))} ${chalk.green(thisChunkTran.length)}\n\n`)
 
 					thisResult = await translateValue(thisChunkTran, api)
 
@@ -240,27 +237,29 @@ async function setObjectKey(obj, api) {
         }
 
 			}
-			debug(`2.  ${chalk.cyan("this result")} ${thisResult.join(" ")} ${chalk.green(thisResult.length)}\n\n`)
 			// Fix use Fix/lengthEqual.js in every Chunk
 			if(thisChunkTran.length < thisResult.length){
 
 				translateLengthEquals(thisChunkTran, thisResult) // Fix
 
-				if(thisChunkTran.length != thisResult.length){
+			}
 
-					loggerText(`-- source: ${thisChunkTran.length}/${thisResult.length}: translte ---`)
 
-					let BigOne = thisChunkTran.length > thisResult.length ? thisChunkTran : thisResult
+			let BigOne = thisChunkTran.length > thisResult.length ? thisChunkTran : thisResult
 
-					for (let i in BigOne){ // Debug
-						logger.debug('2. set- '+ i + ': ' + chalk.green(thisChunkTran[i]) + ' to-> '+ i + ': '+ chalk.yellow(thisResult[i]))
-					}
+			if(debug.enabled){ // debug deep
+				debug(`-- source: ${thisChunkTran.length}/${thisResult.length}: translte ---`)
 
+				for (let i in BigOne){ // Debug
+					debug('2. set- '+ i + ': ' + chalk.green(thisChunkTran[i]) + ' to-> '+ i + ': '+ chalk.yellow(thisResult[i]))
 				}
 
-				if(thisChunkTran.length != thisResult.length){ // can't Fix
-					howManyValNoTran += thisChunkTran.length
-					thisResult = thisChunkTran // Add source tran
+			}else if(thisChunkTran.length != thisResult.length){ // debug only unequal
+
+				loggerText(`-- source: ${thisChunkTran.length}/${thisResult.length}: translte ---`)
+
+				for (let i in BigOne){ // Debug
+					logger.debug('2. set- '+ i + ': ' + chalk.green(thisChunkTran[i]) + ' to-> '+ i + ': '+ chalk.yellow(thisResult[i]))
 				}
 
 			}
@@ -272,6 +271,11 @@ async function setObjectKey(obj, api) {
 						thisResult[i] = thisChunkTran[i]
 					}
 				}
+			}
+
+			if(thisChunkTran.length != thisResult.length){ // can't Fix
+				howManyValNoTran += thisChunkTran.length
+				thisResult = thisChunkTran // Add source tran
 			}
 
 			resultArray = resultArray.concat(thisResult) // Add result

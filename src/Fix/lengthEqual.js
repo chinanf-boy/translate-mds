@@ -25,7 +25,7 @@ function translateLengthEquals( source, tranTxt){
                 return val
             }
 
-			while( source[i].indexOf(val) != -1 ){
+			while( val && source[i].indexOf(val) != -1 ){
 
 				let skipIndexs = []
 
