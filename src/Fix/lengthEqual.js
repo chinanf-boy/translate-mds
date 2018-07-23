@@ -8,10 +8,9 @@ let Equal;
 function translateLengthEquals( source, tranTxt){
 
     let skipArr = ["... ", "etc. ", "i.e. ", "e.g. "].concat(skips)
-	let matchArr = [ ". ", "! ", "; ", "！", "? "].concat(matchs)
+	let matchArr = [ ". ", "! ", "; ", "！", "? ", "。"].concat(matchs)
     let trim = ["'", '"']
     let ReturnArr = []
-    let Tindex = 0
 	Equal = source.length
     for( let i in source){ // typeof i == string
 		// if(Equal == tranTxt.length) return
@@ -51,33 +50,28 @@ function translateLengthEquals( source, tranTxt){
 
 			}
 		})
-
         !!(howMany) && mergeAndCut(tranTxt, +i, howMany) // pay attion two + ,  string/number
     }
 
 }
 
-function mergeAndCut(Arr, index, howMany){
+function mergeAndCut(Arr, index, howMany, TestLen){
+	let E = Equal || TestLen
+	let num = 0;
+	// Merge howMany items to Index item
+	for(let i = index; i < index + howMany ; i++){
 
-    if(Arr.length < (index+1+howMany)){
-        howMany = Arr.length - index - 1
-    }
+		if(Arr.length - num !== E){
+			Arr[i+1] && (Arr[index] = Arr[index] + Arr[i+1])
+			num ++
+		}else{
+			break;
+		}
 
-    (howMany > 1) && mergeAndCut(Arr, index+1, (howMany-1))
-	if(Equal == Arr.length) {
-		return
 	}
-	// if(Equal == Arr.length) return
-    // [1,2,3] => [12,2,3]
-    Arr[index] = Arr[index] + Arr[index+1]
-    // [12,2,3] => [12,3]
-    for(let i = index+1; i < Arr.length; i ++){
-        if( i == (Arr.length - 1)){
-            Arr.pop()
-            break
-        }
-        Arr[i] = Arr[i + 1]
-	}
+	// splice Items : From the Index + 1 to ` i `
+	Arr.splice(index+1, num)
+
 }
 
 module.exports = { translateLengthEquals, mergeAndCut }
