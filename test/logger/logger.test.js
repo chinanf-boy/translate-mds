@@ -3,27 +3,54 @@ const {	logger,
 	loggerStart,
 	loggerText,
 	loggerStop,
-	getLogger } = require('../../config/loggerConfig')
+	getLogger,
+	_SETDEBUG } = require('../../config/loggerConfig')
 
 const H = "hello world"
 
-test.serial(' logger start', t => {
+test.todo("logger")
+
+test.serial('start', t => {
 	loggerStart(H)
 	let L = getLogger()
 	t.true(L !== undefined)
 });
 
-test.serial('logger text', t => {
+test.serial('text', t => {
 	loggerText(H)
 	t.is(getLogger().text, H)
 });
 
-test.serial(' logger stop', t => {
+test.serial(' stop', t => {
 	loggerStop()
 	t.true(!getLogger())
 });
 
-test.serial(' logger stop with no start ', t => {
+test.serial('stop with no start ', t => {
+
+	t.true(!loggerStop("ok done"))
+});
+
+test.todo("logger DEBUG")
+
+test('start DEBUG', t => {
+	_SETDEBUG(true)
+	loggerStart(H)
+	let L = getLogger()
+	t.true(L !== undefined)
+});
+
+test('text DEBUG', t => {
+	loggerText(H)
+	t.is(!!getLogger().debug, true)
+});
+
+test(' stop DEBUG', t => {
+	loggerStop()
+	t.true(!getLogger())
+});
+
+test('stop with no start DEBUG', t => {
 
 	t.true(!loggerStop("ok done"))
 });

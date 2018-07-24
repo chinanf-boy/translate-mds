@@ -27,7 +27,7 @@ var logger = new(winston.Logger)({
 
 logger.level = configs.logger.level
 
-const D = configs.logger.level === 'debug'
+let D = configs.logger.level === 'debug'
 
 // 日志接口
 
@@ -102,12 +102,15 @@ const getLogger = () =>{
 	return LOGGER
 }
 
-
+const _SETDEBUG = (d) =>{
+	D = d
+}
 
 module.exports = {
 	logger,
 	loggerStart,
 	loggerText,
 	loggerStop,
-	getLogger
+	getLogger,
+	_SETDEBUG
 }
