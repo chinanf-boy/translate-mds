@@ -10,12 +10,12 @@
     "demo": "node index.js md/",
     "ava": "ava --verbose --serial",
     "test": "nyc --reporter=lcov --reporter=text --reporter=html npm run ava",
-    "pubGitandNpm": "npm run test && npm version patch && git push origin master && git push --tags",
+    "pub": "npm run test && npm version patch && git push origin master && git push --tags",
     "changelog": "github_changelog_generator"
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm test"
+
     }
   },
   "ava": {
