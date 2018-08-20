@@ -15,7 +15,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm test"
+      "pre-push": "npm test"
     }
   },
   "ava": {
@@ -48,7 +48,7 @@
   ],
   "devDependencies": {
     "ava": "^0.24.0",
-    "husky": "^1.0.0-rc.2",
+    "husky": "1.0.0-rc.13",
     "nyc": "^11.3.0"
   }
 }
