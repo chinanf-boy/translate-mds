@@ -141,10 +141,16 @@ async.mapLimit(getList, asyncNum, runTranslate,
                   if(IsTranslateS.every(x =>!!x)){
                       doneShow(`All Done`)
                   }else{
-											console.log()
-											!debug && doneShow(`Some No Done , ${yow("use")} cli-option${chalk.red(' { -D } ')} find the Err`)
-											!Force && doneShow(`Or ${yow("use")} cli-option${chalk.red(' { -F } ')} Force put the translate Result`)
-											(debug || Force) && doneShow(`[DEBUG:${debug}|Force:${Force}] mode`)
+											console.log(debug,Force)
+											if(debug !== 'debug'){
+												doneShow(`Some No Done , ${yow("use")} cli-option${chalk.red(' { -D } ')} find the Err`)
+											}
+											if(!Force){
+												doneShow(`Or ${yow("use")} cli-option${chalk.red(' { -F } ')} Force put the translate Result`)
+											}
+											if(debug === 'debug' || Force){
+												doneShow(`[${g('DEBUG')}:${debug === 'debug'}|${g('Force')}:${Force}] mode`)
+											}
 									}
 									loggerStop()
                   console.timeEnd("time")
