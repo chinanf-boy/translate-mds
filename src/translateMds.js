@@ -12,20 +12,11 @@ const remark = require('remark')
 const {
 	logger
 } = require('../config/loggerConfig.js') // winston config
-let defaultJson = '../config/defaultConfig.json' // default config---
-let defaultConfig = require(defaultJson) //---
-let workOptions = require('../config/work-options.js')
-//
+
+// config
+const mergeConfig = require('../config/mergeConfig')
+
 let done = 0
-const {
-	setDefault,
-	debugTodo,
-	fromTodo,
-	toTodo,
-	apiTodo,
-	matchAndSkip,
-	typesTodo
-} = require('./optionsTodo.js')
 
 // Object to Array
 function O2A(options) {
@@ -65,16 +56,19 @@ async function translateMds(options, debug, isCli = false) {
 	// change defaultConfig from options
 	// return first option
 	if (!isCli) {
-		debug = setDefault(debug, debugTodo, defaultConfig)
-		tranFrom = setDefault(tranFrom, fromTodo, defaultConfig)
-		tranTo = setDefault(tranTo, toTodo, defaultConfig)
-		api = setDefault(api, apiTodo, defaultConfig)
-		setDefault({n:options.Matchs,type:'M'}, matchAndSkip, defaultConfig)
-		setDefault({n:options.Skips,type:'S'}, matchAndSkip, defaultConfig)
-		setDefault({n:options.Types,type:'T'}, typesTodo, defaultConfig)
+		let opts = {
+			debug,
+			tranFrom,
+			tranTo,
+			api,
+			options
+		};
 
-		// rewrite config.json
-		workOptions.setOptions(defaultConfig)
+		let back =  mergeConfig.main(opts)
+		debug = back.debug
+		tranFrom = back.tranFrom
+		tranTo = back.tranTo
+		api = back.api
 	}
 
 	// setObjectKey.js after rewrite config.json

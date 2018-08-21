@@ -7,5 +7,6 @@
     "to":"zh",
     "num": 1,
 		"rewrite": false,
-		"com": false
+		"com": false,
+		"timeout":"80"
   }

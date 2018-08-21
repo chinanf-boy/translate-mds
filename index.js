@@ -3,7 +3,10 @@
 'use script'
 process.on('uncaughtException', function(err){
   console.error('got an error: %s', err);
-  process.exit(1);
+  process.exitCode = 1;
+});
+process.on('exit', function(err){
+	loggerStop()
 });
 console.time("time")
 
@@ -17,13 +20,8 @@ const ora = require('ora-min')
 const chalk = require('chalk');
 const remark = require('remark')
 
-// option todo list
-const { setDefault, debugTodo, fromTodo, toTodo, apiTodo, rewriteTodo, numTodo,matchAndSkip,typesTodo } = require('./src/optionsTodo.js')
+const mergeConfig = require('./config/mergeConfig')
 
-// config
-let defaultJson = './config/defaultConfig.json' // default config---
-let defaultConfig = require(defaultJson) //---
-let workOptions = require('./config/work-options')
 let g = chalk.green
 let y = chalk.cyan
 let yow = chalk.yellow
@@ -93,22 +91,16 @@ if(!dir){
   return console.log(g("--> V"+cli.pkg.version),cli.help)
 }
 
-// default config
-let debug = setDefault(cli.flags['D'], debugTodo, defaultConfig)
-let tranFr = setDefault(cli.flags['f'], fromTodo, defaultConfig)
-let tranTo = setDefault(cli.flags['t'], toTodo, defaultConfig)
-let api = setDefault(cli.flags['a'], apiTodo, defaultConfig)
-let rewrite = setDefault(cli.flags['R'], rewriteTodo, defaultConfig)
-let asyncNum = setDefault(cli.flags['N'], numTodo, defaultConfig)
-setDefault({n:cli.flags['M'],type:'M'}, matchAndSkip, defaultConfig)
-setDefault({n:cli.flags['S'],type:'S'}, matchAndSkip, defaultConfig)
-setDefault({n:cli.flags['T'],type:'T'}, typesTodo, defaultConfig)
-let Force = cli.flags['F'] ? true : false
-let COM = cli.flags['G'] ? true : false
-defaultConfig.com = COM
-
-// 用 更改的 defaultConfig 写入 workOptions
-workOptions.setOptions(defaultConfig)
+// merge config
+let {
+	debug,
+	tranFr,
+	tranTo,
+	api,
+	rewrite,
+	asyncNum,
+	Force
+} = mergeConfig(cli)
 
 const { logger, loggerStart, loggerText, loggerStop } = require('./config/loggerConfig.js') // winston config
 const translateMds = require('./src/translateMds.js')
@@ -116,7 +108,7 @@ const translateMds = require('./src/translateMds.js')
 // after workOptions ready
 const { writeDataToFile, insert_flg } = require('./src/writeDataToFile.js')
 
-console.log(chalk.blue('Starting 翻译')+chalk.red(dir+" with China source"));
+console.log(chalk.blue('Starting 翻译')+chalk.red(dir));
 
 // main func
 
@@ -235,16 +227,12 @@ async function runTranslate(value){
   return State
 }
 
-function timeout(ms) {
-  return new Promise((resolve, reject) => {
-    setTimeout(resolve, ms);
-  });
-}
+const { time } = require('./src/util')
 
 // async.mapLimit will outside, must lock in
 while(Done){
-  const time = 100
-  await timeout(time)
+  const t = 100
+  await time(t)
 
   if(Done > getList.length){
 		break;

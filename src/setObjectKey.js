@@ -6,11 +6,12 @@ const {logger, loggerStart, loggerStop, loggerText } = require('../config/logger
 // get config.json
 const {getOptions} = require('../config/work-options.js')
 const configs = getOptions()
-let tranF, tranT, TYPES, COM
+let tranF, tranT, TYPES, COM, timeWait
 tranF = configs['from']
 tranT = configs['to']
 TYPES = configs['types']
 COM   = configs['com']
+timeWait = configs['timeout']
 // logger.level = configs.logger.level
 let MAXstring = 300
 
@@ -19,6 +20,7 @@ const { fixEntoZh } = require("./fixEntoZh.js")
 // Fix result.length no equal
 const { translateLengthEquals } = require("./Fix/lengthEqual.js")
 const { fixFileTooBig, indexMergeArr } = require("./Fix/fixFileTooBig.js")
+const { time } = require('./util')
 
 
 //
@@ -36,7 +38,9 @@ async function translateValue(value, api){
         thisTranString = value.join('\n')
     }else{
       thisTranString = value
-    }
+		}
+
+		await time(timeWait)
 
     return tjs[api].translate({
                       text: thisTranString,
