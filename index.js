@@ -141,7 +141,6 @@ async.mapLimit(getList, asyncNum, runTranslate,
                   if(IsTranslateS.every(x =>!!x)){
                       doneShow(`All Done`)
                   }else{
-											console.log(debug,Force)
 											if(debug !== 'debug'){
 												doneShow(`Some No Done , ${yow("use")} cli-option${chalk.red(' { -D } ')} find the Err`)
 											}
