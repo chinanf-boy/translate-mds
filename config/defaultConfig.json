@@ -5,7 +5,7 @@
     "api":"baidu",
     "from":"en",
     "to":"zh",
-    "num": 5,
+    "num": 1,
 		"rewrite": false,
 		"com": false
   }
