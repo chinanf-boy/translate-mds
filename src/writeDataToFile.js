@@ -1,5 +1,5 @@
 const fs = require('fs')
-const chalk = require('chalk');
+const { m } = require('./util')
 const {
 	logger
 } = require('../config/loggerConfig.js')
@@ -41,7 +41,7 @@ const writeDataToFile = async (data, file_dir) => {
 			fs.writeFile(zhfile + '', data, (err) => {
 				if (err)
 					Err(err);
-				ok(`4. ${chalk.magenta(tranT)} file saved! -->> \n ${zhfile}`)
+				ok(`4. ${m(tranT)} file saved! -->> \n ${zhfile}`)
 			});
 
 		}catch(err){

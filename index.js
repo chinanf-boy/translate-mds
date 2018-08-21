@@ -17,14 +17,11 @@ const path = require('path')
 const {Listmd} = require('./src/readmd.js')
 const meow = require('meow');
 const ora = require('ora-min')
-const chalk = require('chalk');
 const remark = require('remark')
 
 const mergeConfig = require('./config/mergeConfig')
 
-let g = chalk.green
-let y = chalk.cyan
-let yow = chalk.yellow
+let {g,y,yow,m,b,r} = require('./src/util')
 
 // cli cmd
 const cli = meow(`
@@ -34,7 +31,7 @@ Usage
 Example
   $ translateMds md/
 
-  ${chalk.blue('[options]')}
+  ${b('[options]')}
 
   ${g('-a   API')}      : default < baidu >
 
@@ -52,7 +49,7 @@ Example
 
   ${y('{yes/no rewrite translate file}')}
 
-🌟${chalk.magenta('[high user options]')}❤️
+🌟${m('[high user options]')}❤️
 
 	${g('-D   debug')}
 
@@ -108,14 +105,14 @@ const translateMds = require('./src/translateMds.js')
 // after workOptions ready
 const { writeDataToFile, insert_flg } = require('./src/writeDataToFile.js')
 
-console.log(chalk.blue('Starting 翻译')+chalk.red(dir));
+console.log(b('Starting 翻译')+r(dir));
 
 // main func
 
 // get floder markdown files Array
 const getList = await Listmd(path.resolve(process.cwd(),dir))
 
-console.log(chalk.blue(`总文件数 ${getList.length}, 有些文件会跳过`));
+console.log(b(`总文件数 ${getList.length}, 有些文件会跳过`));
 
 let Done = 0
 let noDone = []
@@ -134,10 +131,10 @@ async.mapLimit(getList, asyncNum, runTranslate,
                       doneShow(`All Done`)
                   }else{
 											if(debug !== 'debug'){
-												doneShow(`Some No Done , ${yow("use")} cli-option${chalk.red(' { -D } ')} find the Err`)
+												doneShow(`Some No Done , ${yow("use")} cli-option${r(' { -D } ')} find the Err`)
 											}
 											if(!Force){
-												doneShow(`Or ${yow("use")} cli-option${chalk.red(' { -F } ')} Force put the translate Result`)
+												doneShow(`Or ${yow("use")} cli-option${r(' { -F } ')} Force put the translate Result`)
 											}
 											if(debug === 'debug' || Force){
 												doneShow(`[${g('DEBUG')}:${debug === 'debug'}|${g('Force')}:${Force}] mode`)
@@ -164,17 +161,17 @@ async function runTranslate(value){
 
   // filter same file
   if(value.endsWith(`.${tranTo}.md`) || !value.endsWith('.md')) {
-    loggerText(chalk.blue(`- 已翻译的 - 或者 不是 md 文件的 ${localDone}`));
+    loggerText(b(`- 已翻译的 - 或者 不是 md 文件的 ${localDone}`));
     return State
   }
   if( value.match(/\.[a-zA-Z]+\.md+/)){
-		loggerText(chalk.blue(`- 有后缀为 *.国家简写.md 之类 看起来名字已翻译的
+		loggerText(b(`- 有后缀为 *.国家简写.md 之类 看起来名字已翻译的
 		避免出现 .zh.ja.md 的 情况，情况选择 原文件 .md ${localDone}`));
     return State
   }
 
   if(!rewrite && fs.existsSync( insert_flg(value,`.${tranTo}`, 3 ))){
-    loggerText(chalk.blue(`已翻译, 不覆盖 ${localDone}`));
+    loggerText(b(`已翻译, 不覆盖 ${localDone}`));
     return State
   }
 
@@ -210,14 +207,14 @@ async function runTranslate(value){
 
 	if(State && !Err){
 		spinner.start()
-		spinner.text = `已搞定 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'ms')} - ${path.basename(value)} `
+		spinner.text = `已搞定 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(endtime+'ms')} - ${path.basename(value)} `
 		spinner.succeed()
 	}else{
 	State = false // translate no ok
 	if(!State){ // write data no ok | translate no ok
 		noDone.push(value) // if process exit code
 		spinner.start()
-		spinner.text = `没完成 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'ms')} - ${path.relative(process.cwd(),value)} \n ${Err}`
+		spinner.text = `没完成 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(endtime+'ms')} - ${path.relative(process.cwd(),value)} \n ${Err}`
 		spinner.fail()
 	}}
 

@@ -31,13 +31,13 @@
   "license": "ISC",
   "dependencies": {
     "async": "^2.6.0",
-    "chalk": "^2.3.0",
     "debug": "^3.1.0",
     "meow": "^3.7.0",
     "mz": "^2.7.0",
     "ora-min": "^1.0.0",
     "remark": "^9.0.0",
     "translation.js": "^0.7.5",
+    "turbocolor": "^2.6.1",
     "winston": "^2.4.0"
   },
   "keywords": [

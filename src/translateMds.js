@@ -6,7 +6,6 @@ const {
 	Listmd
 } = require('./readmd.js')
 const meow = require('meow');
-const chalk = require('chalk');
 const cutMdhead = require('./cutMdhead.js')
 const remark = require('remark')
 const {

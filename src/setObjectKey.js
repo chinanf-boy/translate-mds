@@ -1,5 +1,5 @@
 const tjs = require('translation.js')
-const chalk = require('chalk')
+const chalk = require('turbocolor')
 const ora = require("ora-min")
 const debug = require("debug")("mds:tran")
 const {logger, loggerStart, loggerStop, loggerText } = require('../config/loggerConfig.js')
@@ -20,7 +20,7 @@ const { fixEntoZh } = require("./fixEntoZh.js")
 // Fix result.length no equal
 const { translateLengthEquals } = require("./Fix/lengthEqual.js")
 const { fixFileTooBig, indexMergeArr } = require("./Fix/fixFileTooBig.js")
-const { time } = require('./util')
+const {time,g,y,yow,m,b,r} = require('./util')
 
 
 //
@@ -68,7 +68,7 @@ async function translateValue(value, api){
                               result.result.push(youdao)
                             }
                           }
-                          // loggerText('debug',JSON.stringify(result.result,null,2),chalk.cyan('集合 --------中 '))
+                          // loggerText('debug',JSON.stringify(result.result,null,2),y('集合 --------中 '))
                           return result.result
 
                         }).catch(x => logger.error(`${youdao}炸了`,x))
@@ -91,7 +91,15 @@ async function translateValue(value, api){
                       // }
                       return result.result
 
-                    })
+                    }).catch(err =>{
+											let n;
+											if(!err.code){
+												n = 'tjs'
+											}else{
+												n = 'code'
+											}
+											return {n,err}
+										})
 
 }
 
@@ -194,7 +202,7 @@ async function setObjectKey(obj, api) {
 
       for(let i in allAPi){
 
-				loggerText(`2. use ${chalk.green(api)} ${resultArray.length}/${thisTranArray.length} - ${chalk.red("If slow , may be you should try again or use -D ")}`)
+				loggerText(`2. use ${g(api)} ${resultArray.length}/${thisTranArray.length} - ${r("If slow , may be you should try again or use -D ")}`)
 
 				if(thisChunkTran.join("").length > MAXstring){ // string > 300
 
@@ -208,13 +216,19 @@ async function setObjectKey(obj, api) {
 						let t0 = await translateValue(left, api)
 						let t1 = await translateValue(right, api)
 
+						if(t0.n || t1.n){
+
+							throw t0.err||t1.err
+						}
+
+
 						thisResult = t0.concat(t1)
 
 					}catch(error){
 						if(!error.code){
-							loggerText(`${api},${error} tjs-程序错误`, {level:"error", color:"red"})
+							loggerText(`${error.message} tjs-程序错误,api:${y(api)}`, {level:"error", color:"red"})
 						}else{
-							loggerText(`${api},${error.code} 出现了啦，不给数据`,{level:"error", color:"red"})
+							loggerText(`${error.code} 出现了啦，不给数据,api:${y(api)}`,{level:"error", color:"red"})
 						}
 						thisResult = []
 					}
@@ -259,7 +273,7 @@ async function setObjectKey(obj, api) {
 				debug(`-- source: ${thisChunkTran.length}/${thisResult.length}: translte ---`)
 
 				for (let i in BigOne){ // Debug
-					debug('2. set- '+ i + ': ' + chalk.green(thisChunkTran[i]) + ' to-> '+ i + ': '+ chalk.yellow(thisResult[i]))
+					debug('2. set- '+ i + ': ' + g(thisChunkTran[i]) + ' to-> '+ i + ': '+ yow(thisResult[i]))
 				}
 
 			}else if(thisChunkTran.length != thisResult.length){ // debug only unequal
@@ -267,7 +281,7 @@ async function setObjectKey(obj, api) {
 				loggerText(`-- source: ${thisChunkTran.length}/${thisResult.length}: translte ---`)
 
 				for (let i in BigOne){ // Debug
-					logger.debug('2. set- '+ i + ': ' + chalk.green(thisChunkTran[i]) + ' to-> '+ i + ': '+ chalk.yellow(thisResult[i]))
+					logger.debug('2. set- '+ i + ': ' + g(thisChunkTran[i]) + ' to-> '+ i + ': '+ yow(thisResult[i]))
 				}
 
 			}
