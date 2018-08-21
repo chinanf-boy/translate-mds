@@ -223,6 +223,7 @@ async function runTranslate(value){
 	}else{
 	State = false // translate no ok
 	if(!State){ // write data no ok | translate no ok
+		noDone.push(value) // if process exit code
 		spinner.start()
 		spinner.text = `没完成 第 ${localDone} 文件 - 并发${chalk.blue(showAsyncnum)} -- ${chalk.blue(endtime+'ms')} - ${path.relative(process.cwd(),value)} \n ${Err}`
 		spinner.fail()
@@ -246,8 +247,10 @@ while(Done){
   await timeout(time)
 
   if(Done > getList.length){
-    break
+		break;
 	}
 }
-process.exit(0)
+if(noDone.length){
+	process.exitCode = 1
+}
 })()
