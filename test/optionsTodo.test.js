@@ -1,6 +1,6 @@
 const { test } = require('ava')
 const fs = require('fs')
-let p = '../src/optionsTodo.js'
+let p = '../config/optionsTodo.js'
 const defaultArgs = {
     "logger": {
       "level": "verbose"
