@@ -1,20 +1,129 @@
 {
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-js/index.js": [
-		"node_modules/translation.js/libs/index.js",
-		"src/readmd.js",
-		"node_modules/meow/index.js",
-		"node_modules/chalk/index.js",
-		"src/cutMdhead.js",
-		"node_modules/_remark@8.0.0@remark/index.js",
-		"src/optionsTodo.js",
-		"config/loggerConfig.js",
-		"config/defaultConfig.json",
-		"util/writeJson.js"
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/index.js": [
+		"async",
+		"fs",
+		"mz/fs",
+		"path",
+		"./src/readmd.js",
+		"meow",
+		"ora-min",
+		"remark",
+		"./config/mergeConfig",
+		"./src/util",
+		"./config/loggerConfig.js",
+		"./src/translateMds.js",
+		"./src/writeDataToFile.js",
+		"./src/util"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-js/src/readmd.js": [
-		"../node_modules/mz/fs.js"
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/readmd.js": [
+		"mz/fs",
+		"path"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-js/config/loggerConfig.js": [
-		"../node_modules/_winston@2.4.0@winston/lib/winston.js"
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/config/mergeConfig.js": [
+		"./optionsTodo.js",
+		"./work-options",
+		"./defaultConfig.json"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/config/work-options.js": [
+		"./defaultConfig.json"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/util.js": [
+		"turbocolor"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/config/loggerConfig.js": [
+		"winston",
+		"ora-min",
+		"./work-options.js"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/translateMds.js": [
+		"mz/fs",
+		"path",
+		"translation.js",
+		"./readmd.js",
+		"meow",
+		"./cutMdhead.js",
+		"remark",
+		"../config/loggerConfig.js",
+		"../config/mergeConfig",
+		"./setObjectKey.js"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/setObjectKey.js": [
+		"translation.js",
+		"turbocolor",
+		"ora-min",
+		"debug\")(\"mds:tran",
+		"../config/loggerConfig.js",
+		"../config/work-options.js",
+		"./fixEntoZh.js",
+		"./Fix/lengthEqual.js",
+		"./Fix/fixFileTooBig.js",
+		"./util"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/Fix/lengthEqual.js": [
+		"../../config/work-options.js"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/writeDataToFile.js": [
+		"fs",
+		"./util",
+		"../config/loggerConfig.js",
+		"../config/work-options.js"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/index.test.js": [
+		"ava",
+		"path",
+		"execa",
+		"./package"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/cutMdhead.test.js": [
+		"ava",
+		"fs",
+		"../src/cutMdhead.js"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/fixEntoZh.test.js": [
+		"ava",
+		"fs",
+		"../src/fixEntoZh.js"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/optionsTodo.test.js": [
+		"ava",
+		"fs"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/readmd.test.js": [
+		"ava",
+		"../src/readmd.js"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/setObjectKey.Object.js": [
+		"ava"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/setObjectKey.test.js": [
+		"timers",
+		"ava",
+		"fs",
+		"./setObjectKey.Object.js",
+		"../src/setObjectKey.js"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/translateExports.test.js": [
+		"ava",
+		"path",
+		"../src/translateMds.js"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/writeDataToFile.test.js": [
+		"ava",
+		"fs",
+		"../src/writeDataToFile.js"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/Fix/fixFileTooBig.test.js": [
+		"ava",
+		"fs",
+		"../../src/Fix/fixFileTooBig.js"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/Fix/lengthEqual.test.js": [
+		"ava",
+		"fs",
+		"../../src/Fix/lengthEqual.js"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/logger/logger.test.js": [
+		"ava",
+		"../../config/loggerConfig"
 	]
 }
