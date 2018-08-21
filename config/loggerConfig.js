@@ -1,5 +1,5 @@
 const winston = require('winston');
-const ora = require("ora")
+const ora = require("ora-min")
 
 // 获得日志等级
 const {

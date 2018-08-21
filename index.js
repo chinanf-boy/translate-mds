@@ -13,7 +13,7 @@ const asyncfs = require('mz/fs')
 const path = require('path')
 const {Listmd} = require('./src/readmd.js')
 const meow = require('meow');
-const ora = require('ora')
+const ora = require('ora-min')
 const chalk = require('chalk');
 const remark = require('remark')
 

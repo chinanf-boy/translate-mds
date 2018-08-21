@@ -1,6 +1,6 @@
 const tjs = require('translation.js')
 const chalk = require('chalk')
-const ora = require("ora")
+const ora = require("ora-min")
 const debug = require("debug")("mds:tran")
 const {logger, loggerStart, loggerStop, loggerText } = require('../config/loggerConfig.js')
 // get config.json

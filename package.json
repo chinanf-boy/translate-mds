@@ -14,9 +14,7 @@
     "changelog": "github_changelog_generator"
   },
   "husky": {
-    "hooks": {
-
-    }
+    "hooks": {}
   },
   "ava": {
     "files": [
@@ -37,7 +35,7 @@
     "debug": "^3.1.0",
     "meow": "^3.7.0",
     "mz": "^2.7.0",
-    "ora": "^1.3.0",
+    "ora-min": "^1.0.0",
     "remark": "^9.0.0",
     "translation.js": "^0.7.5",
     "winston": "^2.4.0"
