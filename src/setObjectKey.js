@@ -13,7 +13,7 @@ TYPES = configs['types']
 COM   = configs['com']
 timeWait = configs['timeout']
 // logger.level = configs.logger.level
-let MAXstring = 300
+let MAXstring = 1300
 
 // Fix china symbal
 const { fixEntoZh } = require("./fixEntoZh.js")
@@ -90,14 +90,6 @@ async function translateValue(value, api){
                       //   return result.result
                       // }
                       return result.result
-
-                    }).catch(error => {
-                      if(!error.code){
-                        logger.debug(`${api},${error} tjs-程序错误`, {level:"error", color:"red"})
-                      }else{
-                        logger.debug(`${api},${error.code} 出现了啦，不给数据`,{level:"error", color:"red"})
-                      }
-                      return []
 
                     })
 
@@ -211,10 +203,22 @@ async function setObjectKey(obj, api) {
           let left = indexMergeArr(thisChunkTran, 0, thisChunkTranL_2)
           let right = indexMergeArr(thisChunkTran, thisChunkTranL_2 , thisChunkTranL_2)
 
-					let t0 = await translateValue(left, api)
-          let t1 = await translateValue(right, api)
+					try{
 
-          thisResult = t0.concat(t1)
+						let t0 = await translateValue(left, api)
+						let t1 = await translateValue(right, api)
+
+						thisResult = t0.concat(t1)
+
+					}catch(error){
+						if(!error.code){
+							loggerText(`${api},${error} tjs-程序错误`, {level:"error", color:"red"})
+						}else{
+							loggerText(`${api},${error.code} 出现了啦，不给数据`,{level:"error", color:"red"})
+						}
+						thisResult = []
+					}
+
 
         }else{
 
