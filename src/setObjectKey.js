@@ -92,13 +92,7 @@ async function translateValue(value, api){
                       return result.result
 
                     }).catch(err =>{
-											let n;
-											if(!err.code){
-												n = 'tjs'
-											}else{
-												n = 'code'
-											}
-											return {n,err}
+											throw err
 										})
 
 }
@@ -200,45 +194,38 @@ async function setObjectKey(obj, api) {
       allAPi.push(api)
 			let thisResult = []
 
-      for(let i in allAPi){
 
-				loggerText(`2. use ${g(api)} ${resultArray.length}/${thisTranArray.length} - ${r("If slow , may be you should try again or use -D ")}`)
+				for(let i in allAPi){
 
-				if(thisChunkTran.join("").length > MAXstring){ // string > 300
-
-          let thisChunkTranL_2 = Math.ceil( thisChunkTran.length/2 )
-
-          let left = indexMergeArr(thisChunkTran, 0, thisChunkTranL_2)
-          let right = indexMergeArr(thisChunkTran, thisChunkTranL_2 , thisChunkTranL_2)
-
+					loggerText(`2. use ${g(api)} ${resultArray.length}/${thisTranArray.length} - ${r("If slow , may be you should try again or use -D ")}`)
+					
 					try{
 
-						let t0 = await translateValue(left, api)
-						let t1 = await translateValue(right, api)
+					if(thisChunkTran.join("").length > MAXstring){ // string > 300
 
-						if(t0.n || t1.n){
+						let thisChunkTranL_2 = Math.ceil( thisChunkTran.length/2 )
 
-							throw t0.err||t1.err
-						}
+						let left = indexMergeArr(thisChunkTran, 0, thisChunkTranL_2)
+						let right = indexMergeArr(thisChunkTran, thisChunkTranL_2 , thisChunkTranL_2)
 
+							let t0 = await translateValue(left, api)
+							let t1 = await translateValue(right, api)
 
-						thisResult = t0.concat(t1)
+							thisResult = t0.concat(t1)
 
-					}catch(error){
-						if(!error.code){
-							loggerText(`${error.message} tjs-程序错误,api:${y(api)}`, {level:"error", color:"red"})
-						}else{
-							loggerText(`${error.code} 出现了啦，不给数据,api:${y(api)}`,{level:"error", color:"red"})
-						}
-						thisResult = []
+					}else{
+
+						thisResult = await translateValue(thisChunkTran, api)
+					} // get Result Arr
+
+				}catch(error){
+					if(!error.code){
+						loggerText(`${error.message} tjs-程序错误,api:${y(api)}`, {level:"error", color:"red"})
+					}else{
+						loggerText(`${error.code} 出现了啦，不给数据,api:${y(api)}`,{level:"error", color:"red"})
 					}
-
-
-        }else{
-
-					thisResult = await translateValue(thisChunkTran, api)
-
-        } // get Result Arr
+					thisResult = []
+				}
 
         api = allAPi[i]
 
