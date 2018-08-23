@@ -32,73 +32,73 @@ const {time,g,y,yow,m,b,r} = require('./util')
  * @param {String} api
  * @returns {String[]}
  */
-async function translateValue(value, api){
-    let thisTranString
-    if(value instanceof Array){
-        thisTranString = value.join('\n')
-    }else{
-      thisTranString = value
+async function translateValue(value, api) {
+	let thisTranString
+	if (value instanceof Array) {
+		thisTranString = value.join('\n')
+	} else {
+		thisTranString = value
+	}
+
+	tjs.google.detect(thisTranString).then(lang => {
+		tranF = lang
+	})
+
+	await time(timeWait)
+
+	if (tranT === 'zh') tranT = 'zh-CN'
+
+	return tjs[api].translate({
+		text: thisTranString,
+		from: tranF,
+		to: tranT,
+		com: COM
+	}).then(result => {
+		if (!result.result) {
+			throw new Error('「结果为空」')
 		}
 
-		tjs.google.detect(thisTranString).then(lang => {
-			tranF = lang
-		})
+		if (value.length == result.result.length) {
+			return result.result
+		}
 
-		await time(timeWait)
+		// loggerText('error',value.length)
+		if (value.length > result.result.length) {
+			return translateValue(value.slice(result.result.length), api).then(youdao => {
+				// tjs translate youdao BUG and tjs baidu will return undefined
+				if (youdao) {
+					if (youdao instanceof Array) {
+						youdao.forEach(x => result.result.push(x))
+					} else {
+						result.result.push(youdao)
+					}
+				}
+				// loggerText('debug',JSON.stringify(result.result,null,2),y('集合 --------中 '))
+				return result.result
 
-		if(tranT === 'zh') tranT = 'zh-CN'
+			}).catch(x => logger.error(`${youdao}炸了`, x))
+			// Promise.reject("bad youdao fanyi no get \\n")
 
-    return tjs[api].translate({
-                      text: thisTranString,
-                      from: tranF,
-											to: tranT,
-											com: COM
-                    }).then(result => {
-                      if(!result.result){
-                        throw new Error('「结果为空」')
-                      }
+		}
 
-                      if(value.length ==  result.result.length){
-                        return result.result
-                      }
+		// // Bug translate.js return result.result Array
+		// if(value.length < result.result.length){
 
-                      // loggerText('error',value.length)
-                      if(value.length > result.result.length){
-                        return translateValue(value.slice(result.result.length),api).then(youdao =>{
-                          // tjs translate youdao BUG and tjs baidu will return undefined
-                          if(youdao){
-                            if(youdao instanceof Array){
-                              youdao.forEach(x => result.result.push(x))
-                            }else{
-                              result.result.push(youdao)
-                            }
-                          }
-                          // loggerText('debug',JSON.stringify(result.result,null,2),y('集合 --------中 '))
-                          return result.result
+		//   loggerText(`___________
+		//   get the result is not equal , so + the final result\n
+		//   ************`)
+		//   let r_v = result.result.length - value.length
+		//   for(let i= 0;i<r_v;i++){
+		//     result.result[value.length-1] += result.result[value.length + i]
+		//   }
+		//   // when \n in text medium，return 2 size Array
+		//   return result.result
+		// }
+		return result.result
 
-                        }).catch(x => logger.error(`${youdao}炸了`,x))
-                        // Promise.reject("bad youdao fanyi no get \\n")
-
-                      }
-
-                      // // Bug translate.js return result.result Array
-                      // if(value.length < result.result.length){
-
-                      //   loggerText(`___________
-                      //   get the result is not equal , so + the final result\n
-                      //   ************`)
-                      //   let r_v = result.result.length - value.length
-                      //   for(let i= 0;i<r_v;i++){
-                      //     result.result[value.length-1] += result.result[value.length + i]
-                      //   }
-                      //   // when \n in text medium，return 2 size Array
-                      //   return result.result
-                      // }
-                      return result.result
-
-                    }).catch(err =>{
-											throw err
-										})
+	}).catch(err => {
+		throw err
+	})
 
 }
 
@@ -110,147 +110,159 @@ async function translateValue(value, api){
  */
 async function setObjectKey(obj, api) {
 
-		let allAPi = ['baidu','google','youdao']
-    let howManyValNoTran = 0
-    let tranArray = []
-    let thisTranArray = []
-    let resultArray = []
-    let newObj = JSON.parse(JSON.stringify(obj))
-		let sum = 0 // single values
+	let allAPi = ['baidu', 'google', 'youdao']
+	let howManyValNoTran = 0
+	let tranArray = []
+	let thisTranArray = []
+	let resultArray = []
+	let newObj = JSON.parse(JSON.stringify(obj))
+	let sum = 0 // single values
 
-		let types = ['html', 'code'].concat(TYPES)
-    /**
-     * @description Find ``obj['type'] === 'value'`` ,and``tranArray.push(obj[key])``
-     * @param {Object} obj
-     * @param {String[]} tranArray
-     * @returns {number} - find value number
-     */
-    function deep(obj, tranArray) {
-      Object.keys(obj).forEach(function(key) {
+	let types = ['html', 'code'].concat(TYPES)
+	/**
+	 * @description Find ``obj['type'] === 'value'`` ,and``tranArray.push(obj[key])``
+	 * @param {Object} obj
+	 * @param {String[]} tranArray
+	 * @returns {number} - find value number
+	 */
+	function deep(obj, tranArray) {
+		Object.keys(obj).forEach(function (key) {
 
-        // no translate code content
-      if(obj['type'] && ( types.some(t =>obj['type'] == t) )){
-        return sum
-      }
-      (obj[key] && typeof obj[key] === 'object') && deep(obj[key], tranArray)
-
-
-      if(key === 'value' && obj[key].trim()){
-            tranArray.push(obj[key])
-            sum++
-      }
-      });
-      return sum
-    };
-
-    /**
-     * @description Find ``obj['type'] === 'value'``, and use ``tranArrayZh.shift`` set ``obj['value']``
-     * @param {any} obj - AST
-     * @param {String[]} tranArrayZh
-     * @returns
-     */
-    function setdeep(obj, tranArrayZh) {
-      Object.keys(obj).forEach(function(key) {
-
-      if(obj['type'] && ( types.some(t =>obj['type'] == t) )){
-          return sum
-      }
-
-      (obj[key] && typeof obj[key] === 'object') && setdeep(obj[key], tranArrayZh)
-
-      if(key === 'value' && obj[key].trim()){
-            if(tranArrayZh.length){
-              obj[key] = tranArrayZh.shift()
-              sum--
-            }
-      }
-      });
-      return sum
-      };
-
-    // put obj values to tranArray
-    if(!deep(obj, tranArray)){
-			loggerText("no value "+sum, {level:"error"})
-      return false
-    }
-
-    if(tranArray.length){
-      // remove all \n
-      tranArray = tranArray.map(x=>{
-        if(x.indexOf('\n')>=0){
-          return x.replace(/[\n]/g,' ')
-        }
-        return x
-      })
-      thisTranArray = tranArray
-      tranArray = []
-    }
+			// no translate code content
+			if (obj['type'] && (types.some(t => obj['type'] == t))) {
+				return sum
+			}
+			(obj[key] && typeof obj[key] === 'object') && deep(obj[key], tranArray)
 
 
+			if (key === 'value' && obj[key].trim()) {
+				tranArray.push(obj[key])
+				sum++
+			}
+		});
+		return sum
+	};
 
-    // Fix file Too Big
-    let chunkTranArray = fixFileTooBig(thisTranArray)
+	/**
+	 * @description Find ``obj['type'] === 'value'``, and use ``tranArrayZh.shift`` set ``obj['value']``
+	 * @param {any} obj - AST
+	 * @param {String[]} tranArrayZh
+	 * @returns
+	 */
+	function setdeep(obj, tranArrayZh) {
+		Object.keys(obj).forEach(function (key) {
 
-    for(let third in chunkTranArray){
+			if (obj['type'] && (types.some(t => obj['type'] == t))) {
+				return sum
+			}
 
-      let thisChunkTran = chunkTranArray[third]
-      // auto change translate source
-      allAPi = allAPi.filter(x => x!=api)
-      allAPi.push(api)
-			let thisResult = []
+			(obj[key] && typeof obj[key] === 'object') && setdeep(obj[key], tranArrayZh)
 
-
-				for(let i in allAPi){
-
-					loggerText(`2. use ${g(api)} ${resultArray.length}/${thisTranArray.length} - ${r("If slow , may be you should try again or use -D ")}`)
-
-					try{
-
-					if(thisChunkTran.join("").length > MAXstring){ // string > 300
-
-						let thisChunkTranL_2 = Math.ceil( thisChunkTran.length/2 )
-
-						let left = indexMergeArr(thisChunkTran, 0, thisChunkTranL_2)
-						let right = indexMergeArr(thisChunkTran, thisChunkTranL_2 , thisChunkTranL_2)
-
-							let t0 = await translateValue(left, api)
-							let t1 = await translateValue(right, api)
-
-							thisResult = t0.concat(t1)
-
-					}else{
-
-						thisResult = await translateValue(thisChunkTran, api)
-					} // get Result Arr
-
-				}catch(error){
-					if(!error.code){
-						loggerText(`${error.message} tjs-程序错误,api:${y(api)}`, {level:"error", color:"red"})
-					}else{
-						loggerText(`${error.code} 出现了啦，不给数据,api:${y(api)}`,{level:"error", color:"red"})
-					}
-					thisResult = []
+			if (key === 'value' && obj[key].trim()) {
+				if (tranArrayZh.length) {
+					obj[key] = tranArrayZh.shift()
+					sum--
 				}
+			}
+		});
+		return sum
+	};
 
-				// result-1 return translate value, break for allAPi
-        if(thisResult.length > 0 && thisResult.length >= thisChunkTran.length){
-            break
+	// put obj values to tranArray
+	if (!deep(obj, tranArray)) {
+		loggerText("no value " + sum, {
+			level: "error"
+		})
+		return false
+	}
+
+	if (tranArray.length) {
+		// remove all \n
+		tranArray = tranArray.map(x => {
+			if (x.indexOf('\n') >= 0) {
+				return x.replace(/[\n]/g, ' ')
+			}
+			return x
+		})
+		thisTranArray = tranArray
+		tranArray = []
+	}
+
+
+
+	// Fix file Too Big
+	let chunkTranArray = fixFileTooBig(thisTranArray)
+
+	for (let third in chunkTranArray) {
+
+		let thisChunkTran = chunkTranArray[third]
+		let isWork = true
+		// auto change translate source
+		allAPi = allAPi.filter(x => x != api)
+		allAPi.push(api)
+		let thisResult = []
+
+
+		for (let i in allAPi) {
+
+			loggerText(`2. use ${g(api)} ${resultArray.length}/${thisTranArray.length} - ${r("If slow , may be you should try again or use -D ")}`)
+
+			try {
+
+				if (thisChunkTran.join("").length > MAXstring) { // string > 300
+
+					let thisChunkTranL_2 = Math.ceil(thisChunkTran.length / 2)
+
+					let left = indexMergeArr(thisChunkTran, 0, thisChunkTranL_2)
+					let right = indexMergeArr(thisChunkTran, thisChunkTranL_2, thisChunkTranL_2)
+
+					let t0 = await translateValue(left, api)
+					let t1 = await translateValue(right, api)
+
+					thisResult = t0.concat(t1)
+
+				} else {
+
+					thisResult = await translateValue(thisChunkTran, api)
+				} // get Result Arr
+
+			} catch (error) {
+				if (!error.code) {
+					loggerText(`${error.message} tjs-程序错误,api:${y(api)}`, {
+						level: "error",
+						color: "red"
+					})
+				} else {
+					loggerText(`${error.code} 出现了啦，不给数据,api:${y(api)}`, {
+						level: "error",
+						color: "red"
+					})
 				}
-				
-        api = allAPi[i]
-        // result-2 return source value
-        if( (+i + 1) == allAPi.length){
+				thisResult = []
+			}
+
+			// result-1 return translate value, break for allAPi
+			if (thisResult.length > 0 && thisResult.length >= thisChunkTran.length) {
+				break
+			}
+
+			api = allAPi[i]
+			// result-2 return source value
+			if ((+i + 1) == allAPi.length) {
 				// ending is no result
 
-						// count how many string no translate
-						howManyValNoTran += thisChunkTran.length
-						thisResult = thisChunkTran // Add source tran
-
-        }
+				// count how many string no translate
+				howManyValNoTran += thisChunkTran.length
+				isWork = false
+				thisResult = thisChunkTran // Add source tran
 
 			}
+
+		}
+
+		if (isWork) {
 			// Fix use Fix/lengthEqual.js in every Chunk
-			if(thisChunkTran.length < thisResult.length){
+			if (thisChunkTran.length < thisResult.length) {
 
 				translateLengthEquals(thisChunkTran, thisResult) // Fix
 
@@ -259,68 +271,74 @@ async function setObjectKey(obj, api) {
 
 			let BigOne = thisChunkTran.length > thisResult.length ? thisChunkTran : thisResult
 
-			if(debug.enabled){ // debug deep
+			if (debug.enabled) { // debug deep
 				debug(`-- source: ${thisChunkTran.length}/${thisResult.length}: translte ---`)
 
-				for (let i in BigOne){ // Debug
-					debug('2. set- '+ i + ': ' + g(thisChunkTran[i]) + ' to-> '+ i + ': '+ yow(thisResult[i]))
+				for (let i in BigOne) { // Debug
+					debug('2. set- ' + i + ': ' + g(thisChunkTran[i]) + ' to-> ' + i + ': ' + yow(thisResult[i]))
 				}
 
-			}else if(thisChunkTran.length != thisResult.length){ // debug only unequal
+			} else if (thisChunkTran.length != thisResult.length) { // debug only unequal
 
 				loggerText(`-- source: ${thisChunkTran.length}/${thisResult.length}: translte ---`)
 
-				for (let i in BigOne){ // Debug
-					logger.debug('2. set- '+ i + ': ' + g(thisChunkTran[i]) + ' to-> '+ i + ': '+ yow(thisResult[i]))
+				for (let i in BigOne) { // Debug
+					logger.debug('2. set- ' + i + ': ' + g(thisChunkTran[i]) + ' to-> ' + i + ': ' + yow(thisResult[i]))
 				}
 
 			}
 
-			if(thisChunkTran.length == thisResult.length){
+			if (thisChunkTran.length == thisResult.length) {
 				// Fix Upper/Lower case
-				for (let i in thisChunkTran){
-					if(thisChunkTran[i].trim().toLowerCase() == thisResult[i].trim().toLowerCase()){
+				for (let i in thisChunkTran) {
+					if (thisChunkTran[i].trim().toLowerCase() == thisResult[i].trim().toLowerCase()) {
 						thisResult[i] = thisChunkTran[i]
 					}
 				}
 			}
 
-			if(thisChunkTran.length != thisResult.length){ // can't Fix
+			if (thisChunkTran.length != thisResult.length) { // can't Fix
 				howManyValNoTran += thisChunkTran.length
 				thisResult = thisChunkTran // Add source tran
 			}
-
-			resultArray = resultArray.concat(thisResult) // Add result
-
-			loggerText(`3. translate loading - ${resultArray.length}/${thisTranArray.length}`)
-    }
-
-    if(resultArray.length == 0){
-      loggerText(`
-      获取信息错误,原因有3
-      1. 网络失联 2. 翻译源 失败 > 文件太大了 3. 抽风
-      `, {level:"error"})
-      return false
-    }
-
-    // // Fix use Fix/lengthEqual.js
-    // if(thisTranArray.length < resultArray.length){
-
-		// 	translateLengthEquals(thisTranArray, resultArray)
-
-    // }
-
-    resultArray = fixEntoZh(resultArray)
-
-		setdeep(newObj, resultArray) // [[1],[2]] => [1,2]
-
-
-    if(howManyValNoTran > 0){
-			newObj.Error = `没翻译成功的有 ${howManyValNoTran}/${thisTranArray.length}`
 		}
 
+		resultArray = resultArray.concat(thisResult) // Add result
 
-    return newObj
+		loggerText(`3. translate loading - ${resultArray.length}/${thisTranArray.length}`)
+	}
+
+	if (resultArray.length == 0) {
+		loggerText(`
+      获取信息错误,原因有3
+      1. 网络失联 2. 翻译源 失败 > 文件太大了 3. 抽风
+      `, {
+			level: "error"
+		})
+		return false
+	}
+
+	// // Fix use Fix/lengthEqual.js
+	// if(thisTranArray.length < resultArray.length){
+
+	// 	translateLengthEquals(thisTranArray, resultArray)
+
+	// }
+
+	resultArray = fixEntoZh(resultArray)
+
+	setdeep(newObj, resultArray) // [[1],[2]] => [1,2]
+
+
+	if (howManyValNoTran > 0) {
+		newObj.Error = `没翻译成功的有 ${howManyValNoTran}/${thisTranArray.length}`
+	}
+
+
+	return newObj
 }
 
-module.exports = { setObjectKey, translateValue }
+module.exports = {
+	setObjectKey,
+	translateValue
+}
