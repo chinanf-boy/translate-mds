@@ -5,6 +5,7 @@ process.on('uncaughtException', function(err){
   console.error('got an error: %s', err);
   process.exitCode = 1;
 });
+const { logger, loggerStart, loggerText, loggerStop } = require('./config/loggerConfig.js') // winston config
 process.on('exit', function(err){
 	loggerStop()
 });
@@ -99,7 +100,6 @@ let {
 	Force
 } = mergeConfig(cli)
 
-const { logger, loggerStart, loggerText, loggerStop } = require('./config/loggerConfig.js') // winston config
 const translateMds = require('./src/translateMds.js')
 
 // after workOptions ready
