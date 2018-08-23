@@ -42,6 +42,8 @@ async function translateValue(value, api) {
 
 	tjs.google.detect(thisTranString).then(lang => {
 		tranF = lang
+	}).catch(e =>{
+		loggerText(chalk.red(`get lang from google fail`))
 	})
 
 	await time(timeWait)
