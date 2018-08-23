@@ -39,13 +39,6 @@ async function translateValue(value, api) {
 	} else {
 		thisTranString = value
 	}
-
-	tjs.google.detect(thisTranString).then(lang => {
-		tranF = lang
-	}).catch(e =>{
-		loggerText(chalk.red(`get lang from google fail`))
-	})
-
 	await time(timeWait)
 
 	if (tranT === 'zh') tranT = 'zh-CN'
@@ -194,6 +187,12 @@ async function setObjectKey(obj, api) {
 
 	// Fix file Too Big
 	let chunkTranArray = fixFileTooBig(thisTranArray)
+
+	await tjs.google.detect(thisTranArray.join(require('os').EOL)).then(lang => {
+		tranF = lang
+	}).catch(e =>{
+		loggerText(chalk.red(`get lang from google fail`))
+	})
 
 	for (let third in chunkTranArray) {
 

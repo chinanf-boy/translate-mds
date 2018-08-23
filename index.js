@@ -5,10 +5,7 @@ process.on('uncaughtException', function(err){
   console.error('got an error: %s', err);
   process.exitCode = 1;
 });
-const { logger, loggerStart, loggerText, loggerStop } = require('./config/loggerConfig.js') // winston config
-process.on('exit', function(err){
-	loggerStop()
-});
+
 console.time("time")
 
 const async = require('async')
@@ -101,6 +98,8 @@ let {
 } = mergeConfig(cli)
 
 const translateMds = require('./src/translateMds.js')
+
+const { logger, loggerStart, loggerText, loggerStop } = require('./config/loggerConfig.js') // winston config
 
 // after workOptions ready
 const { writeDataToFile, insert_flg } = require('./src/writeDataToFile.js')
@@ -238,4 +237,7 @@ while(Done){
 if(noDone.length){
 	process.exitCode = 1
 }
+process.on('exit', function(err){
+	loggerStop()
+});
 })()
