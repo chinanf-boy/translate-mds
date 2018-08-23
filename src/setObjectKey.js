@@ -40,7 +40,13 @@ async function translateValue(value, api){
       thisTranString = value
 		}
 
+		tjs.google.detect(thisTranString).then(lang => {
+			tranF = lang
+		})
+
 		await time(timeWait)
+
+		if(tranT === 'zh') tranT = 'zh-CN'
 
     return tjs[api].translate({
                       text: thisTranString,
@@ -51,7 +57,6 @@ async function translateValue(value, api){
                       if(!result.result){
                         throw new Error('「结果为空」')
                       }
-
 
                       if(value.length ==  result.result.length){
                         return result.result
@@ -198,7 +203,7 @@ async function setObjectKey(obj, api) {
 				for(let i in allAPi){
 
 					loggerText(`2. use ${g(api)} ${resultArray.length}/${thisTranArray.length} - ${r("If slow , may be you should try again or use -D ")}`)
-					
+
 					try{
 
 					if(thisChunkTran.join("").length > MAXstring){ // string > 300
@@ -227,14 +232,12 @@ async function setObjectKey(obj, api) {
 					thisResult = []
 				}
 
-        api = allAPi[i]
-
-        // result-1 return translate value, break for allAPi
+				// result-1 return translate value, break for allAPi
         if(thisResult.length > 0 && thisResult.length >= thisChunkTran.length){
-
             break
-        }
-
+				}
+				
+        api = allAPi[i]
         // result-2 return source value
         if( (+i + 1) == allAPi.length){
 				// ending is no result
