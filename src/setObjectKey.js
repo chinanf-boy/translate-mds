@@ -11,7 +11,7 @@ tranF = configs['from']
 tranT = configs['to']
 TYPES = configs['types']
 COM   = configs['com']
-timeWait = configs['timeout']
+timeWait = configs['timewait']
 // logger.level = configs.logger.level
 let MAXstring = 1300
 
@@ -57,7 +57,6 @@ async function translateValue(value, api) {
 			return result.result
 		}
 
-		// loggerText('error',value.length)
 		if (value.length > result.result.length) {
 			return translateValue(value.slice(result.result.length), api).then(youdao => {
 				// tjs translate youdao BUG and tjs baidu will return undefined
@@ -68,7 +67,6 @@ async function translateValue(value, api) {
 						result.result.push(youdao)
 					}
 				}
-				// loggerText('debug',JSON.stringify(result.result,null,2),y('集合 --------中 '))
 				return result.result
 
 			}).catch(x => logger.error(`${youdao}炸了`, x))
@@ -76,19 +74,6 @@ async function translateValue(value, api) {
 
 		}
 
-		// // Bug translate.js return result.result Array
-		// if(value.length < result.result.length){
-
-		//   loggerText(`___________
-		//   get the result is not equal , so + the final result\n
-		//   ************`)
-		//   let r_v = result.result.length - value.length
-		//   for(let i= 0;i<r_v;i++){
-		//     result.result[value.length-1] += result.result[value.length + i]
-		//   }
-		//   // when \n in text medium，return 2 size Array
-		//   return result.result
-		// }
 		return result.result
 
 	}).catch(err => {
@@ -203,8 +188,7 @@ async function setObjectKey(obj, api) {
 		allAPi.push(api)
 		let thisResult = []
 
-
-		for (let i in allAPi) {
+		for (let i in allAPi) { // Auto next api
 
 			loggerText(`2. use ${g(api)} ${resultArray.length}/${thisTranArray.length} - ${r("If slow , may be you should try again or use -D ")}`)
 
@@ -261,7 +245,7 @@ async function setObjectKey(obj, api) {
 
 		}
 
-		if (isWork) {
+		if (isWork) { // can fetch something result
 			// Fix use Fix/lengthEqual.js in every Chunk
 			if (thisChunkTran.length < thisResult.length) {
 
@@ -319,17 +303,9 @@ async function setObjectKey(obj, api) {
 		return false
 	}
 
-	// // Fix use Fix/lengthEqual.js
-	// if(thisTranArray.length < resultArray.length){
-
-	// 	translateLengthEquals(thisTranArray, resultArray)
-
-	// }
-
-	resultArray = fixEntoZh(resultArray)
+	resultArray = fixEntoZh(resultArray) // fix zh symbal to en
 
 	setdeep(newObj, resultArray) // [[1],[2]] => [1,2]
-
 
 	if (howManyValNoTran > 0) {
 		newObj.Error = `没翻译成功的有 ${howManyValNoTran}/${thisTranArray.length}`

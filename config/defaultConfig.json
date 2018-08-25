@@ -8,5 +8,5 @@
     "num": 1,
 		"rewrite": false,
 		"com": false,
-		"timeout":"80"
+		"timewait":"80"
   }

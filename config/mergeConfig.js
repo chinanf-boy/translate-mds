@@ -34,7 +34,11 @@ function mergeConfig(cli) {
 	let Force = cli.flags['F'] ? true : false
 	let COM = cli.flags['G'] ? true : false
 	defaultConfig.com = COM
-	defaultConfig.timeout = cli.flags['timeout'] || false
+	
+	let wait = cli.flags['timewait']
+	if(wait && !isNaN(+wait)){
+		defaultConfig.timewait = wait
+	}
 
 	workOptions.setOptions(defaultConfig)
 
@@ -74,7 +78,6 @@ function main(opts) {
 		n: options.Types,
 		type: 'T'
 	}, typesTodo, defaultConfig)
-
 	// rewrite config.json
 	workOptions.setOptions(defaultConfig)
 
