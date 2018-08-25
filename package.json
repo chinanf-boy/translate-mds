@@ -38,6 +38,7 @@
     "remark": "^9.0.0",
     "translation.js": "^0.7.5",
     "turbocolor": "^2.6.1",
+    "what-time": "^0.0.2",
     "winston": "^2.4.0"
   },
   "keywords": [

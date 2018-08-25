@@ -6,8 +6,7 @@ process.on('uncaughtException', function(err){
   process.exitCode = 1;
 });
 
-console.time("time")
-
+const whatTime = require('what-time');
 const async = require('async')
 const fs = require('fs')
 const asyncfs = require('mz/fs')
@@ -140,7 +139,7 @@ async.mapLimit(getList, asyncNum, runTranslate,
 											}
 									}
 									loggerStop()
-                  console.timeEnd("time")
+                  console.log(process.uptime())
                 }
 )
 
@@ -204,16 +203,18 @@ async function runTranslate(value){
 		}
 	}
 
+	let rePath = path.relative(process.cwd(),value)
+	let humanTime = whatTime(endtime / 1000)
 	if(State && !Err){
 		spinner.start()
-		spinner.text = `已搞定 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(endtime+'ms')} - ${path.basename(value)} `
+		spinner.text = `已搞定 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(humanTime)} - ${rePath} `
 		spinner.succeed()
 	}else{
 	State = false // translate no ok
 	if(!State){ // write data no ok | translate no ok
 		noDone.push(value) // if process exit code
 		spinner.start()
-		spinner.text = `没完成 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(endtime+'ms')} - ${path.relative(process.cwd(),value)} \n ${Err}`
+		spinner.text = `没完成 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(humanTime)} - ${rePath} \n ${Err}`
 		spinner.fail()
 	}}
 
