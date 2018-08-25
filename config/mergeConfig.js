@@ -1,3 +1,4 @@
+const path = require('path')
 const {
 	setDefault,
 	debugTodo,
@@ -34,7 +35,10 @@ function mergeConfig(cli) {
 	let Force = cli.flags['F'] ? true : false
 	let COM = cli.flags['G'] ? true : false
 	defaultConfig.com = COM
-	
+
+	defaultConfig.getvalues = cli.flags['values'] ? true : false
+	defaultConfig.translate = cli.flags['translate'] ? path.resolve(cli.flags['translate']) : false
+
 	let wait = cli.flags['timewait']
 	if(wait && !isNaN(+wait)){
 		defaultConfig.timewait = wait

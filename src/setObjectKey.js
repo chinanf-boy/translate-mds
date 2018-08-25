@@ -1,17 +1,22 @@
 const tjs = require('translation.js')
 const chalk = require('turbocolor')
+const fs = require('mz/fs')
+const relative = require('path').relative
 const ora = require("ora-min")
 const debug = require("debug")("mds:tran")
 const {logger, loggerStart, loggerStop, loggerText } = require('../config/loggerConfig.js')
 // get config.json
 const {getOptions} = require('../config/work-options.js')
 const configs = getOptions()
-let tranF, tranT, TYPES, COM, timeWait
+let tranF, tranT, TYPES, COM, timeWait, getValuesFile,gotTranslateFile
 tranF = configs['from']
 tranT = configs['to']
 TYPES = configs['types']
 COM   = configs['com']
 timeWait = configs['timewait']
+getValuesFile = configs['getvalues']
+gotTranslateFile = configs['translate']
+
 // logger.level = configs.logger.level
 let MAXstring = 1300
 
@@ -166,131 +171,143 @@ async function setObjectKey(obj, api) {
 		})
 		thisTranArray = tranArray
 		tranArray = []
+		if(getValuesFile){
+			await fs.writeFile('./translate-values.md',thisTranArray.join(require('os').EOL)).then(function(ok){
+				loggerText(`values be saved`)
+			})
+		}
 	}
 
-
-
-	// Fix file Too Big
-	let chunkTranArray = fixFileTooBig(thisTranArray)
-
-	await tjs.google.detect(thisTranArray.join(require('os').EOL)).then(lang => {
-		tranF = lang
-	}).catch(e =>{
-		loggerText(chalk.red(`get lang from google fail`))
-	})
-
-	for (let third in chunkTranArray) {
-
-		let thisChunkTran = chunkTranArray[third]
-		let isWork = true
-		// auto change translate source
-		allAPi = allAPi.filter(x => x != api)
-		allAPi.push(api)
-		let thisResult = []
-
-		for (let i in allAPi) { // Auto next api
-
-			loggerText(`2. use ${g(api)} ${resultArray.length}/${thisTranArray.length} - ${r("If slow/Stagnant , may be you should try again or use -D ")}`)
-
-			try {
-
-				if (thisChunkTran.join("").length > MAXstring) { // string > 300
-
-					let thisChunkTranL_2 = Math.ceil(thisChunkTran.length / 2)
-
-					let left = indexMergeArr(thisChunkTran, 0, thisChunkTranL_2)
-					let right = indexMergeArr(thisChunkTran, thisChunkTranL_2, thisChunkTranL_2)
-
-					let t0 = await translateValue(left, api)
-					let t1 = await translateValue(right, api)
-
-					thisResult = t0.concat(t1)
-
-				} else {
-
-					thisResult = await translateValue(thisChunkTran, api)
-				} // get Result Arr
-
-			} catch (error) {
-				if (!error.code) {
-					loggerText(`${error.message} tjs-程序错误,api:${y(api)}`, {
-						level: "error",
-						color: "red"
-					})
-				} else {
-					loggerText(`${error.code} 出现了啦，不给数据,api:${y(api)}`, {
-						level: "error",
-						color: "red"
-					})
-				}
-				thisResult = []
-			}
-
-			// result-1 return translate value, break for allAPi
-			if (thisResult.length > 0 && thisResult.length >= thisChunkTran.length) {
-				break
-			}
-
-			api = allAPi[i]
-			// result-2 return source value
-			if ((+i + 1) == allAPi.length) {
-				// ending is no result
-
-				// count how many string no translate
-				howManyValNoTran += thisChunkTran.length
-				isWork = false
-				thisResult = thisChunkTran // Add source tran
-
-			}
-
+	if(gotTranslateFile){
+		let translateContent = fs.readFileSync(gotTranslateFile,"utf8").split(require('os').EOL).filter(ok => ok)
+		if(translateContent.length === thisTranArray.length){
+			resultArray = translateContent
+		}else{
+			throw new Error(`${g(relative(process.cwd(),gotTranslateFile))} value length ${r('no equal')}\n translateContent:${y(translateContent.length)}\n waitTranslate:${y(thisTranArray.length)}`)
 		}
+	}else{
+		// Fix file Too Big
+		let chunkTranArray = fixFileTooBig(thisTranArray)
 
-		if (isWork) { // can fetch something result
-			// Fix use Fix/lengthEqual.js in every Chunk
-			if (thisChunkTran.length < thisResult.length) {
+		await tjs.google.detect(thisTranArray.join(require('os').EOL)).then(lang => {
+			tranF = lang
+		}).catch(e =>{
+			loggerText(chalk.red(`get lang from google fail`))
+		})
 
-				translateLengthEquals(thisChunkTran, thisResult) // Fix
+		for (let third in chunkTranArray) {
+
+			let thisChunkTran = chunkTranArray[third]
+			let isWork = true
+			// auto change translate source
+			allAPi = allAPi.filter(x => x != api)
+			allAPi.push(api)
+			let thisResult = []
+
+			for (let i in allAPi) { // Auto next api
+
+				loggerText(`2. use ${g(api)} ${resultArray.length}/${thisTranArray.length} - ${r("If slow/Stagnant , may be you should try again or use -D ")}`)
+
+				try {
+
+					if (thisChunkTran.join("").length > MAXstring) { // string > 300
+
+						let thisChunkTranL_2 = Math.ceil(thisChunkTran.length / 2)
+
+						let left = indexMergeArr(thisChunkTran, 0, thisChunkTranL_2)
+						let right = indexMergeArr(thisChunkTran, thisChunkTranL_2, thisChunkTranL_2)
+
+						let t0 = await translateValue(left, api)
+						let t1 = await translateValue(right, api)
+
+						thisResult = t0.concat(t1)
+
+					} else {
+
+						thisResult = await translateValue(thisChunkTran, api)
+					} // get Result Arr
+
+				} catch (error) {
+					if (!error.code) {
+						loggerText(`${error.message} tjs-程序错误,api:${y(api)}`, {
+							level: "error",
+							color: "red"
+						})
+					} else {
+						loggerText(`${error.code} 出现了啦，不给数据,api:${y(api)}`, {
+							level: "error",
+							color: "red"
+						})
+					}
+					thisResult = []
+				}
+
+				// result-1 return translate value, break for allAPi
+				if (thisResult.length > 0 && thisResult.length >= thisChunkTran.length) {
+					break
+				}
+
+				api = allAPi[i]
+				// result-2 return source value
+				if ((+i + 1) == allAPi.length) {
+					// ending is no result
+
+					// count how many string no translate
+					howManyValNoTran += thisChunkTran.length
+					isWork = false
+					thisResult = thisChunkTran // Add source tran
+
+				}
 
 			}
 
+			if (isWork) { // can fetch something result
+				// Fix use Fix/lengthEqual.js in every Chunk
+				if (thisChunkTran.length < thisResult.length) {
 
-			let BigOne = thisChunkTran.length > thisResult.length ? thisChunkTran : thisResult
+					translateLengthEquals(thisChunkTran, thisResult) // Fix
 
-			if (debug.enabled) { // debug deep
-				debug(`-- source: ${thisChunkTran.length}/${thisResult.length}: translte ---`)
-
-				for (let i in BigOne) { // Debug
-					debug('2. set- ' + i + ': ' + g(thisChunkTran[i]) + ' to-> ' + i + ': ' + yow(thisResult[i]))
 				}
 
-			} else if (thisChunkTran.length != thisResult.length) { // debug only unequal
 
-				loggerText(`-- source: ${thisChunkTran.length}/${thisResult.length}: translte ---`)
+				let BigOne = thisChunkTran.length > thisResult.length ? thisChunkTran : thisResult
 
-				for (let i in BigOne) { // Debug
-					logger.debug('2. set- ' + i + ': ' + g(thisChunkTran[i]) + ' to-> ' + i + ': ' + yow(thisResult[i]))
+				if (debug.enabled) { // debug deep
+					debug(`-- source: ${thisChunkTran.length}/${thisResult.length}: translte ---`)
+
+					for (let i in BigOne) { // Debug
+						debug('2. set- ' + i + ': ' + g(thisChunkTran[i]) + ' to-> ' + i + ': ' + yow(thisResult[i]))
+					}
+
+				} else if (thisChunkTran.length != thisResult.length) { // debug only unequal
+
+					loggerText(`-- source: ${thisChunkTran.length}/${thisResult.length}: translte ---`)
+
+					for (let i in BigOne) { // Debug
+						logger.debug('2. set- ' + i + ': ' + g(thisChunkTran[i]) + ' to-> ' + i + ': ' + yow(thisResult[i]))
+					}
+
 				}
 
-			}
-
-			if (thisChunkTran.length == thisResult.length) {
-				// Fix Upper/Lower case
-				for (let i in thisChunkTran) {
-					if (thisChunkTran[i].trim().toLowerCase() == thisResult[i].trim().toLowerCase()) {
-						thisResult[i] = thisChunkTran[i]
+				if (thisChunkTran.length == thisResult.length) {
+					// Fix Upper/Lower case
+					for (let i in thisChunkTran) {
+						if (thisChunkTran[i].trim().toLowerCase() == thisResult[i].trim().toLowerCase()) {
+							thisResult[i] = thisChunkTran[i]
+						}
 					}
 				}
+
+				if (thisChunkTran.length != thisResult.length) { // can't Fix
+					howManyValNoTran += thisChunkTran.length
+					thisResult = thisChunkTran // Add source tran
+				}
 			}
 
-			if (thisChunkTran.length != thisResult.length) { // can't Fix
-				howManyValNoTran += thisChunkTran.length
-				thisResult = thisChunkTran // Add source tran
-			}
+			resultArray = resultArray.concat(thisResult) // Add result
+
+			loggerText(`3. translate loading - ${resultArray.length}/${thisTranArray.length}`)
 		}
-
-		resultArray = resultArray.concat(thisResult) // Add result
-
-		loggerText(`3. translate loading - ${resultArray.length}/${thisTranArray.length}`)
 	}
 
 	if (resultArray.length == 0) {

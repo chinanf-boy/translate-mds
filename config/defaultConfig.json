@@ -8,5 +8,7 @@
     "num": 1,
 		"rewrite": false,
 		"com": false,
-		"timewait":"80"
+		"timewait":"80",
+		"getvalues": false,
+		"translate": false
   }

@@ -50,6 +50,7 @@ const writeDataToFile = async (data, file_dir) => {
 	})
 }
 
+
 module.exports = {
 	writeDataToFile,
 	insert_flg

@@ -117,7 +117,7 @@ async function translateMds(options, debug, isCli = false) {
 			E = x[1]
 			return x[0]
 		}).catch(x => {
-			logger.debug(x)
+			E = x
 			return false
 		})
 
@@ -126,7 +126,7 @@ async function translateMds(options, debug, isCli = false) {
 		}else if(E){
 			results.push({text:_translate, error:E})
 		}else{
-			results.push({text:_translate, error:"no value be translate"})
+			results.push({text:_translate, error:E})
 		}
 
 	}
