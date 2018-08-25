@@ -38,7 +38,7 @@ Example
 
   ${g('-t   to   ')}    : default < zh >
 
-  ${g('-N   num  ')}    : default < 5 >
+  ${g('-N   num  ')}    : default < 1 >
 
   ${y('{async number}')}
 
@@ -48,7 +48,7 @@ Example
 
 🌟${m('[high user options]')}❤️
 
-	${g('-D   debug')}
+  ${g('-D   debug')}
 
   ${g('-G   google.com')} : default < false >
 
@@ -76,6 +76,10 @@ Example
 
   > use: -T "h1"
 
+  ${g('--timewait ')}    : default: 80
+
+  ${y('{each fetch api wait time}')}
+
 `);
 
 const APIs = ['google','baidu','youdao']
@@ -87,13 +91,13 @@ if(!dir){
 
 // merge config
 let {
-	debug,
-	tranFr,
-	tranTo,
-	api,
-	rewrite,
-	asyncNum,
-	Force
+  debug,
+  tranFr,
+  tranTo,
+  api,
+  rewrite,
+  asyncNum,
+  Force
 } = mergeConfig(cli)
 
 const translateMds = require('./src/translateMds.js')
@@ -128,18 +132,18 @@ async.mapLimit(getList, asyncNum, runTranslate,
                   if(IsTranslateS.every(x =>!!x)){
                       doneShow(`All Done`)
                   }else{
-											if(debug !== 'debug'){
-												doneShow(`Some No Done , ${yow("use")} cli-option${r(' { -D } ')} find the Err`)
-											}
-											if(!Force){
-												doneShow(`Or ${yow("use")} cli-option${r(' { -F } ')} Force put the translate Result`)
-											}
-											if(debug === 'debug' || Force){
-												doneShow(`[${g('DEBUG')}:${debug === 'debug'}|${g('Force')}:${Force}] mode`)
-											}
-									}
-									loggerStop()
-                  console.log(process.uptime())
+                      if(debug !== 'debug'){
+                        doneShow(`Some No Done , ${yow("use")} cli-option${r(' { -D } ')} find the Err`)
+                      }
+                      if(!Force){
+                        doneShow(`Or ${yow("use")} cli-option${r(' { -F } ')} Force put the translate Result`)
+                      }
+                      if(debug === 'debug' || Force){
+                        doneShow(`[${g('DEBUG')}:${debug === 'debug'}|${g('Force')}:${Force}] mode`)
+                      }
+                  }
+                  loggerStop()
+                  doneShow(`time:${whatTime(process.uptime())}`)
                 }
 )
 
@@ -150,7 +154,7 @@ async.mapLimit(getList, asyncNum, runTranslate,
  */
 
 async function runTranslate(value){
-	let State = true
+  let State = true
 
   Done++
 
@@ -163,8 +167,8 @@ async function runTranslate(value){
     return State
   }
   if( value.match(/\.[a-zA-Z]+\.md+/)){
-		loggerText(b(`- 有后缀为 *.国家简写.md 之类 看起来名字已翻译的
-		避免出现 .zh.ja.md 的 情况，情况选择 原文件 .md ${localDone}`));
+    loggerText(b(`- 有后缀为 *.国家简写.md 之类 看起来名字已翻译的
+    避免出现 .zh.ja.md 的 情况，情况选择 原文件 .md ${localDone}`));
     return State
   }
 
@@ -173,7 +177,7 @@ async function runTranslate(value){
     return State
   }
 
-	loggerText(`1. do 第${localDone}文件 ${path.basename(value)}`)
+  loggerText(`1. do 第${localDone}文件 ${path.basename(value)}`)
 
   // open async num
   showAsyncnum++
@@ -183,43 +187,43 @@ async function runTranslate(value){
   let _translateMds =  await translateMds([value, api, tranFr, tranTo],debug, true)
   let endtime = new Date().getTime() - start;
 
-	const spinner = ora("single file final ending")
-	let Err
-	if(_translateMds.every(x =>!x.error && x.text) || Force ){ // translate no ok
+  const spinner = ora("single file final ending")
+  let Err
+  if(_translateMds.every(x =>!x.error && x.text) || Force ){ // translate no ok
 
-		let _tranData = _translateMds.map(x =>x.text)
+    let _tranData = _translateMds.map(x =>x.text)
 
-		await writeDataToFile(_tranData, value).then(text =>loggerText(text)).catch(Err =>{
-			State = false // write data no ok
-			Err = Err.message
-			loggerText(Err.message, {level:"error"})
-		})
-	}
+    await writeDataToFile(_tranData, value).then(text =>loggerText(text)).catch(Err =>{
+      State = false // write data no ok
+      Err = Err.message
+      loggerText(Err.message, {level:"error"})
+    })
+  }
 
-	for(let _t of _translateMds){
-		if(_t.error){
-			Err =  _t.error
-			break
-		}
-	}
+  for(let _t of _translateMds){
+    if(_t.error){
+      Err =  _t.error
+      break
+    }
+  }
 
-	let rePath = path.relative(process.cwd(),value)
-	let humanTime = whatTime(endtime / 1000)
-	if(State && !Err){
-		spinner.start()
-		spinner.text = `已搞定 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(humanTime)} - ${rePath} `
-		spinner.succeed()
-	}else{
-	State = false // translate no ok
-	if(!State){ // write data no ok | translate no ok
-		noDone.push(value) // if process exit code
-		spinner.start()
-		spinner.text = `没完成 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(humanTime)} - ${rePath} \n ${Err}`
-		spinner.fail()
-	}}
+  let rePath = path.relative(process.cwd(),value)
+  let humanTime = whatTime(endtime / 1000)
+  if(State && !Err){
+    spinner.start()
+    spinner.text = `已搞定 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(humanTime)} - ${rePath} `
+    spinner.succeed()
+  }else{
+  State = false // translate no ok
+  if(!State){ // write data no ok | translate no ok
+    noDone.push(value) // if process exit code
+    spinner.start()
+    spinner.text = `没完成 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(humanTime)} - ${rePath} \n ${Err}`
+    spinner.fail()
+  }}
 
   showAsyncnum--
-	loggerText('++++ 😊')
+  loggerText('++++ 😊')
 
   return State
 }
@@ -232,13 +236,13 @@ while(Done){
   await time(t)
 
   if(Done > getList.length){
-		break;
-	}
+    break;
+  }
 }
 if(noDone.length){
-	process.exitCode = 1
+  process.exitCode = 1
 }
 process.on('exit', function(err){
-	loggerStop()
+  loggerStop()
 });
 })()

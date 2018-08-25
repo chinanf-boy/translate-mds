@@ -104,6 +104,10 @@ Example
 # use: -S "... ,etc. " will concat
 
   -T   types    : default ["html", "code"] pass the md AST type
+
+  --timewait     : default: 80
+
+  {each fetch api wait time}
 ```
 
 ## Project reference
