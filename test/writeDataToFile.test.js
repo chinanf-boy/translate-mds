@@ -1,7 +1,8 @@
 const { test } = require('ava')
 const fs = require('fs')
 
-const { writeDataToFile, insert_flg } = require('../src/writeDataToFile.js')
+const { writeDataToFile } = require('../src/writeDataToFile.js')
+const { insert_flg } = require('../src/util')
 
 test("get new filename ",t =>{
     let result = insert_flg('aaaa.md', '.zh', 3)

@@ -89,7 +89,7 @@ translateMds test.md
     -S   skips          : default ["... ", "etc. ", "i.e. "] {match this str will, skip merge translate result}
     -T   types          : default ["html", "code"] {pass the md AST type}
     --timewait          : default: 80 {each fetch api wait time}
-    --values [path]     : default: false {the original output file to be translated} [single file])
+    --values [path]     : default: false { write the original of wait for translate file} [single file])
     --translate [path]  : default: false {use this file translate} [single file]
 ```
 

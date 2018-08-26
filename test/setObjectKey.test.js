@@ -25,7 +25,7 @@ test(' test google',async t =>{
 
 test(' test translate no key == value ',async t =>{
     let noValue = await setObjectKey(newObject({type:'asdf'}), 'baidu')
-    t.false(noValue)
+    t.is(noValue,'no value')
 })
 
 test(' test translate code or html false',async t =>{
@@ -33,7 +33,7 @@ test(' test translate code or html false',async t =>{
         "type": "html",
         "value": "<a href=\"http://www.ebooks.com/1993212/you-don-t-know-js-up-going/simpson-kyle/\">"
       }), 'baidu')
-    t.false(noValue)
+    t.is(noValue,'no value')
 })
 
 test.serial(' test translateValue ',async t =>{
