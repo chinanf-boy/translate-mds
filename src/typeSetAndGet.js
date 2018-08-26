@@ -55,7 +55,9 @@ function setTypeValue(obj, tranArrayZh){
 			}
 		});
 		return sum
-	};
+    };
+
+    return setdeep(obj, tranArrayZh)
 }
 module.exports = {
     getTypeValue,

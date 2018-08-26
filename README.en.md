@@ -37,6 +37,7 @@ like
 - [common problem](#common-problem)
   - [1.  Sometimes the wind will get stuck and stagnate.](#1--sometimes-the-wind-will-get-stuck-and-stagnate)
   - [2.  There are a number of totals that have not been translated successfully](#2--there-are-a-number-of-totals-that-have-not-been-translated-successfully)
+- [Tips](#tips)
   - [Welcome 👏 ISSUE and PULL](#welcome--issue-and-pull)
 - [characteristic](#characteristic)
 
