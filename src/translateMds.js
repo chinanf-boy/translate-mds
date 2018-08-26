@@ -50,7 +50,7 @@ async function translateMds(options, debug, isCli = false) {
 	}
 	// file is absolute
 	if (!absoluteFile || !path.isAbsolute(absoluteFile)) {
-		throw logger.error('translateMds absoluteFile is no absolute ')
+		throw logger.error(`translateMds absoluteFile is no absolute ${absoluteFile}`)
 	}
 	// change defaultConfig from options
 	// return first option
@@ -102,12 +102,23 @@ async function translateMds(options, debug, isCli = false) {
 	let results = []
 
 	// get floder markdown files Array
-    const getList = !isCli ? [absoluteFile] : await Listmd(absoluteFile)
+    const getList = isCli ? [absoluteFile] : await Listmd(absoluteFile)
 	for (i in getList) {
 		let value = getList[i]
 
-		// 去掉 .**.zh 的后缀 和 自己本身 .match(/\.[a-zA-Z]+\.md+/)
-		if (value.endsWith(`.${tranTo}.md`) || value.match(/\.[a-zA-Z]+\.md+/) || !value.endsWith('.md')) continue
+        // 去掉 .**.zh 的后缀 和 自己本身 .match(/\.[a-zA-Z]+\.md+/)
+        if(isCli){
+
+        }else{
+            if ( value.endsWith(`.${tranTo}.md`) || value.match(/\.[a-zA-Z]+\.md+/) || !value.endsWith('.md')){
+                continue
+            }
+            const {insert_flg } = require('./writeDataToFile.js')
+
+            if ( fs.existsSync( insert_flg(value,`.${tranTo}`, 3 ))){
+                continue
+              }
+        }
 
 		let readfile = await fs.readFile(value, 'utf8')
 		let E

@@ -20,7 +20,7 @@
     "files": [
       "test/**/*",
       "!test/*.Object.js",
-      "!config.js",
+      "!config/**",
       "!index.js"
     ]
   },
