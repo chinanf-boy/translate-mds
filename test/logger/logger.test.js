@@ -26,6 +26,12 @@ test.serial(' stop', t => {
 	t.true(!getLogger())
 });
 
+test.serial(' stop with succeed', t => {
+    loggerStart(H)
+	loggerStop('ok',{ora:'succeed'})
+	t.true(!getLogger())
+});
+
 test.serial('stop with no start ', t => {
 
 	t.true(!loggerStop("ok done"))
@@ -46,7 +52,7 @@ test('text DEBUG', t => {
 });
 
 test(' stop DEBUG', t => {
-	loggerStop()
+	loggerStop(H)
 	t.true(!getLogger())
 });
 

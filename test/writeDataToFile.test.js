@@ -19,7 +19,7 @@ test.failing("filename no .md", async t =>{
 })
 
 test.serial("writeData with Array ", async t =>{
-    let result = await writeDataToFile(["hello！", "world"], __dirname + '/testWrite3.md')
+    let result = await writeDataToFile(["hello！", "world"], __dirname + '/feature/testWrite3.md')
     t.true(result.includes('file saved'))
 })
 

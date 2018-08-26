@@ -20,7 +20,7 @@ test("read no absolute dir", async t =>{
 })
 
 test.serial.before("read md file", async t =>{
-    const len = await Listmd(__dirname+"/testWrite.md").then(x => x)
+    const len = await Listmd(__dirname+"/feature/testWrite.md").then(x => x)
 
 
     t.is(len.length, 1)

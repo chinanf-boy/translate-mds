@@ -28,7 +28,7 @@
             "name": "Launch index",
             "program": "${workspaceFolder}/index.js",
             "args": [
-                "test/testWrite.md"
+                "test/feature/testWrite.md"
             ]
         }
     ]

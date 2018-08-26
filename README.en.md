@@ -98,7 +98,7 @@ translateMds test.md
 ```js
 const translate = require('translate-mds')
 //
-let results = await translate([__dirname+'/testWrite1.md'])
+let results = await translate([__dirname+'/feature/testWrite1.md'])
 //or
 let results = await translate([__dirname+'/md/'])
 // results is Array
