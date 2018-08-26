@@ -106,11 +106,28 @@ const _SETDEBUG = (d) =>{
 	D = d
 }
 
+function oneOra(str,end = 'succeed') {
+    let l = getLogger()
+    let oT;
+    if(l && !D){
+      oT = l.text
+      l.stop()
+    }
+    const s = ora(str).start()
+    s.color = 'red'
+    s[end]()
+
+    if(l && !D){
+      loggerStart(oT)
+    }
+}
+
 module.exports = {
 	logger,
 	loggerStart,
 	loggerText,
 	loggerStop,
 	getLogger,
-	_SETDEBUG
+    _SETDEBUG,
+    oneOra
 }
