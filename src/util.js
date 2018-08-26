@@ -18,8 +18,38 @@ function time(ms) {
 	return new Promise((resolve, reject) => {
 	  setTimeout(resolve, ms);
 	});
-	}
+}
 
+function insert_flg(str, flg, Uindex) {
+    let newstr = "";
+    if (!str || !flg) {
+        throw TypeError('filename<' + str + '> can not add' + flg)
+    }
+    let len = str.length
+    let tmp = str.substring(0, len - Uindex);
+    newstr = tmp + flg + str.substring(len - Uindex, len)
+    return newstr;
+}
+
+function O2A(options) {
+	let {
+		aFile,
+		api,
+		tF,
+		tT
+	} = options
+	return [aFile, api, tF, tT]
+}
+
+const fs = require('mz/fs')
+const EOL = require('os').EOL
+
+async function asyncWrite(p, arry){
+    return await fs.writeFile(p,arry.join(EOL))
+}
+async function asyncRead(p){
+    return await fs.readFileSync(p,"utf8").split(EOL).filter(ok => ok)
+}
 module.exports  = {
 	time,
 	g,
@@ -29,5 +59,9 @@ module.exports  = {
 	b,
     r,
     relaPath,
-    newObject
+    newObject,
+    insert_flg,
+    O2A,
+    asyncWrite,
+    asyncRead
 }
