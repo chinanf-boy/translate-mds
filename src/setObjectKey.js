@@ -207,7 +207,7 @@ async function setObjectKey(obj, api) {
 
 			for (let i in allAPi) { // Auto next api
 
-				loggerText(`2. use ${g(api)} ${resultArray.length}/${thisTranArray.length} - ${r("If slow/stagnant , should try again or use -D ")}`)
+				loggerText(`2. use ${g(api)} ${resultArray.length}/${thisTranArray.length} - ${r("If slow/stagnant , should try again")}`)
 
 				try {
 

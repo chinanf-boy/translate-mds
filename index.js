@@ -93,6 +93,8 @@ let showAsyncnum = 0
 loggerStart("++++ starting 😊")
 async.mapLimit(getList, asyncNum, runTranslate,
   (err, IsTranslateS) =>{
+                  loggerStop()
+
                   if(err)throw err
                   Done++
                   if(IsTranslateS.every(x =>!!x)){
@@ -109,7 +111,6 @@ async.mapLimit(getList, asyncNum, runTranslate,
                       }
                   }
                   doneShow(`time:${whatTime(process.uptime())}`)
-                  loggerStop()
                 }
 )
 
