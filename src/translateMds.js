@@ -15,18 +15,8 @@ const {
 // config
 const mergeConfig = require('../config/mergeConfig')
 
-let done = 0
-
 // Object to Array
-function O2A(options) {
-	let {
-		aFile,
-		api,
-		tF,
-		tT
-	} = options
-	return [aFile, api, tF, tT]
-}
+const { O2A }  = require('./util')
 
 /**
  * @description translateMds main
@@ -86,7 +76,7 @@ async function translateMds(options, debug, isCli = false) {
 		// translate Array
 		translateMdAst = await setObjectKey(mdAst, api)
 
-		if (translateMdAst) {
+		if (typeof translateMdAst !== 'string') {
             let E = translateMdAst.Error
 			// Ast to markdown
 			body = remark().use({
@@ -96,7 +86,7 @@ async function translateMds(options, debug, isCli = false) {
 			return [head + '\n' + body, E]
 		}
 
-		return translateMdAst
+		return ['',translateMdAst]
 	}
 
 	let results = []
@@ -113,23 +103,23 @@ async function translateMds(options, debug, isCli = false) {
             if ( value.endsWith(`.${tranTo}.md`) || value.match(/\.[a-zA-Z]+\.md+/) || !value.endsWith('.md')){
                 continue
             }
-            const {insert_flg } = require('./writeDataToFile.js')
+            const {insert_flg } = require('./util.js')
 
             if ( fs.existsSync( insert_flg(value,`.${tranTo}`, 3 ))){
                 continue
-              }
+            }
         }
 
-		let readfile = await fs.readFile(value, 'utf8')
+        let readfile = await fs.readFile(value, 'utf8')
+        
 		let E
 		let _translate = await t(readfile).then(x => {
-			E = x[1]
-			return x[0]
+            E = x[1]
+            return x[0]
 		}).catch(x => {
 			E = x
 			return ''
 		})
-
 		results.push({text:_translate, error:E})
 	}
 

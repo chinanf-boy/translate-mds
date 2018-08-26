@@ -13,12 +13,11 @@ const asyncfs = require('mz/fs')
 const path = require('path')
 const {Listmd} = require('./src/readmd.js')
 const meow = require('meow');
-const ora = require('ora-min')
 const remark = require('remark')
 
 const mergeConfig = require('./config/mergeConfig')
 
-let {g,y,yow,m,b,r,relaPath} = require('./src/util')
+let {g,y,yow,m,b,r,relaPath,insert_flg} = require('./src/util')
 
 // cli cmd
 const cli = meow(`
@@ -45,7 +44,7 @@ Example
   ${g('-S   skips')}          : default ["... ", "etc. ", "i.e. "] ${y('{match this str will, skip merge translate result }')}
   ${g('-T   types')}          : default ["html", "code"] ${y('{pass the md AST type}')}
   ${g('--timewait ')}         : default < 80 > ${y('{each fetch api wait time}')}
-  ${g('--values [path]')}     : default: false ${y('{the original output file to be translated}')} ${r('[single file])')}
+  ${g('--values [path]')}     : default: false ${y('{write the original of wait for translate file}')} ${r('[single file])')}
   ${g('--translate [path]')}  : default: false ${y('{use this file translate}')} ${r('[single file]')}
 
 `);
@@ -69,10 +68,10 @@ let {
 
 const translateMds = require('./src/translateMds.js')
 
-const { logger, loggerStart, loggerText, loggerStop } = require('./config/loggerConfig.js') // winston config
+const { logger, loggerStart, loggerText, loggerStop, oneOra } = require('./config/loggerConfig.js') // winston config
 
 // after workOptions ready
-const { writeDataToFile, insert_flg } = require('./src/writeDataToFile.js')
+const { writeDataToFile } = require('./src/writeDataToFile.js')
 
 console.log(b('Starting 翻译')+r(dir));
 
@@ -83,11 +82,6 @@ console.log(b(`总文件数 ${getList.length}, 有些文件会跳过`));
 
 let Done = 0
 let noDone = []
-function doneShow(str,end = 'succeed') {
-    const s = ora(str).start()
-    s.color = 'red'
-    s[end]()
-}
 let showAsyncnum = 0
 
 loggerStart("++++ starting 😊")
@@ -96,21 +90,22 @@ async.mapLimit(getList, asyncNum, runTranslate,
                   loggerStop()
 
                   if(err)throw err
+
                   Done++
                   if(IsTranslateS.every(x =>!!x)){
-                      doneShow(`All Done`)
+                      oneOra(`All Done`)
                   }else{
                       if(debug !== 'debug'){
-                        doneShow(`Some No Done , ${yow("use")} cli-option${r(' { -D } ')} find the Err`)
+                        oneOra(`Some No Done , ${yow("use")} cli-option${r(' { -D } ')} find the Err`)
                       }
                       if(!Force){
-                        doneShow(`Or ${yow("use")} cli-option${r(' { -F } ')} Force put the translate Result`)
+                        oneOra(`Or ${yow("use")} cli-option${r(' { -F } ')} Force put the translate Result`)
                       }
                       if(debug === 'debug' || Force){
-                        doneShow(`[${g('DEBUG')}:${debug === 'debug'}|${g('Force')}:${Force}] mode`)
+                        oneOra(`[${g('DEBUG')}:${debug === 'debug'}|${g('Force')}:${Force}] mode`)
                       }
                   }
-                  doneShow(`time:${whatTime(process.uptime())}`)
+                  oneOra(`time:${whatTime(process.uptime())}`)
                 }
 )
 
@@ -173,12 +168,12 @@ async function runTranslate(value){
   let humanTime = whatTime(endtime / 1000)
 
   if(State && !Err){
-    doneShow(`已搞定 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(humanTime)} - ${rePath}`)
+    oneOra(`已搞定 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(humanTime)} - ${rePath}`)
   }else{
   State = false // translate no ok
   if(!State){ // write data no ok | translate no ok
     noDone.push(value) // if process exit code
-    doneShow(`没完成 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(humanTime)} - ${rePath} \n ${Err}`,'fail')
+    oneOra(`没完成 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(humanTime)} - ${rePath} \n ${Err}`,'fail')
   }}
 
   showAsyncnum--

@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { m } = require('./util')
+const { m,insert_flg } = require('./util')
 const {
 	logger
 } = require('../config/loggerConfig.js')
@@ -9,22 +9,12 @@ const {
 let configs = getOptions()
 const tranT = configs.to
 
-function insert_flg(str, flg, Uindex) {
-	var newstr = "";
-	if (!str || !flg) {
-		throw TypeError('filename<' + str + '> can not add' + flg)
-	}
-	var len = str.length
-	var tmp = str.substring(0, len - Uindex);
-	newstr = tmp + flg + str.substring(len - Uindex, len)
-	return newstr;
-}
 
 const writeDataToFile = async (data, file_dir) => {
 	return new Promise((ok, Err) => {
 		try{
 
-			var zhfile
+			let zhfile
 			if (!file_dir.endsWith('.md')) {
 				Err("no md file,just go away")
 			}

@@ -1,6 +1,4 @@
 const tjs = require('translation.js')
-const fs = require('mz/fs')
-const relative = require('path').relative
 
 // log
 const debug = require("debug")("mds:tran")
@@ -12,22 +10,22 @@ const configs = getOptions()
 
 let tranF = configs['from'],
 tranT = configs['to'],
-TYPES = configs['types'],
 COM   = configs['com'],
 timeWait = configs['timewait'],
 getValuesFile = configs['getvalues'],
 gotTranslateFile = configs['translate'],
 apis = configs['apis'];
 
-const MAXstring = 1300
+const { getTypeValue, setTypeValue} = require('./typeSetAndGet')
 
 // Fix china symbal
 const { fixEntoZh } = require("./fixEntoZh.js")
 // Fix result.length no equal
 const { translateLengthEquals } = require("./Fix/lengthEqual.js")
 const { fixFileTooBig, indexMergeArr } = require("./Fix/fixFileTooBig.js")
-const {time,g,y,yow,m,b,r,relaPath,newObject} = require('./util')
+const {time,g,y,yow,m,b,r,relaPath,newObject,asyncWrite,asyncRead} = require('./util')
 
+const MAXstring = 1300
 
 //
 // get translate result
@@ -100,65 +98,15 @@ async function setObjectKey(obj, api) {
 	let tranArray = []
 	let thisTranArray = []
 	let resultArray = []
-	let sum = 0 // values num
     let newObj = newObject(obj)
 
-	let types = ['html', 'code'].concat(TYPES)
-	/**
-	 * @description Find ``obj['type'] === 'value'`` ,and``tranArray.push(obj[key])``
-	 * @param {Object} obj
-	 * @param {String[]} tranArray
-	 * @returns {number} - find value number
-	 */
-	function deep(obj, tranArray) {
-		Object.keys(obj).forEach(function (key) {
-
-			// no translate code content
-			if (obj['type'] && (types.some(t => obj['type'] == t))) {
-				return sum
-			}
-			(obj[key] && typeof obj[key] === 'object') && deep(obj[key], tranArray)
-
-
-			if (key === 'value' && obj[key].trim()) {
-				tranArray.push(obj[key])
-				sum++
-			}
-		});
-		return sum
-	};
-
-	/**
-	 * @description Find ``obj['type'] === 'value'``, and use ``tranArrayZh.shift`` set ``obj['value']``
-	 * @param {any} obj - AST
-	 * @param {String[]} tranArrayZh
-	 * @returns
-	 */
-	function setdeep(obj, tranArrayZh) {
-		Object.keys(obj).forEach(function (key) {
-
-			if (obj['type'] && (types.some(t => obj['type'] == t))) {
-				return sum
-			}
-
-			(obj[key] && typeof obj[key] === 'object') && setdeep(obj[key], tranArrayZh)
-
-			if (key === 'value' && obj[key].trim()) {
-				if (tranArrayZh.length) {
-					obj[key] = tranArrayZh.shift()
-					sum--
-				}
-			}
-		});
-		return sum
-	};
-
-	// put obj values to tranArray
-	if (!deep(obj, tranArray)) {
+    // put obj values to tranArray
+    let sum = getTypeValue(obj, tranArray)
+	if (!sum || !tranArray.length) {
 		loggerText("no value " + sum, {
 			level: "error"
 		})
-		return false
+		return "no value"
 	}
 
 	if (tranArray.length) {
@@ -172,14 +120,17 @@ async function setObjectKey(obj, api) {
 		thisTranArray = tranArray
 		tranArray = []
 		if(getValuesFile){
-			await fs.writeFile(getValuesFile,thisTranArray.join(require('os').EOL)).then(function(ok){
-				loggerText(`values be saved`)
-			})
+			await asyncWrite(getValuesFile,thisTranArray).then(function(ok){
+				loggerText(`values file be saved`)
+            })
+
+            return "you want values, so skip translate"
 		}
 	}
 
 	if(gotTranslateFile){ // custom translate file with single file
-		let tContent = fs.readFileSync(gotTranslateFile,"utf8").split(require('os').EOL).filter(ok => ok)
+        let tContent = await asyncRead(gotTranslateFile)
+
 		if(tContent.length === thisTranArray.length){
 			resultArray = tContent
 		}else{
@@ -312,7 +263,7 @@ async function setObjectKey(obj, api) {
 
 	resultArray = fixEntoZh(resultArray) // fix zh symbal to en
 
-	setdeep(newObj, resultArray)
+	setTypeValue(newObj, resultArray)
 
 	if (howManyValNoTran > 0) {
 		newObj.Error = `the file no translate number: ${howManyValNoTran}/${thisTranArray.length}`
