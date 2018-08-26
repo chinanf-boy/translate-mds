@@ -14,13 +14,6 @@ let workOptions = require('./work-options')
 let defaultConfig = require('./defaultConfig.json') //---
 
 function mergeConfig(cli) {
-    function fromTodo(tranFrom, args){
-        if(tranFrom){
-          args.from = tranFrom
-        }
-        return args.from
-        }
-
 	let debug = setDefault(cli.flags['D'], debugTodo, defaultConfig)
 	let tranFr = setDefault(cli.flags['f'], fromTodo, defaultConfig)
 	let tranTo = setDefault(cli.flags['t'], toTodo, defaultConfig)
@@ -42,7 +35,10 @@ function mergeConfig(cli) {
     }, typesTodo, defaultConfig)
 
     let Force = cli.flags['F'] ? true : false
-
+    if(Force){
+        defaultConfig.force = Force
+    }
+    
     let COM = cli.flags['G'] ? true : false
     if(COM){
         defaultConfig.com = COM
@@ -89,7 +85,7 @@ function main(opts) {
 	tranFrom = setDefault(tranFrom, fromTodo, defaultConfig)
 	tranTo = setDefault(tranTo, toTodo, defaultConfig)
     api = setDefault(api, apiTodo, defaultConfig)
-    
+
 	setDefault({
 		n: options.Matchs,
 		type: 'M'
