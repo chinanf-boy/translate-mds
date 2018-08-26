@@ -1,5 +1,4 @@
-
-# translate .md to \*.md[![explain](http://llever.com/explain.svg)](https://github.com/chinanf-boy/explain-translateMds)
+# translate .md to \*.md[![explain](http://llever.com/explain.svg)](https://github.com/chinanf-boy/explain-translateMds) [![install size](https://packagephobia.now.sh/badge?p=translate-mds)](https://packagephobia.now.sh/result?p=translate-mds)
 
 like
 
@@ -9,7 +8,7 @@ like
 
 [english](./README.en.md)
 
-* * *
+---
 
 [![Build Status](https://travis-ci.org/chinanf-boy/translate-mds.svg?branch=master)](https://travis-ci.org/chinanf-boy/translate-mds)
 [![codecov](https://codecov.io/gh/chinanf-boy/translate-mds/branch/master/graph/badge.svg)](https://codecov.io/gh/chinanf-boy/translate-mds)
@@ -20,11 +19,10 @@ like
 
 [help me live , live need money 💰](https://github.com/chinanf-boy/live-need-money)
 
-* * *
+---
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 
 - [This project is for all-of-markdown-writing-files translation`工具`](#this-project-is-for-all-of-markdown-writing-files-translation%E5%B7%A5%E5%85%B7)
 - [Demo](#demo)
@@ -35,8 +33,8 @@ like
   - [Options when using `{}`](#options-when-using-)
 - [My-translate-list](#my-translate-list)
 - [common problem](#common-problem)
-  - [1.  Sometimes the wind will get stuck and stagnate.](#1--sometimes-the-wind-will-get-stuck-and-stagnate)
-  - [2.  There are a number of totals that have not been translated successfully](#2--there-are-a-number-of-totals-that-have-not-been-translated-successfully)
+  - [1. Sometimes the wind will get stuck and stagnate.](#1--sometimes-the-wind-will-get-stuck-and-stagnate)
+  - [2. There are a number of totals that have not been translated successfully](#2--there-are-a-number-of-totals-that-have-not-been-translated-successfully)
 - [Tips](#tips)
   - [Welcome 👏 ISSUE and PULL](#welcome--issue-and-pull)
 - [characteristic](#characteristic)
@@ -74,8 +72,7 @@ translateMds test.md
     $ translateMds md/
 
     [options]
-    -a   API      : default < baidu >
-    {google|baidu|youdao}
+    -a   API      : default < baidu > {google|baidu|youdao}
     -f   from     : default < en >
     -t   to       : default < zh >
     -N   num      : default < 1 > {async number}
@@ -84,26 +81,28 @@ translateMds test.md
   🌟[high user options]❤️
 
     -D   debug
-    -G   google.com     : default < false > { cn => com with Google api }
-    -F   force          : default < false > { If, translate result is no 100%, force wirte md file }
-    -M   match          : default [ ". ", "! "//...] {match this str, merge translate result }
-    -S   skips          : default ["... ", "etc. ", "i.e. "] {match this str will, skip merge translate result}
-    -T   types          : default ["html", "code"] {pass the md AST type}
-    --timewait          : default: 80 {each fetch api wait time}
-    --values [path]     : default: false {write the original of wait for translate file} [single file])
-    --translate [path]  : default: false {use this file translate} [single file]
+    -G   google.com               : default < false > { cn => com with Google api }
+    -F   force                    : default < false > { If, translate result is no 100%, force wirte md file }
+    -M   match                    : default [ ". ", "! "//...] {match this str, merge translate result }
+    -S   skips                    : default ["... ", "etc. ", "i.e. "] {match this str will, skip merge translate result}
+    -T   types                    : default ["html", "code"] {pass the md AST type}
+    --timewait                    : default: 80 {each fetch api wait time}
+    --values [path]               : default: false {write the original of wait for translate file} [single file])
+    --translate [path]            : default: false {use this file translate} [single file]
+    --glob [pattern]              : default: false {file path must be match, then be transalte}
+    --skip [relative file/folder] : default: false {skip the file/folder}
 ```
 
 ## Project reference
 
 ```js
-const translate = require('translate-mds')
+const translate = require('translate-mds');
 //
-let results = await translate([__dirname+'/feature/testWrite1.md'])
+let results = await translate([__dirname + '/feature/testWrite1.md']);
 //or
-let results = await translate([__dirname+'/md/'])
+let results = await translate([__dirname + '/md/']);
 // results is Array
-results = [{text:_translteText, error:String}]
+results = [{text: _translteText, error: String}];
 ```
 
 ### translate(options,debug)
@@ -124,7 +123,7 @@ results = [{text:_translteText, error:String}]
 | tT    | `zh`     | to language                 |
 | debug | `info`   | winston level               |
 
-* * *
+---
 
 ## My-translate-list
 
@@ -132,7 +131,7 @@ results = [{text:_translteText, error:String}]
 
 ## common problem
 
-### 1.  Sometimes the wind will get stuck and stagnate.
+### 1. Sometimes the wind will get stuck and stagnate.
 
 ```js
 If slow , may be you should try again or use -D
@@ -140,7 +139,7 @@ If slow , may be you should try again or use -D
 
 The problem comes from the API, you just have to run it again.
 
-### 2.  There are a number of totals that have not been translated successfully
+### 2. There are a number of totals that have not been translated successfully
 
 > Quantity is no translation success / total is the total number of single file translations
 
@@ -160,13 +159,13 @@ At this time, you can use`-D`Debug /`-F`Force write to file / Adjust unusual cha
 
 ## characteristic
 
--   [x] Improve the accuracy of md format such as http
+- [x] Improve the accuracy of md format such as http
 
--   [x] Automatic translation
+- [x] Automatic translation
 
--   [x] Enable md AST
+- [x] Enable md AST
 
-* * *
+---
 
 Use[`remark`](https://github.com/wooorm/remark)Improve accuracy
 

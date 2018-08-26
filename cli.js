@@ -7,6 +7,7 @@ process.on('uncaughtException', function(err){
 });
 
 const whatTime = require('what-time');
+const minimatch = require('minimatch');
 const async = require('async')
 const fs = require('fs')
 const asyncfs = require('mz/fs')
@@ -15,9 +16,9 @@ const {Listmd} = require('./src/readmd.js')
 const meow = require('meow');
 const remark = require('remark')
 
-const mergeConfig = require('./config/mergeConfig')
+const mergeConfig = require('./config/mergeConfig.js')
 
-let {g,y,yow,m,b,r,relaPath,insert_flg} = require('./src/util')
+let {g,y,yow,m,b,r,relaPath,insert_flg} = require('./src/util.js')
 
 // cli cmd
 const cli = meow(`
@@ -28,8 +29,7 @@ Example
   $ translateMds md/
 
   ${b('[options]')}
-  ${g('-a   API')}      : default < baidu >
-  ${y('{google|baidu|youdao}')}
+  ${g('-a   API')}      : default < baidu > ${y('{google|baidu|youdao}')}
   ${g('-f   from ')}    : default < en >
   ${g('-t   to   ')}    : default < zh >
   ${g('-N   num  ')}    : default < 1 > ${y('{async number}')}
@@ -38,14 +38,16 @@ Example
 🌟${m('[high user options]')}❤️
 
   ${g('-D   debug')}
-  ${g('-G   google.com')}     : default: false  ${y('{ cn => com with Google api }')}
-  ${g('-F   force')}          : default: false  ${y('{ If, translate result is no 100%, force wirte md file }')}
-  ${g('-M   match')}          : default [ ". ", "! "//...] ${y('{match this str, merge translate result }')}
-  ${g('-S   skips')}          : default ["... ", "etc. ", "i.e. "] ${y('{match this str will, skip merge translate result }')}
-  ${g('-T   types')}          : default ["html", "code"] ${y('{pass the md AST type}')}
-  ${g('--timewait ')}         : default < 80 > ${y('{each fetch api wait time}')}
-  ${g('--values [path]')}     : default: false ${y('{write the original of wait for translate file}')} ${r('[single file])')}
-  ${g('--translate [path]')}  : default: false ${y('{use this file translate}')} ${r('[single file]')}
+  ${g('-G   google.com')}      : default: false  ${y('{ cn => com with Google api }')}
+  ${g('-F   force')}           : default: false  ${y('{ If, translate result is no 100%, force wirte md file }')}
+  ${g('-M   match')}           : default [ ". ", "! "//...] ${y('{match this str, merge translate result }')}
+  ${g('-S   skips')}           : default ["... ", "etc. ", "i.e. "] ${y('{match this str will, skip merge translate result }')}
+  ${g('-T   types')}           : default ["html", "code"] ${y('{pass the md AST type}')}
+  ${g('--timewait ')}          : default < 80 > ${y('{each fetch api wait time}')}
+  ${g('--values [path]')}      : default: false ${y('{write the original of wait for translate file}')} ${r('[single file])')}
+  ${g('--translate [path]')}   : default: false ${y('{use this file translate}')} ${r('[single file]')}
+  ${g('--glob [pattern]')}     : default: false ${y('{file must be match, then be transalte}')}
+  ${g('--skip [relative file/folder]')} : default: false ${y('{skip the file/folder}')}
 
 `);
 
@@ -83,8 +85,9 @@ console.log(b(`总文件数 ${getList.length}, 有些文件会跳过`));
 let Done = 0
 let noDone = []
 let showAsyncnum = 0
+const pattern = cli.flags['glob'] || false
 
-loggerStart("++++ starting 😊")
+loggerStart("translate running ...")
 async.mapLimit(getList, asyncNum, runTranslate,
   (err, IsTranslateS) =>{
                   loggerStop()
@@ -116,14 +119,13 @@ async.mapLimit(getList, asyncNum, runTranslate,
  */
 
 async function runTranslate(value){
-  loggerText("++++ <😊 >")
+  let rePath = relaPath(value)
+  loggerText(`++++ <😊 > ${rePath}`)
 
   let State = true
-  let rePath = relaPath(value)
   Done++
 
   let localDone = Done
-
 
   // filter same file
   if(value.endsWith(`.${tranTo}.md`) || !value.endsWith('.md')) {
@@ -136,6 +138,14 @@ async function runTranslate(value){
   }
   if(!rewrite && fs.existsSync( insert_flg(value,`.${tranTo}`, 3 ))){
     loggerText(b(`已翻译, 不覆盖 ${rePath}`));
+    return State
+  }
+  if(pattern && !minimatch(value,pattern,{ matchBase: true })){
+    loggerText(b(`glob, no match ${rePath}`));
+    return State
+  }
+  if(cli.flags['skip'] && value.includes(path.resolve(cli.flags['skip']))){
+    loggerText(b(`skip, ${rePath}`));
     return State
   }
 
@@ -182,7 +192,7 @@ async function runTranslate(value){
   return State
 }
 
-const { time } = require('./src/util')
+const { time } = require('./src/util.js')
 
 // async.mapLimit will outside, must lock in
 while(Done){

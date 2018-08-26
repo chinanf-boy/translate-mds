@@ -7,7 +7,7 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "demo": "node index.js md/",
+    "demo": "node cli.js md/",
     "ava": "ava --verbose --serial",
     "test": "nyc --reporter=lcov --reporter=text --reporter=html npm run ava",
     "pub": "npm run test && npm version patch && git push origin master && git push --tags",
@@ -18,7 +18,7 @@
   },
   "files": [
     "src",
-    "index.js",
+    "cli.js",
     "config"
   ],
   "ava": {
@@ -26,11 +26,11 @@
       "test/**/*",
       "!test/*.Object.js",
       "!config/**",
-      "!index.js"
+      "!cli.js"
     ]
   },
   "bin": {
-    "translateMds": "./index.js"
+    "translateMds": "./cli.js"
   },
   "author": "yobrave",
   "license": "ISC",
@@ -38,6 +38,7 @@
     "async": "^2.6.0",
     "debug": "^3.1.0",
     "meow": "^3.7.0",
+    "minimatch": "^3.0.4",
     "mz": "^2.7.0",
     "ora-min": "^1.0.0",
     "remark": "^9.0.0",
