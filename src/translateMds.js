@@ -86,9 +86,8 @@ async function translateMds(options, debug, isCli = false) {
 		// translate Array
 		translateMdAst = await setObjectKey(mdAst, api)
 
-		let E = translateMdAst.Error
-
 		if (translateMdAst) {
+            let E = translateMdAst.Error
 			// Ast to markdown
 			body = remark().use({
 				settings: {commonmark: true, emphasis: '*', strong: '*'}
@@ -103,8 +102,7 @@ async function translateMds(options, debug, isCli = false) {
 	let results = []
 
 	// get floder markdown files Array
-	const getList = await Listmd(absoluteFile)
-
+    const getList = !isCli ? [absoluteFile] : await Listmd(absoluteFile)
 	for (i in getList) {
 		let value = getList[i]
 
@@ -118,17 +116,10 @@ async function translateMds(options, debug, isCli = false) {
 			return x[0]
 		}).catch(x => {
 			E = x
-			return false
+			return ''
 		})
 
-		if (_translate) {
-			results.push({text:_translate, error:E})
-		}else if(E){
-			results.push({text:_translate, error:E})
-		}else{
-			results.push({text:_translate, error:E})
-		}
-
+		results.push({text:_translate, error:E})
 	}
 
 	return results

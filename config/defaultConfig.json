@@ -10,5 +10,6 @@
 		"com": false,
 		"timewait":"80",
 		"getvalues": false,
-		"translate": false
+    "translate": false,
+    "apis": ["baidu", "google", "youdao"]
   }

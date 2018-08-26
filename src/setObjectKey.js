@@ -1,31 +1,32 @@
 const tjs = require('translation.js')
-const chalk = require('turbocolor')
 const fs = require('mz/fs')
 const relative = require('path').relative
-const ora = require("ora-min")
+
+// log
 const debug = require("debug")("mds:tran")
 const {logger, loggerStart, loggerStop, loggerText } = require('../config/loggerConfig.js')
+
 // get config.json
 const {getOptions} = require('../config/work-options.js')
 const configs = getOptions()
-let tranF, tranT, TYPES, COM, timeWait, getValuesFile,gotTranslateFile
-tranF = configs['from']
-tranT = configs['to']
-TYPES = configs['types']
-COM   = configs['com']
-timeWait = configs['timewait']
-getValuesFile = configs['getvalues']
-gotTranslateFile = configs['translate']
 
-// logger.level = configs.logger.level
-let MAXstring = 1300
+let tranF = configs['from'],
+tranT = configs['to'],
+TYPES = configs['types'],
+COM   = configs['com'],
+timeWait = configs['timewait'],
+getValuesFile = configs['getvalues'],
+gotTranslateFile = configs['translate'],
+apis = configs['apis'];
+
+const MAXstring = 1300
 
 // Fix china symbal
 const { fixEntoZh } = require("./fixEntoZh.js")
 // Fix result.length no equal
 const { translateLengthEquals } = require("./Fix/lengthEqual.js")
 const { fixFileTooBig, indexMergeArr } = require("./Fix/fixFileTooBig.js")
-const {time,g,y,yow,m,b,r} = require('./util')
+const {time,g,y,yow,m,b,r,relaPath,newObject} = require('./util')
 
 
 //
@@ -76,7 +77,6 @@ async function translateValue(value, api) {
 
 			}).catch(x => logger.error(`${youdao}炸了`, x))
 			// Promise.reject("bad youdao fanyi no get \\n")
-
 		}
 
 		return result.result
@@ -95,13 +95,13 @@ async function translateValue(value, api) {
  */
 async function setObjectKey(obj, api) {
 
-	let allAPi = ['baidu', 'google', 'youdao']
+	let allAPi = apis
 	let howManyValNoTran = 0
 	let tranArray = []
 	let thisTranArray = []
 	let resultArray = []
-	let newObj = JSON.parse(JSON.stringify(obj))
-	let sum = 0 // single values
+	let sum = 0 // values num
+    let newObj = newObject(obj)
 
 	let types = ['html', 'code'].concat(TYPES)
 	/**
@@ -172,27 +172,28 @@ async function setObjectKey(obj, api) {
 		thisTranArray = tranArray
 		tranArray = []
 		if(getValuesFile){
-			await fs.writeFile('./translate-values.md',thisTranArray.join(require('os').EOL)).then(function(ok){
+			await fs.writeFile(getValuesFile,thisTranArray.join(require('os').EOL)).then(function(ok){
 				loggerText(`values be saved`)
 			})
 		}
 	}
 
-	if(gotTranslateFile){
-		let translateContent = fs.readFileSync(gotTranslateFile,"utf8").split(require('os').EOL).filter(ok => ok)
-		if(translateContent.length === thisTranArray.length){
-			resultArray = translateContent
+	if(gotTranslateFile){ // custom translate file with single file
+		let tContent = fs.readFileSync(gotTranslateFile,"utf8").split(require('os').EOL).filter(ok => ok)
+		if(tContent.length === thisTranArray.length){
+			resultArray = tContent
 		}else{
-			throw new Error(`${g(relative(process.cwd(),gotTranslateFile))} value length ${r('no equal')}\n translateContent:${y(translateContent.length)}\n waitTranslate:${y(thisTranArray.length)}`)
+			throw new Error(`${g(relaPath(gotTranslateFile))} value length ${r('no equal')}\n translate-content:${y(tContent.length)}\n wait-translate:${y(thisTranArray.length)}`)
 		}
 	}else{
 		// Fix file Too Big
 		let chunkTranArray = fixFileTooBig(thisTranArray)
 
+        // got detect language
 		await tjs.google.detect(thisTranArray.join(require('os').EOL)).then(lang => {
 			tranF = lang
 		}).catch(e =>{
-			loggerText(chalk.red(`get lang from google fail`))
+			loggerText(r(`get lang from google fail`))
 		})
 
 		for (let third in chunkTranArray) {
@@ -206,7 +207,7 @@ async function setObjectKey(obj, api) {
 
 			for (let i in allAPi) { // Auto next api
 
-				loggerText(`2. use ${g(api)} ${resultArray.length}/${thisTranArray.length} - ${r("If slow/Stagnant , may be you should try again or use -D ")}`)
+				loggerText(`2. use ${g(api)} ${resultArray.length}/${thisTranArray.length} - ${r("If slow/stagnant , should try again or use -D ")}`)
 
 				try {
 
@@ -229,12 +230,12 @@ async function setObjectKey(obj, api) {
 
 				} catch (error) {
 					if (!error.code) {
-						loggerText(`${error.message} tjs-程序错误,api:${y(api)}`, {
+						loggerText(`${error.message} tjs-error, api:${y(api)}`, {
 							level: "error",
 							color: "red"
 						})
 					} else {
-						loggerText(`${error.code} 出现了啦，不给数据,api:${y(api)}`, {
+						loggerText(`${error.code} ,api:${y(api)}`, {
 							level: "error",
 							color: "red"
 						})
@@ -269,10 +270,9 @@ async function setObjectKey(obj, api) {
 
 				}
 
-
 				let BigOne = thisChunkTran.length > thisResult.length ? thisChunkTran : thisResult
 
-				if (debug.enabled) { // debug deep
+				if (debug.enabled) { // debug all
 					debug(`-- source: ${thisChunkTran.length}/${thisResult.length}: translte ---`)
 
 					for (let i in BigOne) { // Debug
@@ -310,22 +310,12 @@ async function setObjectKey(obj, api) {
 		}
 	}
 
-	if (resultArray.length == 0) {
-		loggerText(`
-      获取信息错误,原因有3
-      1. 网络失联 2. 翻译源 失败 > 文件太大了 3. 抽风
-      `, {
-			level: "error"
-		})
-		return false
-	}
-
 	resultArray = fixEntoZh(resultArray) // fix zh symbal to en
 
-	setdeep(newObj, resultArray) // [[1],[2]] => [1,2]
+	setdeep(newObj, resultArray)
 
 	if (howManyValNoTran > 0) {
-		newObj.Error = `没翻译成功的有 ${howManyValNoTran}/${thisTranArray.length}`
+		newObj.Error = `the file no translate number: ${howManyValNoTran}/${thisTranArray.length}`
 	}
 
 

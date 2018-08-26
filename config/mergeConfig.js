@@ -14,12 +14,20 @@ let workOptions = require('./work-options')
 let defaultConfig = require('./defaultConfig.json') //---
 
 function mergeConfig(cli) {
+    function fromTodo(tranFrom, args){
+        if(tranFrom){
+          args.from = tranFrom
+        }
+        return args.from
+        }
+
 	let debug = setDefault(cli.flags['D'], debugTodo, defaultConfig)
 	let tranFr = setDefault(cli.flags['f'], fromTodo, defaultConfig)
 	let tranTo = setDefault(cli.flags['t'], toTodo, defaultConfig)
 	let api = setDefault(cli.flags['a'], apiTodo, defaultConfig)
 	let rewrite = setDefault(cli.flags['R'], rewriteTodo, defaultConfig)
-	let asyncNum = setDefault(cli.flags['N'], numTodo, defaultConfig)
+    let asyncNum = setDefault(cli.flags['N'], numTodo, defaultConfig)
+
 	setDefault({
 		n: cli.flags['M'],
 		type: 'M'
@@ -31,13 +39,24 @@ function mergeConfig(cli) {
 	setDefault({
 		n: cli.flags['T'],
 		type: 'T'
-	}, typesTodo, defaultConfig)
-	let Force = cli.flags['F'] ? true : false
-	let COM = cli.flags['G'] ? true : false
-	defaultConfig.com = COM
+    }, typesTodo, defaultConfig)
 
-	defaultConfig.getvalues = cli.flags['values'] ? true : false
-	defaultConfig.translate = cli.flags['translate'] ? path.resolve(cli.flags['translate']) : false
+    let Force = cli.flags['F'] ? true : false
+
+    let COM = cli.flags['G'] ? true : false
+    if(COM){
+        defaultConfig.com = COM
+    }
+
+    let values = cli.flags['values']
+    if(values){
+        defaultConfig.getvalues = (typeof values === 'string') ? path.resolve(values) : path.resolve('./translate-values.md')
+    }
+
+    let translate = cli.flags['translate']
+    if(typeof translate === 'string'){
+        defaultConfig.translate = path.resolve(translate)
+    }
 
 	let wait = cli.flags['timewait']
 	if(wait && !isNaN(+wait)){
@@ -69,7 +88,8 @@ function main(opts) {
 	debug = setDefault(debug, debugTodo, defaultConfig)
 	tranFrom = setDefault(tranFrom, fromTodo, defaultConfig)
 	tranTo = setDefault(tranTo, toTodo, defaultConfig)
-	api = setDefault(api, apiTodo, defaultConfig)
+    api = setDefault(api, apiTodo, defaultConfig)
+    
 	setDefault({
 		n: options.Matchs,
 		type: 'M'
