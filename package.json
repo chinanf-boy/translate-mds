@@ -16,6 +16,11 @@
   "husky": {
     "hooks": {}
   },
+  "files": [
+    "src",
+    "index.js",
+    "config"
+  ],
   "ava": {
     "files": [
       "test/**/*",
