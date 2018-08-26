@@ -64,50 +64,33 @@ translateMds test.md
 ## Command line options
 
 ```bash
-Usage
-  $ translateMds [folder name] [options]
+  translate [folder/single] md file language to you want
 
-Example
-  $ translateMds md/
+  Usage
+    $ translateMds [folder/file name] [options]
 
-  [options]
-  -a   API      : default < baidu > {google,baidu,youdao}
+  Example
+    $ translateMds md/
 
-  -f   from     : default < en >
+    [options]
+    -a   API      : default < baidu >
+    {google|baidu|youdao}
+    -f   from     : default < en >
+    -t   to       : default < zh >
+    -N   num      : default < 1 > {async number}
+    -R   rewrite  : default < false > {yes/no rewrite translate file}
 
-  -t   to       : default < zh >
+  🌟[high user options]❤️
 
-  -N   num      : default < 5 > {async number}
-
-  -D   debug    : default < false >
-
-  -R   rewrite  : default < false > {yes/no retranslate and rewrite translate file}
-
-# high user
-
-	-D   debug
-
-  -G   google.com : default < false >
-
-  { cn => com with Google api }
-
-  -F   force    : default < false >
-
-  { If, translate result is no 100%, force wirte md file }
-
-  -M   matchs   : default [ ". ", "! ", "; ", "！", "? ", "e.g. "] match this str, merge translate
-
-# use: -M ". ,! ," will concat
-
-  -S   skips    : default ["... ", "etc. ", "i.e. "] match this str will, skip merge translate
-
-# use: -S "... ,etc. " will concat
-
-  -T   types    : default ["html", "code"] pass the md AST type
-
-  --timewait     : default: 80
-
-  {each fetch api wait time}
+    -D   debug
+    -G   google.com     : default < false > { cn => com with Google api }
+    -F   force          : default < false > { If, translate result is no 100%, force wirte md file }
+    -M   match          : default [ ". ", "! "//...] {match this str, merge translate result }
+    -S   skips          : default ["... ", "etc. ", "i.e. "] {match this str will, skip merge translate result}
+    -T   types          : default ["html", "code"] {pass the md AST type}
+    --timewait          : default: 80 {each fetch api wait time}
+    --values [path]     : default: false {the original output file to be translated} [single file])
+    --translate [path]  : default: false {use this file translate} [single file]
 ```
 
 ## Project reference
@@ -165,6 +148,12 @@ This problem occurs, usually from the shift of characters caused by unusual symb
 At this time, you can use`-D`Debug /`-F`Force write to file / Adjust unusual characters
 
 [Specific can be seen](https://github.com/chinanf-boy/translate-mds/issues/22)
+
+## Tips
+
+- `--timewait [number]` can lengthen the time of each request translation, reduce the banned ip
+- `--values [file-path]` (single file usage) to get the original output file to be translated
+- `--translate [file-path]` (single file usage) replaces the request api and uses the translated content of this file instead
 
 ### Welcome 👏 ISSUE and PULL
 

@@ -64,50 +64,33 @@ translateMds test.md
 ## 命令行选项
 
 ``` bash
-Usage
-  $ translateMds [folder name] [options]
+  translate [folder/single] md file language to you want
 
-Example
-  $ translateMds md/
+  Usage
+    $ translateMds [folder/file name] [options]
 
-  [options]
-  -a   API      : default < baidu > {google,baidu,youdao}
+  Example
+    $ translateMds md/
 
-  -f   from     : default < en >
+    [options]
+    -a   API      : default < baidu >
+    {google|baidu|youdao}
+    -f   from     : default < en >
+    -t   to       : default < zh >
+    -N   num      : default < 1 > {async number}
+    -R   rewrite  : default < false > {yes/no rewrite translate file}
 
-  -t   to       : default < zh >
+  🌟[high user options]❤️
 
-  -N   num      : default < 5 > {async number}
-
-  -D   debug    : default < false >
-
-  -R   rewrite  : default < false > {yes/no retranslate and rewrite translate file}
-
-# high user
-
-	-D   debug
-
-  -G   google.com : default < false >
-
-  { cn => com with Google api }
-
-  -F   force    : default < false >
-
-  { If, translate result is no 100%, force wirte md file }
-
-  -M   matchs   : default [ ". ", "! ", "; ", "！", "? ", "e.g. "] match this str, merge translate
-
-# use: -M ". ,! ," will concat
-
-  -S   skips    : default ["... ", "etc. ", "i.e. "] match this str will, skip merge translate
-
-# use: -S "... ,etc. " will concat
-
-  -T   types    : default ["html", "code"] pass the md AST type
-
-  --timewait     : default: 80
-
-  {each fetch api wait time}
+    -D   debug
+    -G   google.com     : default < false > { cn => com with Google api }
+    -F   force          : default < false > { If, translate result is no 100%, force wirte md file }
+    -M   match          : default [ ". ", "! "//...] {match this str, merge translate result }
+    -S   skips          : default ["... ", "etc. ", "i.e. "] {match this str will, skip merge translate result}
+    -T   types          : default ["html", "code"] {pass the md AST type}
+    --timewait          : default: 80 {each fetch api wait time}
+    --values [path]     : default: < {the original output file to be translated} [single file])
+    --translate [path]  : default: false {use this file translate} [single file]
 ```
 
 ## 项目引用
@@ -168,14 +151,18 @@ If slow , may be you should try again or use -D
 
 [具体可看](https://github.com/chinanf-boy/translate-mds/issues/22)
 
+## Tips
+
+ - `--timewait [number]` 可以拉长每次请求翻译的时间, 减少被禁ip
+ - `--values [file-path]` (单个文件使用) 获得将要翻译的原本输出文件
+ - `--translate [file-path]` (单个文件使用) 取代请求api, 改为使用此文件的翻译内容
+
 ### 欢迎👏 ISSUE 和 PULL
 
 ## 特性
 
 - [x] 提高http之类的md格式准确率
-
 - [x] 自动换 翻译源
-
 - [x] 启用 md AST
 
 ---

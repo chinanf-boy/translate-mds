@@ -1,4 +1,5 @@
 const tc = require('turbocolor');
+const relative = require('path').relative
 let g = tc.green
 let y = tc.cyan
 let yow = tc.yellow
@@ -7,7 +8,11 @@ let b = tc.blue
 let r = tc.red
 
 
+function relaPath(p){
+    return relative(process.cwd(),p)
+}
 
+const newObject = (obj) => JSON.parse(JSON.stringify(obj))
 
 function time(ms) {
 	return new Promise((resolve, reject) => {
@@ -22,5 +27,7 @@ module.exports  = {
 	yow,
 	m,
 	b,
-	r
+    r,
+    relaPath,
+    newObject
 }

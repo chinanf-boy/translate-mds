@@ -1,7 +1,7 @@
 {
   "name": "translate-mds",
   "version": "3.2.0",
-  "description": "translate [folder] md file language to you want",
+  "description": "translate [folder/single] md file language to you want",
   "main": "./src/translateMds.js",
   "engines": {
     "node": ">=8.0.0"
