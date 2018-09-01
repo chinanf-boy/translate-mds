@@ -80,7 +80,7 @@ async function translateMds(options, debug, isCli = false) {
             let E = translateMdAst.Error
 			// Ast to markdown
 			body = remark().use({
-				settings: {commonmark: true, emphasis: '*', strong: '*'}
+				settings: {commonmark: true, emphasis: '*', strong: '*', fences: true}
 			}).stringify(translateMdAst)
 
 			return [head + '\n' + body, E]
@@ -111,7 +111,7 @@ async function translateMds(options, debug, isCli = false) {
         }
 
         let readfile = await fs.readFile(value, 'utf8')
-        
+
 		let E
 		let _translate = await t(readfile).then(x => {
             E = x[1]
