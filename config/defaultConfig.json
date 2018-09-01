@@ -1,16 +1,20 @@
 {
-    "logger": {
-      "level": "info"
-    },
-    "api":"baidu",
-    "from":"en",
-    "to":"zh",
-    "num": 1,
-		"rewrite": false,
-    "com": false,
-    "force": false,
-		"timewait":"80",
-		"getvalues": false,
-    "translate": false,
-    "apis": ["baidu", "google", "youdao"]
-  }
+  "logger": {
+    "level": "info"
+  },
+  "api": "google",
+  "from": "en",
+  "to": "zh",
+  "num": 1,
+  "rewrite": false,
+  "com": false,
+  "force": false,
+  "timewait": "80",
+  "getvalues": false,
+  "translate": false,
+  "apis": ["baidu", "google", "youdao"],
+  "ignore": false,
+  "matchs": [],
+  "types": [],
+  "skips": []
+}
