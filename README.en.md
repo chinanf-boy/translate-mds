@@ -93,38 +93,6 @@ translateMds test.md
     --skip [relative file/folder] : default: false {skip files/folders string, split with `,` }
 ```
 
-## Project reference
-
-```js
-const translate = require('translate-mds');
-//
-let results = await translate([__dirname + '/feature/testWrite1.md']);
-//or
-let results = await translate([__dirname + '/md/']);
-// results is Array
-results = [{text: _translteText, error: String}];
-```
-
-### translate(options,debug)
-
-### Options when using `[]`
-
-[aFile, api, tF, tT]= options
-
-### Options when using `{}`
-
-> Optiioins = {aFile:`String`, api:`String`, tF:`String`tT:`String`}
-
-| name  | default  | desc                        |
-| ----- | -------- | --------------------------- |
-| aFile |          | absolute file               |
-| api   | `google` | {'google','baidu','youdao'} |
-| tF    | `en`     | from language               |
-| tT    | `zh`     | to language                 |
-| debug | `info`   | winston level               |
-
----
-
 ## My-translate-list
 
 [Project test translation list](https://github.com/chinanf-boy/translate-mds-test-list)or[More Chinese 🇨🇳 translation list](https://github.com/chinanf-boy/chinese-translate-list)

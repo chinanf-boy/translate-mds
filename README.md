@@ -93,36 +93,6 @@ translateMds test.md
     --skip [relative file/folder] : default: false {skip files/folders string, split with `,` }
 ```
 
-## 项目引用
-
-```js
-const translate = require('translate-mds');
-//
-let results = await translate([__dirname + '/feature/testWrite1.md']);
-//or
-let results = await translate([__dirname + '/md/']);
-// results is Array
-results = [{text: _translteText, error: String}];
-```
-
-### translate(options,debug)
-
-### options 当用 `[]`
-
-[ aFile,api,tF,tT ] = options
-
-### options 当 用 `{}`
-
-> optioins = {aFile: `String` ,api: `String` ,tF: `String` tT: `String` }
-
-| name  | default  | desc                        |
-| ----- | -------- | --------------------------- |
-| aFile |          | absolute file               |
-| api   | `google` | {'google','baidu','youdao'} |
-| tF    | `en`     | from language               |
-| tT    | `zh`     | to language                 |
-| debug | `info`   | winston level               |
-
 ---
 
 ## My-translate-list
