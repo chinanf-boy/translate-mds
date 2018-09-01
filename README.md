@@ -90,7 +90,7 @@ translateMds test.md
     --values [path]               : default: false {write the original of wait for translate file} [single file])
     --translate [path]            : default: false {use this file translate} [single file]
     --glob [pattern]              : default: false {file path must be match, then be transalte}
-    --skip [relative file/folder] : default: false {skip files/folders string, split with `,` }
+    --ignore [relative file/folder] : default: false {ignore files/folders string, split with `,` }
 ```
 
 ---

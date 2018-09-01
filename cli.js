@@ -47,7 +47,7 @@ Example
   ${g('--values [path]')}      : default: false ${y('{write the original of wait for translate file}')} ${r('[single file]')}
   ${g('--translate [path]')}   : default: false ${y('{use this file translate}')} ${r('[single file]')}
   ${g('--glob [pattern]')}     : default: false ${y('{file must be match, then be transalte}')}
-  ${g('--skip [relative file/folder]')} : default: false ${y('{skip files/folders string, split with `,` }')}
+  ${g('--ignore [relative file/folder]')} : default: false ${y('{ignore files/folders string, split with `,` }')}
 
 `);
 
@@ -66,7 +66,7 @@ let {
   rewrite,
   asyncNum,
   Force,
-  skips
+  ignores
 } = mergeConfig(cli)
 
 const translateMds = require('./src/translateMds.js')
@@ -145,8 +145,8 @@ async function runTranslate(value){
     loggerText(b(`glob, no match ${rePath}`));
     return State
   }
-  if(skips && skips.some(skip =>value.includes( path.resolve(skip) ) ) ){
-    loggerText(b(`skip, ${rePath}`));
+  if(ignores && ignores.some(ignore =>value.includes( path.resolve(ignore) ) ) ){
+    loggerText(b(`ignore, ${rePath}`));
     return State
   }
 

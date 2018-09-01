@@ -11,9 +11,10 @@ const {
 	typesTodo
 } = require('./optionsTodo.js')
 let workOptions = require('./work-options')
-let defaultConfig = require('./defaultConfig.json') //---
 
 function mergeConfig(cli) {
+    let defaultConfig = workOptions.getOptions()
+
 	let debug = setDefault(cli.flags['D'], debugTodo, defaultConfig)
 	let tranFr = setDefault(cli.flags['f'], fromTodo, defaultConfig)
 	let tranTo = setDefault(cli.flags['t'], toTodo, defaultConfig)
@@ -59,11 +60,11 @@ function mergeConfig(cli) {
 		defaultConfig.timewait = wait
 	}
 
-    let skips = cli.flags['skip']
-    if(typeof skips === 'string'){
-        skips = skips.split(',')
+    let ignores = cli.flags['ignore']
+    if(typeof ignores === 'string'){
+        ignores = ignores.split(',')
     }else{
-        skips = []
+        ignores = []
     }
 	workOptions.setOptions(defaultConfig)
 
@@ -75,11 +76,13 @@ function mergeConfig(cli) {
 		rewrite,
 		asyncNum,
         Force,
-        skips
+        ignores
 	}
 }
 
 function main(opts) {
+    let defaultConfig = workOptions.getOptions()
+
 	let {
 		debug,
 		tranFrom,
