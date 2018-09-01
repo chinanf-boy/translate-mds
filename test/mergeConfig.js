@@ -14,5 +14,5 @@ test('cli config',t =>{
 
     let config = mergeConfig(cli)
 
-    t.is(Object.keys(config).length,7)
+    t.is(Object.keys(config).length,8)
 })

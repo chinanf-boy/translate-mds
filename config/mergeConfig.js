@@ -38,7 +38,7 @@ function mergeConfig(cli) {
     if(Force){
         defaultConfig.force = Force
     }
-    
+
     let COM = cli.flags['G'] ? true : false
     if(COM){
         defaultConfig.com = COM
@@ -59,6 +59,12 @@ function mergeConfig(cli) {
 		defaultConfig.timewait = wait
 	}
 
+    let skips = cli.flags['skip']
+    if(typeof skips === 'string'){
+        skips = skips.split(',')
+    }else{
+        skips = []
+    }
 	workOptions.setOptions(defaultConfig)
 
 	return {
@@ -68,7 +74,8 @@ function mergeConfig(cli) {
 		api,
 		rewrite,
 		asyncNum,
-		Force
+        Force,
+        skips
 	}
 }
 

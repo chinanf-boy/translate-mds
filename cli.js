@@ -44,10 +44,10 @@ Example
   ${g('-S   skips')}           : default ["... ", "etc. ", "i.e. "] ${y('{match this str will, skip merge translate result }')}
   ${g('-T   types')}           : default ["html", "code"] ${y('{pass the md AST type}')}
   ${g('--timewait ')}          : default < 80 > ${y('{each fetch api wait time}')}
-  ${g('--values [path]')}      : default: false ${y('{write the original of wait for translate file}')} ${r('[single file])')}
+  ${g('--values [path]')}      : default: false ${y('{write the original of wait for translate file}')} ${r('[single file]')}
   ${g('--translate [path]')}   : default: false ${y('{use this file translate}')} ${r('[single file]')}
   ${g('--glob [pattern]')}     : default: false ${y('{file must be match, then be transalte}')}
-  ${g('--skip [relative file/folder]')} : default: false ${y('{skip the file/folder}')}
+  ${g('--skip [relative file/folder]')} : default: false ${y('{skip files/folders string, split with `,` }')}
 
 `);
 
@@ -65,7 +65,8 @@ let {
   api,
   rewrite,
   asyncNum,
-  Force
+  Force,
+  skips
 } = mergeConfig(cli)
 
 const translateMds = require('./src/translateMds.js')
@@ -144,7 +145,7 @@ async function runTranslate(value){
     loggerText(b(`glob, no match ${rePath}`));
     return State
   }
-  if(cli.flags['skip'] && value.includes(path.resolve(cli.flags['skip']))){
+  if(skips && skips.some(skip =>value.includes( path.resolve(skip) ) ) ){
     loggerText(b(`skip, ${rePath}`));
     return State
   }
