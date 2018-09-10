@@ -87,6 +87,7 @@ let Done = 0
 let noDone = []
 let showAsyncnum = 0
 const pattern = cli.flags['glob'] || false
+let ending = false
 
 loggerStart("translate running ...")
 async.mapLimit(getList, asyncNum, runTranslate,
@@ -110,6 +111,7 @@ async.mapLimit(getList, asyncNum, runTranslate,
                       }
                   }
                   oneOra(`time:${whatTime(process.uptime())}`)
+                  ending = true
                 }
 )
 
@@ -200,7 +202,7 @@ while(Done){
   const t = 100
   await time(t)
 
-  if(Done > getList.length){
+  if(ending){
     break;
   }
 }
