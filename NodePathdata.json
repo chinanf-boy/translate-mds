@@ -17,14 +17,12 @@
 		"./src/util.js"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/readmd.js": [
-		"mz/fs",
-		"path"
+		"files-list"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/config/mergeConfig.js": [
 		"path",
 		"./optionsTodo.js",
-		"./work-options",
-		"./defaultConfig.json"
+		"./work-options"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/config/work-options.js": [
 		"./defaultConfig.json"
@@ -60,7 +58,7 @@
 		"../config/loggerConfig.js",
 		"../config/work-options.js",
 		"./typeSetAndGet",
-		"./fixEntoZh.js",
+		"./fixZhtoEn.js",
 		"./Fix/lengthEqual.js",
 		"./Fix/fixFileTooBig.js",
 		"./util",
@@ -68,6 +66,9 @@
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/typeSetAndGet.js": [
 		"../config/work-options.js"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/fixZhtoEn.js": [
+		"zh-to-en-symbol"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/Fix/lengthEqual.js": [
 		"../../config/work-options.js"
@@ -88,11 +89,6 @@
 		"ava",
 		"fs",
 		"../src/cutMdhead.js"
-	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/fixEntoZh.test.js": [
-		"ava",
-		"fs",
-		"../src/fixEntoZh.js"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/mergeConfig.js": [
 		"ava",

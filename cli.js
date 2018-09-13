@@ -12,7 +12,7 @@ const async = require('async')
 const fs = require('fs')
 const asyncfs = require('mz/fs')
 const path = require('path')
-const {Listmd} = require('./src/readmd.js')
+const Listmd = require('./src/readmd.js')
 const meow = require('meow');
 const remark = require('remark')
 

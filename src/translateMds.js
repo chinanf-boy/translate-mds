@@ -2,9 +2,7 @@
 const fs = require('mz/fs')
 const path = require('path')
 const tjs = require('translation.js')
-const {
-	Listmd
-} = require('./readmd.js')
+const Listmd = require('./readmd.js')
 const meow = require('meow');
 const cutMdhead = require('./cutMdhead.js')
 const remark = require('remark')

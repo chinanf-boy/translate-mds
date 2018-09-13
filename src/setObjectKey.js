@@ -19,7 +19,7 @@ apis = configs['apis'];
 const { getTypeValue, setTypeValue} = require('./typeSetAndGet')
 
 // Fix china symbal
-const { fixEntoZh } = require("./fixEntoZh.js")
+const fixZhtoEn = require("./fixZhtoEn.js")
 // Fix result.length no equal
 const { translateLengthEquals } = require("./Fix/lengthEqual.js")
 const { fixFileTooBig, indexMergeArr } = require("./Fix/fixFileTooBig.js")
@@ -261,7 +261,7 @@ async function setObjectKey(obj, api) {
 		}
 	}
 
-	resultArray = fixEntoZh(resultArray) // fix zh symbal to en
+	resultArray = fixZhtoEn(resultArray) // fix zh symbal to en
 
 	setTypeValue(newObj, resultArray)
 
