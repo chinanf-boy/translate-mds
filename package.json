@@ -37,7 +37,7 @@
   "dependencies": {
     "async": "^2.6.0",
     "debug": "^3.1.0",
-    "files-list": "^1.1.0",
+    "files-list": "^1.4.0",
     "meow": "^3.7.0",
     "minimatch": "^3.0.4",
     "mz": "^2.7.0",
