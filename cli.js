@@ -79,7 +79,7 @@ const { writeDataToFile } = require('./src/writeDataToFile.js')
 console.log(b('Starting 翻译')+r(dir));
 
 // get floder markdown files Array
-const getList = await Listmd(path.resolve(process.cwd(),dir))
+const getList = await Listmd(path.resolve(process.cwd(),dir),{deep:'all'})
 
 console.log(b(`总文件数 ${getList.length}, 有些文件会跳过`));
 

@@ -90,7 +90,7 @@ async function translateMds(options, debug, isCli = false) {
 	let results = []
 
 	// get floder markdown files Array
-    const getList = isCli ? [absoluteFile] : await Listmd(absoluteFile)
+    const getList = isCli ? [absoluteFile] : await Listmd(absoluteFile, {deep:'all'})
 	for (i in getList) {
 		let value = getList[i]
 
