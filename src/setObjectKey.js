@@ -2,7 +2,7 @@ const tjs = require('translation.js')
 
 // log
 const debug = require("debug")("mds:tran")
-const {logger, loggerStart, loggerStop, loggerText } = require('../config/loggerConfig.js')
+const {logger, loggerStart, loggerText, oneOra } = require('../config/loggerConfig.js')
 
 // get config.json
 const {getOptions} = require('../config/work-options.js')
@@ -121,20 +121,21 @@ async function setObjectKey(obj, api) {
 		tranArray = []
 		if(getValuesFile){
 			await asyncWrite(getValuesFile,thisTranArray).then(function(ok){
-				loggerText(`values file be saved`)
+				loggerText(`${getValuesFile} saved`)
             })
 
-            return "you want values, so skip translate"
+            return `you want ${g(relaPath(getValuesFile))} values save, so ${r('skip')} translate`
 		}
 	}
 
 	if(gotTranslateFile){ // custom translate file with single file
         let tContent = await asyncRead(gotTranslateFile)
-
+        let relaP =  relaPath(gotTranslateFile)
 		if(tContent.length === thisTranArray.length){
+            oneOra(`you choose ${y(relaP)} be The translation`)
 			resultArray = tContent
 		}else{
-			throw new Error(`${g(relaPath(gotTranslateFile))} value length ${r('no equal')}\n translate-content:${y(tContent.length)}\n wait-translate:${y(thisTranArray.length)}`)
+			throw new Error(`${g(relaP)} value length ${r('no equal')}\n translate-content:${y(tContent.length)}\n wait-translate:${y(thisTranArray.length)}`)
 		}
 	}else{
 		// Fix file Too Big

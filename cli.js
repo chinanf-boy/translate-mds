@@ -87,13 +87,14 @@ let Done = 0
 let noDone = []
 let showAsyncnum = 0
 const pattern = cli.flags['glob'] || false
-let ending = false
 
 loggerStart("translate running ...")
 async.mapLimit(getList, asyncNum, runTranslate,
   (err, IsTranslateS) =>{
                   loggerStop()
-
+                  if(noDone.length){
+                    process.exitCode = 1
+                  }
                   if(err)throw err
 
                   Done++
@@ -111,7 +112,6 @@ async.mapLimit(getList, asyncNum, runTranslate,
                       }
                   }
                   oneOra(`time:${whatTime(process.uptime())}`)
-                  ending = true
                 }
 )
 
@@ -195,20 +195,18 @@ async function runTranslate(value){
   return State
 }
 
-const { time } = require('./src/util.js')
+// const { time } = require('./src/util.js')
 
 // async.mapLimit will outside, must lock in
-while(Done){
-  const t = 100
-  await time(t)
+// while(Done){
+//   const t = 100
+//   await time(t)
 
-  if(ending){
-    break;
-  }
-}
-if(noDone.length){
-  process.exitCode = 1
-}
+//   if(ending){
+//     break;
+//   }
+// }
+
 process.on('exit', function(err){
   loggerStop()
 });
