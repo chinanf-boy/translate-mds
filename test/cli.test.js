@@ -12,7 +12,7 @@ test('show help screen', async t => {
 });
 
 test('--glob', async t => {
-    t.regex(await execa.shell(`node cli.js readme.md --glob *.js -D`).then(x=>x.stderr), /glob/)
+    t.regex(await execa.shell(`node cli.js ${b} --glob *.js -D`).then(x=>x.stderr), /glob/)
 });
 
 test('--ignore', async t => {
