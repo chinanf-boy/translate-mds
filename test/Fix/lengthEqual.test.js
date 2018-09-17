@@ -44,7 +44,7 @@ test("translateLengthEquals with '. '", t =>{
 })
 
 test("translateLengthEquals with '. ' and '！' ", t =>{
-    let b =["asdf！. asdf. ！"]
+    let b =["a,etc. sdf！. asdf. ！"]
     let c =["asdf！", ". ", "asdf. ", "！"]
     translateLengthEquals(b, c)
     t.deepEqual(c, ["asdf！. asdf. ！"])
