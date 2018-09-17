@@ -215,28 +215,29 @@ async function setObjectKey(obj, api) {
 			}
 
 			if (isWork) { // can fetch something result
-				// Fix use Fix/lengthEqual.js in every Chunk
+                // Fix use Fix/lengthEqual.js in every Chunk
+
+                let markChunkTran = [].concat(thisChunkTran); // mark some emoji, display the split
 				if (thisChunkTran.length < thisResult.length) {
 
-					translateLengthEquals(thisChunkTran, thisResult) // Fix
-
+					markChunkTran = translateLengthEquals(thisChunkTran, thisResult) // Fix
 				}
 
-				let BigOne = thisChunkTran.length > thisResult.length ? thisChunkTran : thisResult
+				let BigOne = markChunkTran.length > thisResult.length ? markChunkTran : thisResult
 
 				if (debug.enabled) { // debug all
-					debug(`-- source: ${thisChunkTran.length}/${thisResult.length}: translte ---`)
+					debug(`-- source: ${markChunkTran.length}/${thisResult.length}: translte ---`)
 
 					for (let i in BigOne) { // Debug
-						debug('2. set- ' + i + ': ' + g(thisChunkTran[i]) + ' to-> ' + i + ': ' + yow(thisResult[i]))
+						debug('2. set- ' + i + ': ' + g(markChunkTran[i]) + ' to-> ' + i + ': ' + yow(thisResult[i]))
 					}
 
-				} else if (thisChunkTran.length != thisResult.length) { // debug only unequal
+				} else if (markChunkTran.length != thisResult.length) { // debug only unequal
 
-					loggerText(`-- source: ${thisChunkTran.length}/${thisResult.length}: translte ---`)
+					loggerText(`-- source: ${markChunkTran.length}/${thisResult.length}: translte ---`)
 
 					for (let i in BigOne) { // Debug
-						logger.debug('2. set- ' + i + ': ' + g(thisChunkTran[i]) + ' to-> ' + i + ': ' + yow(thisResult[i]))
+						logger.debug('2. set- ' + i + ': ' + g(markChunkTran[i]) + ' to-> ' + i + ': ' + yow(thisResult[i]))
 					}
 
 				}

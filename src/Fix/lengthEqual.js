@@ -10,27 +10,29 @@ function translateLengthEquals( source, tranTxt){
     let skipArr = ["... ", "etc. ", "i.e. ", "e.g. "].concat(skips)
 	let matchArr = [ ". ", "! ", "; ", "！", "? ", "。"].concat(matchs)
     let trim = ["'", '"']
-    let ReturnArr = []
-	Equal = source.length
+    Equal = source.length
+    let newSource = [].concat(source)
     for( let i in source){ // typeof i == string
 		// if(Equal == tranTxt.length) return
 
         source[i] = source[i].trim()
+        let idxStr = source[i]
         let howMany = 0
             // let s = source[i]
 
-        matchArr.map(function( val ){
-            if(trim.some(x =>(source[i].startsWith(x) && source[i].endsWith(x)))){
+        matchArr.forEach(function( val ){
+            if(trim.some(x =>(idxStr.startsWith(x) && idxStr.endsWith(x)))){
+                // ' **  ' /"   ** "
                 return val
             }
 
-			while( val && source[i].indexOf(val) != -1 ){
+			while( val && idxStr.includes(val) ){
 
 				let skipIndexs = []
 
 				skipArr.forEach(function(skip){
 
-					if(source[i].includes(skip)){
+					if(idxStr.includes(skip)){
 						skipIndexs.push(skip)
 					}
 
@@ -39,19 +41,22 @@ function translateLengthEquals( source, tranTxt){
 				if(skipIndexs.length){
 
 					skipIndexs.forEach(skip =>{
-						source[i] = source[i].replace(skip, "👌 ") // over val
+						idxStr = idxStr.replace(skip, "👌 ") // over val
 					})
 					continue;
 
 				}else{
-					source[i] = source[i].replace(val, "🥄 ") // over val
+					idxStr = idxStr.replace(val, "🥄 ") // over val
 					howMany ++ // how many ". "/ etc
 				}
 
 			}
 		})
         !!(howMany) && mergeAndCut(tranTxt, +i, howMany) // pay attion two + ,  string/number
+        newSource[i] = idxStr
     }
+
+    return newSource
 
 }
 
