@@ -135,7 +135,7 @@ async function runTranslate(value){
     loggerText(b(`- 翻译的 - 或者 不是 md 文件的 ${rePath}`));
     return State
   }
-  if(value.match(/\.[a-zA-Z]+\.md+/)){
+  if(value.match(/\.[a-zA-Z]+\.md+/)){ // TOGO country short name
     loggerText(b(`- 有后缀为 *.国家简写.md  ${rePath}`));
     return State
   }

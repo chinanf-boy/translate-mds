@@ -8,7 +8,7 @@
   },
   "scripts": {
     "demo": "node cli.js md/",
-    "ava": "ava --verbose --serial",
+    "ava": "ava --verbose",
     "test": "nyc --reporter=lcov --reporter=text --reporter=html npm run ava",
     "pub": "npm run test && npm version patch && git push origin master && git push --tags",
     "changelog": "github_changelog_generator"
