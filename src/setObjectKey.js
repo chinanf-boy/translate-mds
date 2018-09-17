@@ -88,18 +88,22 @@ async function translateValue(value, api) {
 /**
  * @description translate AST Key == value, return new Object
  * @param {Object} obj - AST
- * @param {String} api - defuault api
+ * @param {Object} Opts - options
+ * @param {String} Opts.api - defuault api
+ * @param {String} Opts.name - file name
+
  * @returns {Object} - newObject
  */
-async function setObjectKey(obj, api) {
+async function setObjectKey(obj, opts) {
 
-	let allAPi = apis
+    let allAPi = apis
+    let api = opts.api
 	let howManyValNoTran = 0
 	let tranArray = []
 	let thisTranArray = []
 	let resultArray = []
     let newObj = newObject(obj)
-
+    let tips = `${r("If slow/stagnant , should try again")}`
     // put obj values to tranArray
     let sum = getTypeValue(obj, tranArray)
 	if (!sum || !tranArray.length) {
@@ -159,7 +163,7 @@ async function setObjectKey(obj, api) {
 
 			for (let i in allAPi) { // Auto next api
 
-				loggerText(`2. use ${g(api)} ${resultArray.length}/${thisTranArray.length} - ${r("If slow/stagnant , should try again")}`)
+				loggerText(`2. ${yow(relaPath(opts.name))} use ${g(api)} ${resultArray.length}/${thisTranArray.length} - ${tips}`)
 
 				try {
 

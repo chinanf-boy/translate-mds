@@ -63,7 +63,7 @@ async function translateMds(options, debug, isCli = false) {
 		setObjectKey
 	} = require('./setObjectKey.js')
 
-	async function t(data) {
+	async function t(data,opts) {
 
 		let head, body, mdAst,translateMdAst
 		[body, head] = cutMdhead(data)
@@ -72,7 +72,7 @@ async function translateMds(options, debug, isCli = false) {
 		mdAst = remark.parse(body)
 
 		// translate Array
-		translateMdAst = await setObjectKey(mdAst, api)
+		translateMdAst = await setObjectKey(mdAst, opts)
 
 		if (typeof translateMdAst !== 'string') {
             let E = translateMdAst.Error
@@ -111,7 +111,7 @@ async function translateMds(options, debug, isCli = false) {
         let readfile = await fs.readFile(value, 'utf8')
 
 		let E
-		let _translate = await t(readfile).then(x => {
+		let _translate = await t(readfile,{name:value,api}).then(x => {
             E = x[1]
             return x[0]
 		}).catch(x => {

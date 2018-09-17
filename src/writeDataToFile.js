@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { m,insert_flg } = require('./util')
+const { m,insert_flg,relaPath,g } = require('./util')
 const {
 	logger
 } = require('../config/loggerConfig.js')
@@ -31,7 +31,7 @@ const writeDataToFile = async (data, file_dir) => {
 			fs.writeFile(zhfile + '', data, (err) => {
 				if (err)
 					Err(err);
-				ok(`4. ${m(tranT)} file saved! -->> \n ${zhfile}`)
+				ok(`4. ${m(tranT)} file saved! -->> ${g(relaPath(zhfile))}`)
 			});
 
 		}catch(err){
