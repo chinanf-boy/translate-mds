@@ -63,5 +63,6 @@ module.exports  = {
     insert_flg,
     O2A,
     asyncWrite,
-    asyncRead
+    asyncRead,
+    tc
 }

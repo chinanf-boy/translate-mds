@@ -3,6 +3,7 @@ const {
 } = require('../../config/work-options.js')
 let configs = getOptions()
 const { matchs, skips } = configs
+const { tc } = require('../util')
 
 let Equal;
 function translateLengthEquals( source, tranTxt){
@@ -41,12 +42,12 @@ function translateLengthEquals( source, tranTxt){
 				if(skipIndexs.length){
 
 					skipIndexs.forEach(skip =>{
-						idxStr = idxStr.replace(skip, "👌 ") // over val
+						idxStr = idxStr.replace(skip, tc.bgMagenta(`👌 `)) // over val
 					})
 					continue;
 
 				}else{
-					idxStr = idxStr.replace(val, "🥄 ") // over val
+					idxStr = idxStr.replace(val, tc.bgRed(`🥄 `)) // over val
 					howMany ++ // how many ". "/ etc
 				}
 
@@ -66,7 +67,7 @@ function mergeAndCut(Arr, index, howMany, TestLen){
 	// Merge howMany items to Index item
 	for(let i = index; i < index + howMany ; i++){
 
-		if(Arr.length - num !== E){
+		if(1 || Arr.length - num !== E){
 			Arr[i+1] && (Arr[index] = Arr[index] + Arr[i+1])
 			num ++
 		}else{

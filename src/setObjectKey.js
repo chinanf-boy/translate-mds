@@ -23,7 +23,7 @@ const fixZhtoEn = require("./fixZhtoEn.js")
 // Fix result.length no equal
 const { translateLengthEquals } = require("./Fix/lengthEqual.js")
 const { fixFileTooBig, indexMergeArr } = require("./Fix/fixFileTooBig.js")
-const {time,g,y,yow,m,b,r,relaPath,newObject,asyncWrite,asyncRead} = require('./util')
+const {tc,time,g,y,yow,m,b,r,relaPath,newObject,asyncWrite,asyncRead} = require('./util')
 
 const MAXstring = 1300
 
@@ -228,20 +228,28 @@ async function setObjectKey(obj, opts) {
 				}
 
 				let BigOne = markChunkTran.length > thisResult.length ? markChunkTran : thisResult
-
+                let debugInfo = `-- source: ${markChunkTran.length}/${thisResult.length}: translte ---`
 				if (debug.enabled) { // debug all
-					debug(`-- source: ${markChunkTran.length}/${thisResult.length}: translte ---`)
+					debug(debugInfo)
 
-					for (let i in BigOne) { // Debug
-						debug('2. set- ' + i + ': ' + g(markChunkTran[i]) + ' to-> ' + i + ': ' + yow(thisResult[i]))
+                    for (let i in BigOne) { // Debug
+                        if(!markChunkTran[i] || !thisResult[i]){
+                            debug('2. set- ' + i + ': ' + g(markChunkTran[i]) + ` ${tc.bgMagenta('to-> ')} ${i} : ` + yow(thisResult[i]) )
+                        }else{
+                            debug('2. set- ' + i + ': ' + g(markChunkTran[i]) + ' to-> ' + i + ': ' + yow(thisResult[i]) )
+                        }
 					}
 
 				} else if (markChunkTran.length != thisResult.length) { // debug only unequal
 
-					loggerText(`-- source: ${markChunkTran.length}/${thisResult.length}: translte ---`)
+					loggerText(debugInfo)
 
-					for (let i in BigOne) { // Debug
-						logger.debug('2. set- ' + i + ': ' + g(markChunkTran[i]) + ' to-> ' + i + ': ' + yow(thisResult[i]))
+                    for (let i in BigOne) { // Debug
+                        if(!markChunkTran[i] || !thisResult[i]){
+                            logger.debug('2. set- ' + i + ': ' + g(markChunkTran[i]) + ` ${tc.bgMagenta('to-> ')} ${i} : ` + yow(thisResult[i]))
+                        }else{
+                            logger.debug('2. set- ' + i + ': ' + g(markChunkTran[i]) + ' to-> ' + i + ': ' + yow(thisResult[i]))
+                        }
 					}
 
 				}
