@@ -1,5 +1,6 @@
 {
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/cli.js": [
+		"update-notifier",
 		"what-time",
 		"minimatch",
 		"async",
@@ -71,7 +72,8 @@
 		"zh-to-en-symbol"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/Fix/lengthEqual.js": [
-		"../../config/work-options.js"
+		"../../config/work-options.js",
+		"../util"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/writeDataToFile.js": [
 		"fs",
@@ -79,11 +81,11 @@
 		"../config/loggerConfig.js",
 		"../config/work-options.js"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/cli.test.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/cli.test.js": [
 		"ava",
 		"path",
 		"execa",
-		"./package"
+		"../package"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/cutMdhead.test.js": [
 		"ava",
@@ -135,5 +137,10 @@
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/logger/logger.test.js": [
 		"ava",
 		"../../config/loggerConfig"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/translate-file/values.test.js": [
+		"ava",
+		"path",
+		"execa"
 	]
 }

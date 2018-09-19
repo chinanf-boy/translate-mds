@@ -1,5 +1,112 @@
 # Change Log
 
+## [v3.2.15](https://github.com/chinanf-boy/translate-mds/tree/v3.2.15) (2018-09-19)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.2.14...v3.2.15)
+
+## [v3.2.14](https://github.com/chinanf-boy/translate-mds/tree/v3.2.14) (2018-09-17)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.2.13...v3.2.14)
+
+## [v3.2.13](https://github.com/chinanf-boy/translate-mds/tree/v3.2.13) (2018-09-16)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.2.12...v3.2.13)
+
+## [v3.2.12](https://github.com/chinanf-boy/translate-mds/tree/v3.2.12) (2018-09-16)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.2.11...v3.2.12)
+
+## [v3.2.11](https://github.com/chinanf-boy/translate-mds/tree/v3.2.11) (2018-09-15)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.2.10...v3.2.11)
+
+## [v3.2.10](https://github.com/chinanf-boy/translate-mds/tree/v3.2.10) (2018-09-13)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.2.9...v3.2.10)
+
+## [v3.2.9](https://github.com/chinanf-boy/translate-mds/tree/v3.2.9) (2018-09-10)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.2.8...v3.2.9)
+
+## [v3.2.8](https://github.com/chinanf-boy/translate-mds/tree/v3.2.8) (2018-09-01)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.2.7...v3.2.8)
+
+## [v3.2.7](https://github.com/chinanf-boy/translate-mds/tree/v3.2.7) (2018-09-01)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.2.6...v3.2.7)
+
+## [v3.2.6](https://github.com/chinanf-boy/translate-mds/tree/v3.2.6) (2018-08-26)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.2.5...v3.2.6)
+
+## [v3.2.5](https://github.com/chinanf-boy/translate-mds/tree/v3.2.5) (2018-08-26)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.2.4...v3.2.5)
+
+## [v3.2.4](https://github.com/chinanf-boy/translate-mds/tree/v3.2.4) (2018-08-26)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.2.3...v3.2.4)
+
+## [v3.2.3](https://github.com/chinanf-boy/translate-mds/tree/v3.2.3) (2018-08-26)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.2.2...v3.2.3)
+
+## [v3.2.2](https://github.com/chinanf-boy/translate-mds/tree/v3.2.2) (2018-08-26)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.2.1...v3.2.2)
+
+## [v3.2.1](https://github.com/chinanf-boy/translate-mds/tree/v3.2.1) (2018-08-26)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.2.0...v3.2.1)
+
+## [v3.2.0](https://github.com/chinanf-boy/translate-mds/tree/v3.2.0) (2018-08-25)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.1.6...v3.2.0)
+
+## [v3.1.6](https://github.com/chinanf-boy/translate-mds/tree/v3.1.6) (2018-08-23)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.1.5...v3.1.6)
+
+## [v3.1.5](https://github.com/chinanf-boy/translate-mds/tree/v3.1.5) (2018-08-23)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.1.4...v3.1.5)
+
+## [v3.1.4](https://github.com/chinanf-boy/translate-mds/tree/v3.1.4) (2018-08-23)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.1.3...v3.1.4)
+
+## [v3.1.3](https://github.com/chinanf-boy/translate-mds/tree/v3.1.3) (2018-08-23)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.1.2...v3.1.3)
+
+## [v3.1.2](https://github.com/chinanf-boy/translate-mds/tree/v3.1.2) (2018-08-23)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.1.1...v3.1.2)
+
+## [v3.1.1](https://github.com/chinanf-boy/translate-mds/tree/v3.1.1) (2018-08-22)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.1.0...v3.1.1)
+
+## [v3.1.0](https://github.com/chinanf-boy/translate-mds/tree/v3.1.0) (2018-08-21)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.23...v3.1.0)
+
+## [v3.0.23](https://github.com/chinanf-boy/translate-mds/tree/v3.0.23) (2018-08-21)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.22...v3.0.23)
+
+## [v3.0.22](https://github.com/chinanf-boy/translate-mds/tree/v3.0.22) (2018-08-20)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.21...v3.0.22)
+
+## [v3.0.21](https://github.com/chinanf-boy/translate-mds/tree/v3.0.21) (2018-07-23)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.20...v3.0.21)
+
+## [v3.0.20](https://github.com/chinanf-boy/translate-mds/tree/v3.0.20) (2018-07-22)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.19...v3.0.20)
+
+## [v3.0.19](https://github.com/chinanf-boy/translate-mds/tree/v3.0.19) (2018-07-21)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.18...v3.0.19)
+
+## [v3.0.18](https://github.com/chinanf-boy/translate-mds/tree/v3.0.18) (2018-07-04)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.17...v3.0.18)
+
+## [v3.0.17](https://github.com/chinanf-boy/translate-mds/tree/v3.0.17) (2018-06-29)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.16...v3.0.17)
+
+**Closed issues:**
+
+- 斜杠 错误❌ [\#21](https://github.com/chinanf-boy/translate-mds/issues/21)
+
+## [v3.0.16](https://github.com/chinanf-boy/translate-mds/tree/v3.0.16) (2018-06-24)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.15...v3.0.16)
+
+**Closed issues:**
+
+- 小心  transalteMds -M "- " ❌ [\#20](https://github.com/chinanf-boy/translate-mds/issues/20)
+
+## [v3.0.15](https://github.com/chinanf-boy/translate-mds/tree/v3.0.15) (2018-06-11)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.14...v3.0.15)
+
+## [v3.0.14](https://github.com/chinanf-boy/translate-mds/tree/v3.0.14) (2018-06-11)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.13...v3.0.14)
+
 ## [v3.0.13](https://github.com/chinanf-boy/translate-mds/tree/v3.0.13) (2018-06-11)
 [Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.0.12...v3.0.13)
 
