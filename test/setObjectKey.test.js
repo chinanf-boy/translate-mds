@@ -4,20 +4,22 @@ const [tree, truetree ] = require('./setObjectKey.Object.js')
 const {setObjectKey, translateValue} = require('../src/setObjectKey.js')
 var newObject = (oldObject) =>JSON.parse(JSON.stringify(oldObject));
 
+let opts = (api) =>newObject({api,name:'test.md'})
+
 test(' test baidu',async t =>{
-	let newTree = await setObjectKey(newObject(tree), 'baidu')
+	let newTree = await setObjectKey(newObject(tree), opts('baidu'))
 	delete newTree.Error
     t.true(!!newTree)
 })
 
 test(' test youdao',async t =>{
-	let newTree = await setObjectKey(newObject(tree), 'youdao')
+	let newTree = await setObjectKey(newObject(tree), opts('youdao'))
 	delete newTree.Error
     t.true(!!newTree)
 })
 
 test(' test google',async t =>{
-	let newTree = await setObjectKey(newObject(tree), 'google')
+	let newTree = await setObjectKey(newObject(tree), opts('google'))
 	delete newTree.Error
     t.true(!!newTree)
 })

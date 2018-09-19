@@ -54,6 +54,6 @@ test(`translateLengthEquals with '. ' and '。' `, t =>{
     let b =[`asdf。. asdf. 。`,`asdf`]
 	let c =[`asdf。`, `. `, `asdf. `, `。`, `asdf`]
 	translateLengthEquals(b, c)
-    t.deepEqual(c, [`asdf。. asdf. 。`,`asdf`])
+    t.deepEqual(c, [`asdf。. asdf. 。asdf`])
 })
 
