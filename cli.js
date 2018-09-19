@@ -6,6 +6,7 @@ process.on('uncaughtException', function(err){
   process.exitCode = 1;
 });
 
+const updateNotifier = require('update-notifier');
 const whatTime = require('what-time');
 const minimatch = require('minimatch');
 const async = require('async')
@@ -50,6 +51,8 @@ Example
   ${g('--ignore [relative file/folder]')} : default: false ${y('{ignore files/folders string, split with `,` }')}
 
 `);
+
+updateNotifier({pkg: cli.pkg}).notify();
 
 // Fix write file Path is absoulte
 var dir = cli.input[0]

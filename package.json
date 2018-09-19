@@ -45,6 +45,7 @@
     "remark": "^9.0.0",
     "translation.js": "^0.7.5",
     "turbocolor": "^2.6.1",
+    "update-notifier": "^2.5.0",
     "what-time": "^0.0.2",
     "winston": "^2.4.0",
     "zh-to-en-symbol": "^2.0.0"
