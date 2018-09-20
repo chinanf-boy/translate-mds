@@ -8,7 +8,7 @@ let b = `./test/translate-file/translate-values.md`
 
 
 test('show help screen', async t => {
-    t.regex(await execa.shell('node cli.js').then(x=>x.stdout), /translate/)
+    t.regex(await execa.shell('node cli.js').then(x=>x.stderr).catch(x =>x.stderr), /translate/)
 });
 
 test('--glob', async t => {

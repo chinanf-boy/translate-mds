@@ -1,28 +1,26 @@
 #!/usr/bin/env node
-( async function(){
-'use script'
-process.on('uncaughtException', function(err){
-  console.error('got an error: %s', err);
-  process.exitCode = 1;
-});
+(async function () {
+	'use script';
+	process.on('uncaughtException', err => {
+		console.error('got an error: %s', err);
+		process.exitCode = 1;
+	});
 
-const updateNotifier = require('update-notifier');
-const whatTime = require('what-time');
-const minimatch = require('minimatch');
-const async = require('async')
-const fs = require('fs')
-const asyncfs = require('mz/fs')
-const path = require('path')
-const Listmd = require('./src/readmd.js')
-const meow = require('meow');
-const remark = require('remark')
+	const updateNotifier = require('update-notifier');
+	const whatTime = require('what-time');
+	const minimatch = require('minimatch');
+	const async = require('async');
+	const fs = require('fs');
+	const path = require('path');
+	const listMd = require('./src/readmd.js');
+	const meow = require('meow');
 
-const mergeConfig = require('./config/mergeConfig.js')
+	const mergeConfig = require('./config/mergeConfig.js');
 
-let {g,y,yow,m,b,r,relaPath,insert_flg} = require('./src/util.js')
+	const {g, y, yow, m, b, r, relaPath, insert_flg} = require('./src/util.js');
 
-// cli cmd
-const cli = meow(`
+	// Cli cmd
+	const cli = meow(`
 Usage
   $ translateMds [folder/file name] [options]
 
@@ -52,165 +50,167 @@ Example
 
 `);
 
-updateNotifier({pkg: cli.pkg}).notify();
+	updateNotifier({pkg: cli.pkg}).notify();
 
-// Fix write file Path is absoulte
-var dir = cli.input[0]
-if(!dir){
-  return console.log(g("--> v"+cli.pkg.version),cli.help)
-}
+	// Fix write file Path is absoulte
+	const dir = cli.input[0];
+	if (!dir) {
+    console.error(g('--> v' + cli.pkg.version), cli.help);
+    process.exit(1);
+	}
 
-// merge config
-let {
-  debug,
-  tranFr,
-  tranTo,
-  api,
-  rewrite,
-  asyncNum,
-  Force,
-  ignores
-} = mergeConfig(cli)
+	// Merge config
+	const {
+		debug,
+		tranFr,
+		tranTo,
+		api,
+		rewrite,
+		asyncNum,
+		Force,
+		ignores
+	} = mergeConfig(cli);
 
-const translateMds = require('./src/translateMds.js')
+	const translateMds = require('./src/translateMds.js');
 
-const { logger, loggerStart, loggerText, loggerStop, oneOra } = require('./config/loggerConfig.js') // winston config
+	const {loggerStart, loggerText, loggerStop, oneOra} = require('./config/loggerConfig.js'); // Winston config
 
-// after workOptions ready
-const { writeDataToFile } = require('./src/writeDataToFile.js')
+	// after workOptions ready
+	const {writeDataToFile} = require('./src/writeDataToFile.js');
 
-console.log(b('Starting 翻译')+r(dir));
+	console.log(b('Starting 翻译') + r(dir));
 
-// get floder markdown files Array
-const getList = await Listmd(path.resolve(process.cwd(),dir),{deep:'all'})
+	// Get floder markdown files Array
+	const getList = await listMd(path.resolve(process.cwd(), dir), {deep: 'all'});
 
-console.log(b(`总文件数 ${getList.length}, 有些文件会跳过`));
+	console.log(b(`总文件数 ${getList.length}, 有些文件会跳过`));
 
-let Done = 0
-let noDone = []
-let showAsyncnum = 0
-const pattern = cli.flags['glob'] || false
+	let Done = 0;
+	const noDone = [];
+	let showAsyncnum = 0;
+	const pattern = cli.flags.glob || false;
 
-loggerStart("translate running ...")
-async.mapLimit(getList, asyncNum, runTranslate,
-  (err, IsTranslateS) =>{
-                  loggerStop()
-                  if(noDone.length){
-                    process.exitCode = 1
-                  }
-                  if(err)throw err
+	loggerStart('translate running ...');
+	async.mapLimit(getList, asyncNum, runTranslate,
+		(err, IsTranslateS) => {
+			loggerStop();
+			if (noDone.length > 0) {
+				process.exitCode = 1;
+			}
+			if (err) {
+				throw err;
+			}
 
-                  Done++
-                  if(IsTranslateS.every(x =>!!x)){
-                      oneOra(`All Done`)
-                  }else{
-                      if(debug !== 'debug'){
-                        oneOra(`Some No Done , ${yow("use")} cli-option${r(' { -D } ')} find the Err`)
-                      }
-                      if(!Force){
-                        oneOra(`Or ${yow("use")} cli-option${r(' { -F } ')} Force put the translate Result`)
-                      }
-                      if(debug === 'debug' || Force){
-                        oneOra(`[${g('DEBUG')}:${debug === 'debug'}|${g('Force')}:${Force}] mode`)
-                      }
-                  }
-                  oneOra(`time:${whatTime(process.uptime())}`)
-                }
-)
+			Done++;
+			if (IsTranslateS.every(x => Boolean(x))) {
+				oneOra('All Done');
+			} else {
+				if (debug !== 'debug') {
+					oneOra(`Some No Done , ${yow('use')} cli-option${r(' { -D } ')} find the Err`);
+				}
+				if (!Force) {
+					oneOra(`Or ${yow('use')} cli-option${r(' { -F } ')} Force put the translate Result`);
+				}
+				if (debug === 'debug' || Force) {
+					oneOra(`[${g('DEBUG')}:${debug === 'debug'}|${g('Force')}:${Force}] mode`);
+				}
+			}
+			oneOra(`time:${whatTime(process.uptime())}`);
+		}
+	);
 
-/**
+	/**
  * @description async Translate filename value , Return true or false
  * @param {String} value
  * @returns {Boolean}
  */
 
-async function runTranslate(value){
-  let rePath = relaPath(value)
-  loggerText(`++++ <😊 > ${rePath}`)
+	async function runTranslate(value) {
+		const rePath = relaPath(value);
+		loggerText(`++++ <😊 > ${rePath}`);
 
-  let State = true
-  Done++
+		let State = true;
+		Done++;
 
-  let localDone = Done
+		const localDone = Done;
 
-  // filter same file
-  if(value.endsWith(`.${tranTo}.md`) || !value.endsWith('.md')) {
-    loggerText(b(`- 翻译的 - 或者 不是 md 文件的 ${rePath}`));
-    return State
-  }
-  if(value.match(/\.[a-zA-Z]+\.md+/)){ // TOGO country short name
-    loggerText(b(`- 有后缀为 *.国家简写.md  ${rePath}`));
-    return State
-  }
-  if(!rewrite && fs.existsSync( insert_flg(value,`.${tranTo}`, 3 ))){
-    loggerText(b(`已翻译, 不覆盖 ${rePath}`));
-    return State
-  }
-  if(pattern && !minimatch(value,pattern,{ matchBase: true })){
-    loggerText(b(`glob, no match ${rePath}`));
-    return State
-  }
-  if(ignores && ignores.some(ignore =>value.includes( path.resolve(ignore) ) ) ){
-    loggerText(b(`ignore, ${rePath}`));
-    return State
-  }
+		// Filter same file
+		if (value.endsWith(`.${tranTo}.md`) || !value.endsWith('.md')) {
+			loggerText(b(`- 翻译的 - 或者 不是 md 文件的 ${rePath}`));
+			return State;
+		}
+		if (value.match(/\.[a-zA-Z]+\.md+/)) { // TOGO country short name
+			loggerText(b(`- 有后缀为 *.国家简写.md  ${rePath}`));
+			return State;
+		}
+		if (!rewrite && fs.existsSync(insert_flg(value, `.${tranTo}`, 3))) {
+			loggerText(b(`已翻译, 不覆盖 ${rePath}`));
+			return State;
+		}
+		if (pattern && !minimatch(value, pattern, {matchBase: true})) {
+			loggerText(b(`glob, no match ${rePath}`));
+			return State;
+		}
+		if (ignores && ignores.some(ignore => value.includes(path.resolve(ignore)))) {
+			loggerText(b(`ignore, ${rePath}`));
+			return State;
+		}
 
-  loggerText(`1. do 第${localDone}文件 ${rePath}`)
+		loggerText(`1. do 第${localDone}文件 ${rePath}`);
 
-  // open async num
-  showAsyncnum++
-  let startTime = new Date().getTime();
+		// Open async num
+		showAsyncnum++;
+		const startTime = new Date().getTime();
 
+		const _translateMds = await translateMds([value, api, tranFr, tranTo], debug, true);
 
-  let _translateMds =  await translateMds([value, api, tranFr, tranTo],debug, true)
+		// Succeed / force wirte data
+		if (_translateMds.every(x => !x.error && x.text) || Force) { // Translate no ok
+			const _tranData = _translateMds.map(x => x.text); // Single file translate data
 
-  // succeed / force wirte data
-  if(_translateMds.every(x =>!x.error && x.text) || Force ){ // translate no ok
+			await writeDataToFile(_tranData, value).then(text => loggerText(text));
+		}
 
-    let _tranData = _translateMds.map(x =>x.text) // single file translate data
+		let Err;
+		for (const _t of _translateMds) {
+			if (_t.error) {
+				Err = _t.error;
+				break;
+			}
+		}
 
-    await writeDataToFile(_tranData, value).then(text =>loggerText(text))
-  }
+		const endtime = new Date().getTime() - startTime;
+		const humanTime = whatTime(endtime / 1000);
 
-  let Err
-  for(let _t of _translateMds){
-    if(_t.error){
-      Err =  _t.error
-      break
-    }
-  }
+		if (State && !Err) {
+			oneOra(`已搞定 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(humanTime)} - ${rePath}`);
+		} else {
+			State = false; // Translate no ok
+			if (!State) { // Write data no ok | translate no ok
+				noDone.push(value); // If process exit code
+				oneOra(`没完成 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(humanTime)} - ${rePath} \n ${Err}`, 'fail');
+			}
+		}
 
-  let endtime = new Date().getTime() - startTime;
-  let humanTime = whatTime(endtime / 1000)
+		showAsyncnum--;
+		loggerText('++++ <😊 />');
 
-  if(State && !Err){
-    oneOra(`已搞定 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(humanTime)} - ${rePath}`)
-  }else{
-  State = false // translate no ok
-  if(!State){ // write data no ok | translate no ok
-    noDone.push(value) // if process exit code
-    oneOra(`没完成 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(humanTime)} - ${rePath} \n ${Err}`,'fail')
-  }}
+		return State;
+	}
 
-  showAsyncnum--
-  loggerText('++++ <😊 />')
+	// Const { time } = require('./src/util.js')
 
-  return State
-}
+	// async.mapLimit will outside, must lock in
+	// while(Done){
+	//   const t = 100
+	//   await time(t)
 
-// const { time } = require('./src/util.js')
+	//   if(ending){
+	//     break;
+	//   }
+	// }
 
-// async.mapLimit will outside, must lock in
-// while(Done){
-//   const t = 100
-//   await time(t)
-
-//   if(ending){
-//     break;
-//   }
-// }
-
-process.on('exit', function(err){
-  loggerStop()
-});
-})()
+	process.on('exit', _ => {
+		loggerStop();
+	});
+})();
