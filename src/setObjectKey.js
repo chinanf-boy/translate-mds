@@ -49,7 +49,7 @@ async function translateValue(value, api) {
 
 	return tjs[api].translate({
 		text: thisTranString,
-		from: tranF,
+		// from: tranF,
 		to: tranT,
 		com: COM
 	}).then(result => {
