@@ -136,23 +136,23 @@ Example
 
 		// Filter same file
 		if (value.endsWith(`.${tranTo}.md`) || !value.endsWith('.md')) {
-			loggerText(b(`- 翻译的 - 或者 不是 md 文件的 ${rePath}`));
+			loggerText(b(`- 翻译的 - 或者 不是 md 文件的 ${g(rePath)}`));
 			return State;
 		}
 		if (value.match(/\.[a-zA-Z]+\.md+/)) { // TOGO country short name
-			loggerText(b(`- 有后缀为 *.国家简写.md  ${rePath}`));
+			loggerText(b(`- 有后缀为 *.国家简写.md  ${g(rePath)}`));
 			return State;
 		}
 		if (!rewrite && fs.existsSync(insert_flg(value, `.${tranTo}`, 3))) {
-			loggerText(b(`已翻译, 不覆盖 ${rePath}`));
+			loggerText(b(`已翻译, 不覆盖 ${g(rePath)}`));
 			return State;
 		}
 		if (pattern && !minimatch(value, pattern, {matchBase: true})) {
-			loggerText(b(`glob, no match ${rePath}`));
+			loggerText(b(`glob, no match ${g(rePath)}`));
 			return State;
 		}
 		if (ignores && ignores.some(ignore => value.includes(path.resolve(ignore)))) {
-			loggerText(b(`ignore, ${rePath}`));
+			loggerText(b(`ignore, ${g(rePath)}`));
 			return State;
 		}
 

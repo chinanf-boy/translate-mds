@@ -147,9 +147,10 @@ async function setObjectKey(obj, opts) {
 
         // got detect language
 		await tjs.google.detect(thisTranArray.join(require('os').EOL)).then(lang => {
-			tranF = lang
+            tranF = lang
+			loggerText(g(`get ${c(tranF)} language from google`))
 		}).catch(e =>{
-			loggerText(r(`get lang from google fail`))
+            loggerText(r(`get language from google fail, so language:${g('auto')}`))
 		})
 
 		for (let third in chunkTranArray) {
