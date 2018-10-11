@@ -78,7 +78,7 @@ async function translateMds(options, debug, isCli = false) {
             let E = translateMdAst.Error
 			// Ast to markdown
 			body = remark().use({
-				settings: {commonmark: true, emphasis: '*', strong: '*', fences: true}
+				settings: {commonmark: true, emphasis: '*', strong: '*', fences: true, paddedTable: false}
 			}).stringify(translateMdAst)
 
 			return [head + '\n' + body, E]
