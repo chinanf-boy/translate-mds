@@ -98,10 +98,14 @@ async function setObjectKey(obj, opts) {
 
     let allAPi = apis
     let api = opts.api
-	let howManyValNoTran = 0
+
+    let howManyValNoTran = 0
+    let errMsg = ""
+
 	let tranArray = []
 	let thisTranArray = []
-	let resultArray = []
+    let resultArray = []
+
     let newObj = newObject(obj)
     let tips = `${r("If slow/stagnant , should try again")}`
     // put obj values to tranArray
@@ -213,8 +217,8 @@ async function setObjectKey(obj, opts) {
 					// count how many string no translate
 					howManyValNoTran += thisChunkTran.length
 					isWork = false
-					thisResult = thisChunkTran // Add source tran
-
+                    thisResult = thisChunkTran // Add source tran
+                    errMsg = `PS: can not get translation from API`
 				}
 
 			}
@@ -266,22 +270,30 @@ async function setObjectKey(obj, opts) {
 
 				if (thisChunkTran.length != thisResult.length) { // can't Fix
 					howManyValNoTran += thisChunkTran.length
-					thisResult = thisChunkTran // Add source tran
+                    thisResult = thisChunkTran // Add source tran
+                    errMsg = `PS: can not sort the translate Text`
 				}
 			}
 
 			resultArray = resultArray.concat(thisResult) // Add result
 
-			loggerText(`3. translate loading - ${resultArray.length}/${thisTranArray.length}`)
+            loggerText(`3. translate loading - ${resultArray.length}/${thisTranArray.length}`)
+
+            if(errMsg ){
+                break;
+            }
+
 		}
 	}
 
-	resultArray = fixZhtoEn(resultArray) // fix zh symbal to en
+    if(!errMsg ){
+        resultArray = fixZhtoEn(resultArray) // fix zh symbal to en
 
-	setTypeValue(newObj, resultArray)
+        setTypeValue(newObj, resultArray)
+    }
 
 	if (howManyValNoTran > 0) {
-		newObj.Error = `the file no translate number: ${howManyValNoTran}/${thisTranArray.length}`
+		newObj.Error = `no translate number: ${howManyValNoTran}/${thisTranArray.length} ${errMsg}`
 	}
 
 
