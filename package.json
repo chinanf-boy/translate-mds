@@ -48,7 +48,7 @@
     "update-notifier": "^2.5.0",
     "what-time": "^0.0.2",
     "winston": "^2.4.0",
-    "zh-to-en-symbol": "^2.0.0"
+    "zh-to-en-symbol": "^3.0.0"
   },
   "keywords": [
     "md",
