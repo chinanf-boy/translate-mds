@@ -18,8 +18,7 @@
   },
   "files": [
     "src",
-    "cli.js",
-    "config"
+    "cli.js"
   ],
   "ava": {
     "files": [
@@ -52,7 +51,8 @@
   },
   "keywords": [
     "md",
-    "translate"
+    "translate",
+    "languages"
   ],
   "devDependencies": {
     "ava": "^0.24.0",
