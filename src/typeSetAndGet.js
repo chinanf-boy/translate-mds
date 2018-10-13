@@ -1,4 +1,4 @@
-const {getOptions} = require('../config/work-options.js')
+const {getOptions} = require('./config/work-options.js')
 const TYPES = getOptions()['types']
 let types = ['html', 'code'].concat(TYPES)
 let sum = 0;

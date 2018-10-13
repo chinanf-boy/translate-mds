@@ -8,10 +8,10 @@ const cutMdhead = require('./cutMdhead.js')
 const remark = require('remark')
 const {
 	logger
-} = require('../config/loggerConfig.js') // winston config
+} = require('./config/loggerConfig.js') // winston config
 
 // config
-const mergeConfig = require('../config/mergeConfig')
+const mergeConfig = require('./config/mergeConfig')
 
 // Object to Array
 const { O2A }  = require('./util')

@@ -1,5 +1,5 @@
 import test from 'ava'
-import mergeConfig from '../config/mergeConfig'
+import mergeConfig from '../src/config/mergeConfig'
 
 test('cli config',t =>{
     let cli = {

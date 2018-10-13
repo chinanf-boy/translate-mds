@@ -1,6 +1,6 @@
 const {
 	getOptions
-} = require('../../config/work-options.js')
+} = require('../config/work-options.js')
 let configs = getOptions()
 const { matchs, skips } = configs
 const { tc } = require('../util')

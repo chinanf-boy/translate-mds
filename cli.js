@@ -15,7 +15,7 @@
 	const listMd = require('./src/readmd.js');
 	const meow = require('meow');
 
-	const mergeConfig = require('./config/mergeConfig.js');
+	const mergeConfig = require('./src/config/mergeConfig.js');
 
 	const {g, y, yow, m, b, r, relaPath, insert_flg} = require('./src/util.js');
 
@@ -73,7 +73,7 @@ Example
 
 	const translateMds = require('./src/translateMds.js');
 
-	const {loggerStart, loggerText, loggerStop, oneOra} = require('./config/loggerConfig.js'); // Winston config
+	const {loggerStart, loggerText, loggerStop, oneOra} = require('./src/config/loggerConfig.js'); // Winston config
 
 	// after workOptions ready
 	const {writeDataToFile} = require('./src/writeDataToFile.js');

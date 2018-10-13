@@ -2,10 +2,10 @@ const tjs = require('translation.js')
 
 // log
 const debug = require("debug")("mds:tran")
-const {logger, loggerStart, loggerText, oneOra } = require('../config/loggerConfig.js')
+const {logger, loggerStart, loggerText, oneOra } = require('./config/loggerConfig.js')
 
 // get config.json
-const {getOptions} = require('../config/work-options.js')
+const {getOptions} = require('./config/work-options.js')
 const configs = getOptions()
 
 let tranF = configs['from'],

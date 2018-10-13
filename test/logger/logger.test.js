@@ -4,7 +4,7 @@ const {	logger,
 	loggerText,
 	loggerStop,
 	getLogger,
-	_SETDEBUG } = require('../../config/loggerConfig')
+	_SETDEBUG } = require('../../src/config/loggerConfig')
 
 const H = "hello world"
 

@@ -2,10 +2,10 @@ const fs = require('fs')
 const { m,insert_flg,relaPath,g } = require('./util')
 const {
 	logger
-} = require('../config/loggerConfig.js')
+} = require('./config/loggerConfig.js')
 const {
 	getOptions
-} = require('../config/work-options.js')
+} = require('./config/work-options.js')
 let configs = getOptions()
 const tranT = configs.to
 
