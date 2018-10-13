@@ -193,7 +193,6 @@ Example
 		}
 
 		showAsyncnum--;
-		loggerText('++++ <😊 />');
 
 		return State;
 	}

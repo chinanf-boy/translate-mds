@@ -11,6 +11,7 @@ const configs = getOptions()
 let tranF = configs['from'],
 tranT = configs['to'],
 COM   = configs['com'],
+Force = configs['force']
 timeWait = configs['timewait'],
 getValuesFile = configs['getvalues'],
 gotTranslateFile = configs['translate'],
@@ -279,14 +280,14 @@ async function setObjectKey(obj, opts) {
 
             loggerText(`3. translate loading - ${resultArray.length}/${thisTranArray.length}`)
 
-            if(errMsg ){
+            if(errMsg && !Force){
                 break;
             }
 
 		}
 	}
 
-    if(!errMsg ){
+    if(!errMsg || Force){
         resultArray = fixZhtoEn(resultArray) // fix zh symbal to en
 
         setTypeValue(newObj, resultArray)
