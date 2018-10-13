@@ -70,9 +70,10 @@ function mergeAndCut(Arr, index, howMany, TestLen){
 		if(1 || Arr.length - num !== E){
 			Arr[i+1] && (Arr[index] = Arr[index] + Arr[i+1])
 			num ++
-		}else{
-			break;
-		}
+        }
+        // else{
+		// 	break;
+		// }
 
 	}
 	// splice Items : From the Index + 1 to ` i `

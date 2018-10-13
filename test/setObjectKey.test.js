@@ -24,9 +24,21 @@ test(' test google',async t =>{
     t.true(!!newTree)
 })
 
+test(' test translate type:asdf + html',async t =>{
+    let source = {type:'asdf',"value":"hello","child":{
+        "type": "html",
+        "value": "<a href=\"http://www.ebooks.com/1993212/you-don-t-know-js-up-going/simpson-kyle/\">"
+      }}
+    let value = {type:'asdf',"value":"你好","child":{
+        "type": "html",
+        "value": "<a href=\"http://www.ebooks.com/1993212/you-don-t-know-js-up-going/simpson-kyle/\">"
+      }}
+    let v = await setObjectKey(newObject(source), opts('baidu'))
+    t.deepEqual(v,value)
+})
 
 test(' test translate no key == value ',async t =>{
-    let noValue = await setObjectKey(newObject({type:'asdf'}), 'baidu')
+    let noValue = await setObjectKey(newObject({type:'asdf'}), opts('baidu'))
     t.is(noValue,'no value')
 })
 
@@ -34,7 +46,7 @@ test(' test translate code or html false',async t =>{
     let noValue = await setObjectKey(newObject({
         "type": "html",
         "value": "<a href=\"http://www.ebooks.com/1993212/you-don-t-know-js-up-going/simpson-kyle/\">"
-      }), 'baidu')
+      }), opts('baidu'))
     t.is(noValue,'no value')
 })
 

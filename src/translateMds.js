@@ -1,8 +1,6 @@
 'use script'
 const fs = require('mz/fs')
 const path = require('path')
-const tjs = require('translation.js')
-const meow = require('meow');
 const remark = require('remark')
 
 const Listmd = require('./util/readmd.js')

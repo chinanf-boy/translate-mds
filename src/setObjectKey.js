@@ -17,12 +17,11 @@ getValuesFile = configs['getvalues'],
 gotTranslateFile = configs['translate'],
 apis = configs['apis'];
 
-const { getTypeValue, setTypeValue} = require('./typeSetAndGet')
-
 // Fix china symbal
 const fixZhtoEn = require("./Fix/fixZhtoEn.js")
 // Fix result.length no equal
 const { translateLengthEquals } = require("./Fix/lengthEqual.js")
+// Fix Too Big Array to Chunk
 const { fixFileTooBig, indexMergeArr } = require("./Fix/fixFileTooBig.js")
 const {tc,time,g,y,yow,m,b,r,relaPath,newObject,asyncWrite,asyncRead} = require('./util/util.js')
 
@@ -85,6 +84,8 @@ async function translateValue(value, api) {
 	})
 
 }
+
+const { getTypeValue, setTypeValue} = require('./typeSetAndGet')
 
 /**
  * @description translate AST Key == value, return new Object
