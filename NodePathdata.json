@@ -5,27 +5,25 @@
 		"minimatch",
 		"async",
 		"fs",
-		"mz/fs",
 		"path",
 		"./src/readmd.js",
 		"meow",
-		"remark",
-		"./config/mergeConfig.js",
+		"./src/config/mergeConfig.js",
 		"./src/util.js",
 		"./src/translateMds.js",
-		"./config/loggerConfig.js",
+		"./src/config/loggerConfig.js",
 		"./src/writeDataToFile.js",
 		"./src/util.js"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/readmd.js": [
 		"files-list"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/config/mergeConfig.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/config/mergeConfig.js": [
 		"path",
 		"./optionsTodo.js",
 		"./work-options"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/config/work-options.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/config/work-options.js": [
 		"./defaultConfig.json"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/util.js": [
@@ -42,13 +40,13 @@
 		"meow",
 		"./cutMdhead.js",
 		"remark",
-		"../config/loggerConfig.js",
-		"../config/mergeConfig",
+		"./config/loggerConfig.js",
+		"./config/mergeConfig",
 		"./util",
 		"./setObjectKey.js",
 		"./util.js"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/config/loggerConfig.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/config/loggerConfig.js": [
 		"winston",
 		"ora-min",
 		"./work-options.js"
@@ -56,8 +54,8 @@
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/setObjectKey.js": [
 		"translation.js",
 		"debug\")(\"mds:tran",
-		"../config/loggerConfig.js",
-		"../config/work-options.js",
+		"./config/loggerConfig.js",
+		"./config/work-options.js",
 		"./typeSetAndGet",
 		"./fixZhtoEn.js",
 		"./Fix/lengthEqual.js",
@@ -66,20 +64,20 @@
 		"os"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/typeSetAndGet.js": [
-		"../config/work-options.js"
+		"./config/work-options.js"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/fixZhtoEn.js": [
 		"zh-to-en-symbol"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/Fix/lengthEqual.js": [
-		"../../config/work-options.js",
+		"../config/work-options.js",
 		"../util"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/writeDataToFile.js": [
 		"fs",
 		"./util",
-		"../config/loggerConfig.js",
-		"../config/work-options.js"
+		"./config/loggerConfig.js",
+		"./config/work-options.js"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/cli.test.js": [
 		"ava",
@@ -94,7 +92,7 @@
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/mergeConfig.js": [
 		"ava",
-		"../config/mergeConfig"
+		"../src/config/mergeConfig"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/optionsTodo.test.js": [
 		"ava",
@@ -136,7 +134,7 @@
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/logger/logger.test.js": [
 		"ava",
-		"../../config/loggerConfig"
+		"../../src/config/loggerConfig"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/translate-file/values.test.js": [
 		"ava",
