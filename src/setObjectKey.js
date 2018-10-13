@@ -20,7 +20,7 @@ apis = configs['apis'];
 const { getTypeValue, setTypeValue} = require('./typeSetAndGet')
 
 // Fix china symbal
-const fixZhtoEn = require("./fixZhtoEn.js")
+const fixZhtoEn = require("./Fix/fixZhtoEn.js")
 // Fix result.length no equal
 const { translateLengthEquals } = require("./Fix/lengthEqual.js")
 const { fixFileTooBig, indexMergeArr } = require("./Fix/fixFileTooBig.js")
