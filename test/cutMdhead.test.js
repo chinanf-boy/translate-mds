@@ -1,7 +1,7 @@
 const { test } = require('ava')
 const fs = require('fs')
 
-const cut = require('../src/cutMdhead.js')
+const cut = require('../src/util/cutMdhead.js')
 
 test("cut --- head", t =>{
     let [body, head] = cut(beforedata)

@@ -12,12 +12,12 @@
 	const async = require('async');
 	const fs = require('fs');
 	const path = require('path');
-	const listMd = require('./src/readmd.js');
+	const listMd = require('./src/util/readmd.js');
 	const meow = require('meow');
 
 	const mergeConfig = require('./src/config/mergeConfig.js');
 
-	const {g, y, yow, m, b, r, relaPath, insert_flg} = require('./src/util.js');
+	const {g, y, yow, m, b, r, relaPath, insert_flg} = require('./src/util/util.js');
 
 	// Cli cmd
 	const cli = meow(`
@@ -76,7 +76,7 @@ Example
 	const {loggerStart, loggerText, loggerStop, oneOra} = require('./src/config/loggerConfig.js'); // Winston config
 
 	// after workOptions ready
-	const {writeDataToFile} = require('./src/writeDataToFile.js');
+	const {writeDataToFile} = require('./src/util/writeDataToFile.js');
 
 	console.log(b('Starting 翻译') + r(dir));
 
@@ -196,18 +196,6 @@ Example
 
 		return State;
 	}
-
-	// Const { time } = require('./src/util.js')
-
-	// async.mapLimit will outside, must lock in
-	// while(Done){
-	//   const t = 100
-	//   await time(t)
-
-	//   if(ending){
-	//     break;
-	//   }
-	// }
 
 	process.on('exit', _ => {
 		loggerStop();

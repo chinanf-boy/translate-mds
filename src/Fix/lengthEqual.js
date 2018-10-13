@@ -3,7 +3,7 @@ const {
 } = require('../config/work-options.js')
 let configs = getOptions()
 const { matchs, skips } = configs
-const { tc } = require('../util')
+const { tc } = require('../util/util.js')
 
 let Equal;
 function translateLengthEquals( source, tranTxt){

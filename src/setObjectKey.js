@@ -24,7 +24,7 @@ const fixZhtoEn = require("./Fix/fixZhtoEn.js")
 // Fix result.length no equal
 const { translateLengthEquals } = require("./Fix/lengthEqual.js")
 const { fixFileTooBig, indexMergeArr } = require("./Fix/fixFileTooBig.js")
-const {tc,time,g,y,yow,m,b,r,relaPath,newObject,asyncWrite,asyncRead} = require('./util')
+const {tc,time,g,y,yow,m,b,r,relaPath,newObject,asyncWrite,asyncRead} = require('./util/util.js')
 
 const MAXstring = 1300
 

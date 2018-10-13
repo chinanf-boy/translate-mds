@@ -2,10 +2,13 @@
 const fs = require('mz/fs')
 const path = require('path')
 const tjs = require('translation.js')
-const Listmd = require('./readmd.js')
 const meow = require('meow');
-const cutMdhead = require('./cutMdhead.js')
 const remark = require('remark')
+
+const Listmd = require('./util/readmd.js')
+const cutMdhead = require('./util/cutMdhead.js')
+const { O2A }  = require('./util/util.js')
+
 const {
 	logger
 } = require('./config/loggerConfig.js') // winston config
@@ -14,7 +17,6 @@ const {
 const mergeConfig = require('./config/mergeConfig')
 
 // Object to Array
-const { O2A }  = require('./util')
 
 /**
  * @description translateMds main
@@ -101,7 +103,7 @@ async function translateMds(options, debug, isCli = false) {
             if ( value.endsWith(`.${tranTo}.md`) || value.match(/\.[a-zA-Z]+\.md+/) || !value.endsWith('.md')){
                 continue
             }
-            const {insert_flg } = require('./util.js')
+            const {insert_flg } = require('./util/util.js')
 
             if ( fs.existsSync( insert_flg(value,`.${tranTo}`, 3 ))){
                 continue

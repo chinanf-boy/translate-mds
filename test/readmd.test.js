@@ -1,6 +1,6 @@
 const { test } = require('ava')
 
-const Listmd = require('../src/readmd.js')
+const Listmd = require('../src/util/readmd.js')
 
 test("read zh md folder", async t =>{
     const len = await Listmd(__dirname+"/../md/",{ deep: 'all' })
