@@ -1,5 +1,10 @@
+const minimatch = require('minimatch');
+
 const {getOptions} = require('./config/work-options.js')
-const TYPES = getOptions()['types']
+const configs = getOptions()
+const TYPES = configs['types']
+const textGlob = configs['textGlob'];
+
 let types = ['html', 'code'].concat(TYPES)
 let sum = 0;
 
@@ -22,8 +27,11 @@ function getTypeValue(obj,tranArray){
 
 
 			if (key === 'value' && obj[key].trim()) {
-				tranArray.push(obj[key])
-				sum++
+                // --text-glob {cli options}
+                if(!textGlob || textGlob.every(g =>minimatch(obj[key],g))){
+                    tranArray.push(obj[key])
+                    sum++
+                }
 			}
 		});
 		return sum
@@ -49,8 +57,10 @@ function setTypeValue(obj, tranArrayZh){
 
 			if (key === 'value' && obj[key].trim()) {
 				if (tranArrayZh.length) {
-					obj[key] = tranArrayZh.shift()
-					sum--
+                    if(!textGlob || textGlob.every(g =>minimatch(obj[key],g))){
+                        obj[key] = tranArrayZh.shift()
+                        sum--
+                    }
 				}
 			}
 		});
