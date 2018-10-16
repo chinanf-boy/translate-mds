@@ -42,13 +42,13 @@ function O2A(options) {
 }
 
 const fs = require('mz/fs')
-const EOL = require('os').EOL
+const EOL = `\n`
 
 async function asyncWrite(p, arry){
-    return await fs.writeFile(p,arry.join(EOL))
+    return await fs.writeFile(p,arry.join(EOL+EOL))
 }
 async function asyncRead(p){
-    return await fs.readFileSync(p,"utf8").split(EOL).filter(ok => ok)
+    return await fs.readFileSync(p,"utf8").split(EOL+EOL).filter(ok => ok)
 }
 module.exports  = {
 	time,

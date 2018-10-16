@@ -81,7 +81,7 @@ async function translateMds(options, debug, isCli = false) {
 				settings: {commonmark: true, emphasis: '*', strong: '*', fences: true, paddedTable: false}
 			}).stringify(translateMdAst)
 
-			return [head + '\n' + body, E]
+			return [head+body, E]
 		}
 
 		return ['',translateMdAst]
