@@ -1,5 +1,16 @@
 # Change Log
 
+## [Unreleased](https://github.com/chinanf-boy/translate-mds/tree/HEAD)
+
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.2.17...HEAD)
+
+**Closed issues:**
+
+- Add: --text-glob [\#23](https://github.com/chinanf-boy/translate-mds/issues/23)
+
+## [v3.2.17](https://github.com/chinanf-boy/translate-mds/tree/v3.2.17) (2018-10-16)
+[Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.2.16...v3.2.17)
+
 ## [v3.2.16](https://github.com/chinanf-boy/translate-mds/tree/v3.2.16) (2018-10-13)
 [Full Changelog](https://github.com/chinanf-boy/translate-mds/compare/v3.2.15...v3.2.16)
 

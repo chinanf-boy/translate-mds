@@ -6,16 +6,15 @@
 		"async",
 		"fs",
 		"path",
-		"./src/readmd.js",
+		"./src/util/readmd.js",
 		"meow",
 		"./src/config/mergeConfig.js",
-		"./src/util.js",
+		"./src/util/util.js",
 		"./src/translateMds.js",
 		"./src/config/loggerConfig.js",
-		"./src/writeDataToFile.js",
-		"./src/util.js"
+		"./src/util/writeDataToFile.js"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/readmd.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/util/readmd.js": [
 		"files-list"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/config/mergeConfig.js": [
@@ -26,25 +25,22 @@
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/config/work-options.js": [
 		"./defaultConfig.json"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/util.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/util/util.js": [
 		"turbocolor",
 		"path",
-		"mz/fs",
-		"os"
+		"mz/fs"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/translateMds.js": [
 		"mz/fs",
 		"path",
-		"translation.js",
-		"./readmd.js",
-		"meow",
-		"./cutMdhead.js",
 		"remark",
+		"./util/readmd.js",
+		"./util/cutMdhead.js",
+		"./util/util.js",
 		"./config/loggerConfig.js",
 		"./config/mergeConfig",
-		"./util",
 		"./setObjectKey.js",
-		"./util.js"
+		"./util/util.js"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/config/loggerConfig.js": [
 		"winston",
@@ -56,28 +52,29 @@
 		"debug\")(\"mds:tran",
 		"./config/loggerConfig.js",
 		"./config/work-options.js",
-		"./typeSetAndGet",
-		"./fixZhtoEn.js",
+		"./Fix/fixZhtoEn.js",
 		"./Fix/lengthEqual.js",
 		"./Fix/fixFileTooBig.js",
-		"./util",
+		"./util/util.js",
+		"./typeSetAndGet",
 		"os"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/typeSetAndGet.js": [
-		"./config/work-options.js"
-	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/fixZhtoEn.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/Fix/fixZhtoEn.js": [
 		"zh-to-en-symbol"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/Fix/lengthEqual.js": [
 		"../config/work-options.js",
-		"../util"
+		"../util/util.js"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/writeDataToFile.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/typeSetAndGet.js": [
+		"minimatch",
+		"./config/work-options.js"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/util/writeDataToFile.js": [
 		"fs",
 		"./util",
-		"./config/loggerConfig.js",
-		"./config/work-options.js"
+		"../config/loggerConfig.js",
+		"../config/work-options.js"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/cli.test.js": [
 		"ava",
@@ -88,7 +85,7 @@
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/cutMdhead.test.js": [
 		"ava",
 		"fs",
-		"../src/cutMdhead.js"
+		"../src/util/cutMdhead.js"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/mergeConfig.js": [
 		"ava",
@@ -100,7 +97,7 @@
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/readmd.test.js": [
 		"ava",
-		"../src/readmd.js"
+		"../src/util/readmd.js"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/setObjectKey.Object.js": [
 		"ava"
@@ -119,8 +116,8 @@
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/writeDataToFile.test.js": [
 		"ava",
 		"fs",
-		"../src/writeDataToFile.js",
-		"../src/util"
+		"../src/util/writeDataToFile.js",
+		"../src/util/util.js"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/Fix/fixFileTooBig.test.js": [
 		"ava",
