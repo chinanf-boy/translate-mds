@@ -64,8 +64,26 @@ function mergeConfig(cli) {
     if(typeof ignores === 'string'){
         ignores = ignores.split(',')
     }else{
-        ignores = []
+        ignores = false
     }
+	defaultConfig.ignore = ignores
+
+    let glob = cli.flags['glob']
+    if(typeof glob === 'string'){
+        glob = glob.split(',')
+    }else{
+        glob = false
+    }
+    defaultConfig.glob = glob
+
+    let textGlob = cli.flags['textGlob']
+    if(typeof textGlob === 'string'){
+        textGlob = textGlob.split(',')
+    }else{
+        textGlob = false
+    }
+    defaultConfig.textGlob = textGlob
+
 	workOptions.setOptions(defaultConfig)
 
 	return {
@@ -76,7 +94,8 @@ function mergeConfig(cli) {
 		rewrite,
 		asyncNum,
         Force,
-        ignores
+        ignores,
+        glob
 	}
 }
 
@@ -110,7 +129,7 @@ function main(opts) {
 	}, typesTodo, defaultConfig)
 	// rewrite config.json
 	workOptions.setOptions(defaultConfig)
-
+    
 	return {
 		debug,
 		tranFrom,

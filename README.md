@@ -89,6 +89,7 @@ translateMds test.md
     --timewait                    : default: 80 { 每次请求的等待 80ms 时间}
     --values [path]               : default: false {取出原文中需要翻译的文本,放入path文件} [single file])
     --translate [path]            : default: false {使用此path文件替代请求网络翻译, 可搭配--values使用} [single file]
+    --text-glob [pattern]         : default: false {文本匹配glob模式, 才能被翻译}
     --glob [pattern]              : default: false {文件匹配glob模式, 才能被翻译}
     --ignore [relative file/folder] : default: false {忽略 文件/文件夹 字符串匹配, 可用`,`分隔多路径 }
 ```

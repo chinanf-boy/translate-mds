@@ -37,15 +37,16 @@ Example
 🌟${m('[high user options]')}❤️
 
   ${g('-D   debug')}
-  ${g('-G   google.com')}      : default: false  ${y('{ cn => com with Google api }')}
-  ${g('-F   force')}           : default: false  ${y('{ If, translate result is no 100%, force wirte md file }')}
-  ${g('-M   match')}           : default [ ". ", "! "//...] ${y('{match this str, merge translate result }')}
-  ${g('-S   skips')}           : default ["... ", "etc. ", "i.e. "] ${y('{match this str will, skip merge translate result }')}
-  ${g('-T   types')}           : default ["html", "code"] ${y('{pass the md AST type}')}
-  ${g('--timewait ')}          : default < 80 > ${y('{each fetch api wait time}')}
-  ${g('--values [path]')}      : default: false ${y('{write the original of wait for translate file}')} ${r('[single file]')}
-  ${g('--translate [path]')}   : default: false ${y('{use this file translate}')} ${r('[single file]')}
-  ${g('--glob [pattern]')}     : default: false ${y('{file must be match, then be transalte}')}
+  ${g('-G   google.com')}       : default: false  ${y('{ cn => com with Google api }')}
+  ${g('-F   force')}            : default: false  ${y('{ If, translate result is no 100%, force wirte md file }')}
+  ${g('-M   match')}            : default [ ". ", "! "//...] ${y('{match this str, merge translate result }')}
+  ${g('-S   skips')}            : default ["... ", "etc. ", "i.e. "] ${y('{match this str will, skip merge translate result }')}
+  ${g('-T   types')}            : default ["html", "code"] ${y('{pass the md AST type}')}
+  ${g('--timewait ')}           : default < 80 > ${y('{each fetch api wait time}')}
+  ${g('--values [path]')}       : default: false ${y('{write the original of wait for translate file}')} ${r('[single file]')}
+  ${g('--translate [path]')}    : default: false ${y('{use this file translate}')} ${r('[single file]')}
+  ${g('--text-glob [pattern]')} : default: false ${y('{text must be match, then be transalte}')}
+  ${g('--glob [pattern]')}      : default: false ${y('{file must be match, then be transalte}')}
   ${g('--ignore [relative file/folder]')} : default: false ${y('{ignore files/folders string, split with `,` }')}
 
 `);
@@ -68,7 +69,8 @@ Example
 		rewrite,
 		asyncNum,
 		Force,
-		ignores
+        ignores,
+        glob
 	} = mergeConfig(cli);
 
 	const translateMds = require('./src/translateMds.js');
@@ -88,7 +90,6 @@ Example
 	let Done = 0;
 	const noDone = [];
 	let showAsyncnum = 0;
-	const pattern = cli.flags.glob || false;
 
 	loggerStart('translate running ...');
 	async.mapLimit(getList, asyncNum, runTranslate,
@@ -147,7 +148,7 @@ Example
 			loggerText(b(`已翻译, 不覆盖 ${g(rePath)}`));
 			return State;
 		}
-		if (pattern && !minimatch(value, pattern, {matchBase: true})) {
+		if (glob && glob.some(g =>!minimatch(value, g, {matchBase: true})) ) {
 			loggerText(b(`glob, no match ${g(rePath)}`));
 			return State;
 		}

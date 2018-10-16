@@ -16,5 +16,6 @@
   "ignore": false,
   "matchs": [],
   "types": [],
-  "skips": []
+  "skips": [],
+  "textGlob": false
 }

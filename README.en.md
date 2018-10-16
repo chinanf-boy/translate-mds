@@ -89,6 +89,7 @@ translateMds test.md
     --timewait                    : default: 80 {each fetch api wait time}
     --values [path]               : default: false {write the original of wait for translate file} [single file])
     --translate [path]            : default: false {use this file translate} [single file]
+    --text-glob [pattern]         : default: false {text must be match, then be transalte}
     --glob [pattern]              : default: false {file path must be match, then be transalte}
     --ignore [relative file/folder] : default: false {ignore files/folders string, split with `,` }
 ```

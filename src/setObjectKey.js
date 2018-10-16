@@ -1,4 +1,5 @@
 const tjs = require('translation.js')
+const minimatch = require('minimatch');
 
 // log
 const debug = require("debug")("mds:tran")
@@ -15,7 +16,8 @@ Force = configs['force']
 timeWait = configs['timewait'],
 getValuesFile = configs['getvalues'],
 gotTranslateFile = configs['translate'],
-apis = configs['apis'];
+apis = configs['apis'],
+textGlob = configs['textGlob'];
 
 // Fix china symbal
 const fixZhtoEn = require("./Fix/fixZhtoEn.js")
@@ -128,7 +130,12 @@ async function setObjectKey(obj, opts) {
 			return x
 		})
 		thisTranArray = tranArray
-		tranArray = []
+        tranArray = []
+        // --text-glob {cli options}
+        if(textGlob){
+            thisTranArray = thisTranArray.filter(text =>textGlob.every(g =>minimatch(text,g)))
+        }
+        // --values {cli options}
 		if(getValuesFile){
 			await asyncWrite(getValuesFile,thisTranArray).then(function(ok){
 				loggerText(`${getValuesFile} saved`)
