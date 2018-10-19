@@ -73,7 +73,7 @@ translateMds test.md
 
     [options]
     -a   API      : default < baidu > {google|baidu|youdao}
-    -f   from     : default < en >
+    -f   from     : default < auto detect >
     -t   to       : default < zh >
     -N   num      : default < 1 > {async number}
     -R   rewrite  : default < false > {yes/no rewrite translate file}
@@ -120,7 +120,8 @@ At this time, you can use`-D`Debug /`-F`Force write to file / Adjust unusual cha
 
 ## Tips
 
-1. diff file type, may try [pandoc converter](https://github.com/jgm/pandoc)
+1. Diff file type, may try [pandoc converter](https://github.com/jgm/pandoc)
+2. May use cli without `-f **`，cause `translation.js` auto detect language
 
 - `--timewait [number]` can lengthen the time of each request translation, reduce the banned ip
 - `--values [file-path]` (single file usage) to get the original output file to be translated

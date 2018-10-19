@@ -29,7 +29,7 @@ Example
 
   ${b('[options]')}
   ${g('-a   API')}      : default < baidu > ${y('{google|baidu|youdao}')}
-  ${g('-f   from ')}    : default < en >
+  ${g('-f   from ')}    : default < auto detect >
   ${g('-t   to   ')}    : default < zh >
   ${g('-N   num  ')}    : default < 1 > ${y('{async number}')}
   ${g('-R   rewrite')}  : default < false > ${y('{yes/no rewrite translate file}')}

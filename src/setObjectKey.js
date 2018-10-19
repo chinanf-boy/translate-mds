@@ -46,12 +46,17 @@ async function translateValue(value, api) {
 
 	if (tranT === 'zh') tranT = 'zh-CN'
 
-	return tjs[api].translate({
+    let tjsOpts = {
 		text: thisTranString,
-		// from: tranF,
 		to: tranT,
 		com: COM
-	}).then(result => {
+    }
+    
+    if(tranF){
+        tjsOpts['from'] = tranF
+    }
+
+	return tjs[api].translate(tjsOpts).then(result => {
 		if (!result.result) {
 			throw new Error('「结果为空」')
 		}
@@ -150,14 +155,6 @@ async function setObjectKey(obj, opts) {
 	}else{
 		// Fix file Too Big
 		let chunkTranArray = fixFileTooBig(thisTranArray)
-
-        // got detect language
-		await tjs.google.detect(thisTranArray.join(require('os').EOL)).then(lang => {
-            tranF = lang
-			loggerText(g(`get ${c(tranF)} language from google`))
-		}).catch(e =>{
-            loggerText(r(`get language from google fail, so language:${g('auto')}`))
-		})
 
 		for (let third in chunkTranArray) {
 

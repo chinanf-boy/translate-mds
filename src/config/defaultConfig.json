@@ -3,7 +3,7 @@
     "level": "info"
   },
   "api": "google",
-  "from": "en",
+  "from": false,
   "to": "zh",
   "num": 1,
   "rewrite": false,

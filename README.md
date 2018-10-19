@@ -73,7 +73,7 @@ translateMds test.md
 
     [options]
     -a   API      : default < baidu > {google|baidu|youdao}
-    -f   from     : default < en >
+    -f   from     : default < auto 检验 >
     -t   to       : default < zh >
     -N   num      : default < 1 > {并发 数}
     -R   rewrite  : default < false > {yes/no 重新写入翻译}
@@ -124,6 +124,7 @@ If slow , may be you should try again or use -D
 ## Tips
 
 1. 不同的文件格式, 使用[pandoc 转换看看](https://github.com/jgm/pandoc)
+2. 不要`-f **`指定语言，`translation.js`会自动检测
 
 - `--timewait [number]` 可以拉长每次请求翻译的时间, 减少被禁 ip
 - `--values [file-path]` (单个文件使用) 获得将要翻译的原本输出文件
