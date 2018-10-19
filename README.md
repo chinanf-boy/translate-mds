@@ -123,6 +123,8 @@ If slow , may be you should try again or use -D
 
 ## Tips
 
+1. 不同的文件格式, 使用[pandoc 转换看看](https://github.com/jgm/pandoc)
+
 - `--timewait [number]` 可以拉长每次请求翻译的时间, 减少被禁 ip
 - `--values [file-path]` (单个文件使用) 获得将要翻译的原本输出文件
 - `--translate [file-path]` (单个文件使用) 取代请求 api, 改为使用此文件的翻译内容

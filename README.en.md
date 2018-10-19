@@ -120,6 +120,8 @@ At this time, you can use`-D`Debug /`-F`Force write to file / Adjust unusual cha
 
 ## Tips
 
+1. diff file type, may try [pandoc converter](https://github.com/jgm/pandoc)
+
 - `--timewait [number]` can lengthen the time of each request translation, reduce the banned ip
 - `--values [file-path]` (single file usage) to get the original output file to be translated
 - `--translate [file-path]` (single file usage) replaces the request api and uses the translated content of this file instead
