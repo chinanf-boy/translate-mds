@@ -140,7 +140,7 @@ Example
 			loggerText(b(`- 翻译的 - 或者 不是 md 文件的 ${g(rePath)}`));
 			return State;
 		}
-		if (value.match(/\.[a-zA-Z]+\.md+/)) { // TOGO country short name
+		if (value.match(/\.[a-zA-Z]{2}\.md+/)) { // TOGO country short name
 			loggerText(b(`- 有后缀为 *.国家简写.md  ${g(rePath)}`));
 			return State;
 		}
