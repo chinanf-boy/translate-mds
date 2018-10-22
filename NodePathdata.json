@@ -1,5 +1,5 @@
 {
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/cli.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/cli.js": [
 		"update-notifier",
 		"what-time",
 		"minimatch",
@@ -14,23 +14,23 @@
 		"./src/config/loggerConfig.js",
 		"./src/util/writeDataToFile.js"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/util/readmd.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/src/util/readmd.js": [
 		"files-list"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/config/mergeConfig.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/src/config/mergeConfig.js": [
 		"path",
 		"./optionsTodo.js",
 		"./work-options"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/config/work-options.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/src/config/work-options.js": [
 		"./defaultConfig.json"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/util/util.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/src/util/util.js": [
 		"turbocolor",
 		"path",
 		"mz/fs"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/translateMds.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/src/translateMds.js": [
 		"mz/fs",
 		"path",
 		"remark",
@@ -42,13 +42,13 @@
 		"./setObjectKey.js",
 		"./util/util.js"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/config/loggerConfig.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/src/config/loggerConfig.js": [
 		"winston",
 		"ora-min",
 		"./work-options.js"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/setObjectKey.js": [
-		"translation.js",
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/src/setObjectKey.js": [
+		"translation.js-fix",
 		"debug\")(\"mds:tran",
 		"./config/loggerConfig.js",
 		"./config/work-options.js",
@@ -56,84 +56,83 @@
 		"./Fix/lengthEqual.js",
 		"./Fix/fixFileTooBig.js",
 		"./util/util.js",
-		"./typeSetAndGet",
-		"os"
+		"./typeSetAndGet"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/Fix/fixZhtoEn.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/src/Fix/fixZhtoEn.js": [
 		"zh-to-en-symbol"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/Fix/lengthEqual.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/src/Fix/lengthEqual.js": [
 		"../config/work-options.js",
 		"../util/util.js"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/typeSetAndGet.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/src/typeSetAndGet.js": [
 		"minimatch",
 		"./config/work-options.js"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/src/util/writeDataToFile.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/src/util/writeDataToFile.js": [
 		"fs",
 		"./util",
 		"../config/loggerConfig.js",
 		"../config/work-options.js"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/cli.test.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/test/cli.test.js": [
 		"ava",
 		"path",
 		"execa",
 		"../package"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/cutMdhead.test.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/test/cutMdhead.test.js": [
 		"ava",
 		"fs",
 		"../src/util/cutMdhead.js"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/mergeConfig.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/test/mergeConfig.js": [
 		"ava",
 		"../src/config/mergeConfig"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/optionsTodo.test.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/test/optionsTodo.test.js": [
 		"ava",
 		"fs"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/readmd.test.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/test/readmd.test.js": [
 		"ava",
 		"../src/util/readmd.js"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/setObjectKey.Object.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/test/setObjectKey.Object.js": [
 		"ava"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/setObjectKey.test.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/test/setObjectKey.test.js": [
 		"ava",
 		"fs",
 		"./setObjectKey.Object.js",
 		"../src/setObjectKey.js"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/translateExports.test.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/test/translateExports.test.js": [
 		"ava",
 		"path",
 		"../src/translateMds.js"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/writeDataToFile.test.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/test/writeDataToFile.test.js": [
 		"ava",
 		"fs",
 		"../src/util/writeDataToFile.js",
 		"../src/util/util.js"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/Fix/fixFileTooBig.test.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/test/Fix/fixFileTooBig.test.js": [
 		"ava",
 		"fs",
 		"../../src/Fix/fixFileTooBig.js"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/Fix/lengthEqual.test.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/test/Fix/lengthEqual.test.js": [
 		"ava",
 		"fs",
 		"../../src/Fix/lengthEqual.js"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/logger/logger.test.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/test/logger/logger.test.js": [
 		"ava",
 		"../../src/config/loggerConfig"
 	],
-	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/translate-mds/test/translate-file/values.test.js": [
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/test/translate-file/values.test.js": [
 		"ava",
 		"path",
 		"execa"

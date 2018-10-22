@@ -1,4 +1,4 @@
-const tjs = require('translation.js')
+const tjs = require('translation.js-fix')
 
 // log
 const debug = require("debug")("mds:tran")
@@ -51,7 +51,7 @@ async function translateValue(value, api) {
 		to: tranT,
 		com: COM
     }
-    
+
     if(tranF){
         tjsOpts['from'] = tranF
     }

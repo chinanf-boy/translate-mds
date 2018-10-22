@@ -42,7 +42,7 @@
     "mz": "^2.7.0",
     "ora-min": "^1.0.0",
     "remark": "^9.0.0",
-    "translation.js": "^0.7.5",
+    "translation.js-fix": "^0.7.6",
     "turbocolor": "^2.6.1",
     "update-notifier": "^2.5.0",
     "what-time": "^0.0.2",
