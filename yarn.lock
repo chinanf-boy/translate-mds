@@ -4813,10 +4813,10 @@ tr46@~0.0.1:
   resolved "http://registry.npm.taobao.org/tr46/download/tr46-0.0.3.tgz#8184fd347dac9cdc185992f3a6622e14b9d9ab6a"
   integrity sha1-gYT9NH2snNwYWZLzpmIuFLnZq2o=
 
-translation.js-fix@^0.7.7:
-  version "0.7.7"
-  resolved "https://registry.yarnpkg.com/translation.js-fix/-/translation.js-fix-0.7.7.tgz#20d73a5b1ed35248e20947143c780a5dd7965c89"
-  integrity sha512-XuuoTSf5TgWmubECAB4vOIYsLJn3GSXGlbezWE7csznEhZZFpLapQCqaABzT8++Ezdeqiif6YKdIzQ9ESUdVIg==
+translation.js-fix@^0.7.8:
+  version "0.7.8"
+  resolved "https://registry.yarnpkg.com/translation.js-fix/-/translation.js-fix-0.7.8.tgz#c09c7e2ad20315cc18534ff3ce070375e3eaa335"
+  integrity sha512-X+GaikU6A26NupQj9sP3PAHCt5fTix2+3WOMtqAQZ2YqyXo2pGj7tcyqhZlD+6NS4PK7Du+bd2U4NdqqX4l5vQ==
   dependencies:
     "@types/blueimp-md5" "^2.7.0"
     "@types/node" "^10.11.7"
