@@ -13,7 +13,9 @@ like
 [![Build Status](https://travis-ci.org/chinanf-boy/translate-mds.svg?branch=master)](https://travis-ci.org/chinanf-boy/translate-mds)
 [![codecov](https://codecov.io/gh/chinanf-boy/translate-mds/branch/master/graph/badge.svg)](https://codecov.io/gh/chinanf-boy/translate-mds)
 [![GitHub license](https://img.shields.io/github/license/chinanf-boy/translate-mds.svg)](https://github.com/chinanf-boy/translate-mds/blob/master/License)
-[![NPM](https://nodei.co/npm/translate-mds.png)](https://nodei.co/npm/translate-mds/)
+![npm](https://img.shields.io/npm/v/translate-mds.svg)
+![GitHub release](https://img.shields.io/github/release/chinanf-boy/translate-mds.svg)
+
 
 ## life
 
@@ -136,6 +138,13 @@ At this time, you can use`-D`Debug /`-F`Force write to file / Adjust unusual cha
 - [x] Automatic translation
 
 - [x] Enable md AST
+
+## Split Code
+
+- [files-list](https://github.com/chinanf-boy/files-list)
+- [what-time](https://github.com/chinanf-boy/what-time)
+- [zh-to-en-symbol](https://github.com/chinanf-boy/zh-to-en-symbol)
+
 
 ---
 
