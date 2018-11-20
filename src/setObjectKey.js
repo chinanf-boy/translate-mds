@@ -270,7 +270,7 @@ async function setObjectKey(obj, opts) {
 				if (thisChunkTran.length != thisResult.length) { // can't Fix
 					howManyValNoTran += thisChunkTran.length
                     thisResult = thisChunkTran // Add source tran
-                    errMsg = `PS: can not sort the translate Text`
+                    errMsg = `PS: can not sort the translate Text, may use '-a baidu'`
 				}
 			}
 
