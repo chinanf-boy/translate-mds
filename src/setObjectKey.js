@@ -65,7 +65,7 @@ async function translateValue(value, api) {
 			return result.result
 		}
 
-		if (value.length > result.result.length) {
+		if (api == "youdao" && value.length > result.result.length) {
 			return translateValue(value.slice(result.result.length), api).then(youdao => {
 				// tjs translate youdao BUG and tjs baidu will return undefined
 				if (youdao) {
@@ -77,11 +77,15 @@ async function translateValue(value, api) {
 				}
 				return result.result
 
-			}).catch(x => logger.error(`${youdao}炸了`, x))
+			}).catch(x => logger.error(`${api}炸了`, x))
 			// Promise.reject("bad youdao fanyi no get \\n")
 		}
 
-		return result.result
+        if(value.length != result.result.length){
+            throw new Error(`${api}-error ${result.result.length}/${value.length}`)
+        }
+
+		return []
 
 	}).catch(err => {
 		throw err
