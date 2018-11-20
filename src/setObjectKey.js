@@ -1,7 +1,6 @@
 const tjs = require('translation.js-fix')
 
 // log
-const debug = require("debug")("mds:tran")
 const {logger, loggerStart, loggerText, oneOra } = require('./config/loggerConfig.js')
 
 // get config.json
@@ -23,6 +22,7 @@ const { translateLengthEquals } = require("./Fix/lengthEqual.js")
 // Fix Too Big Array to Chunk
 const { fixFileTooBig, indexMergeArr } = require("./Fix/fixFileTooBig.js")
 const {tc,time,g,y,yow,m,b,r,relaPath,newObject,asyncWrite,asyncRead} = require('./util/util.js')
+const debugMsg = require("./util/debugMsg.js")
 
 const MAXstring = 1300
 
@@ -65,7 +65,7 @@ async function translateValue(value, api) {
 			return result.result
 		}
 
-		if (api == "youdao" && value.length > result.result.length) {
+		if (value.length > result.result.length) {
 			return translateValue(value.slice(result.result.length), api).then(youdao => {
 				// tjs translate youdao BUG and tjs baidu will return undefined
 				if (youdao) {
@@ -76,16 +76,15 @@ async function translateValue(value, api) {
 					}
 				}
 				return result.result
-
-			}).catch(x => logger.error(`${api}炸了`, x))
-			// Promise.reject("bad youdao fanyi no get \\n")
+			}).catch(x =>{
+                if(api == "baidu"){
+                    result.result = result.result.concat(value.slice(result.result.length))
+                }
+                return result.result
+            })
 		}
 
-        if(value.length != result.result.length){
-            throw new Error(`${api}-error ${result.result.length}/${value.length}`)
-        }
-
-		return []
+		return result.result
 
 	}).catch(err => {
 		throw err
@@ -210,7 +209,10 @@ async function setObjectKey(obj, opts) {
 				// result-1 return translate value, break for allAPi
 				if (thisResult.length > 0 && thisResult.length >= thisChunkTran.length) {
 					break
-				}
+                }
+
+                // debug
+                debugMsg(1, thisChunkTran, thisResult)
 
 				api = allAPi[i]
 				// result-2 return source value
@@ -235,30 +237,9 @@ async function setObjectKey(obj, opts) {
 					markChunkTran = translateLengthEquals(thisChunkTran, thisResult) // Fix
 				}
 
-				let BigOne = markChunkTran.length > thisResult.length ? markChunkTran : thisResult
-                let debugInfo = `-- source: ${markChunkTran.length}/${thisResult.length}: translte ---`
-				if (debug.enabled) { // debug all
-					debug(debugInfo)
+				if (markChunkTran.length != thisResult.length) { // debug only unequal
 
-                    for (let i in BigOne) { // Debug
-                        if(!markChunkTran[i] || !thisResult[i]){
-                            debug('2. set- ' + i + ': ' + g(markChunkTran[i]) + ` ${tc.bgMagenta('to-> ')} ${i} : ` + yow(thisResult[i]) )
-                        }else{
-                            debug('2. set- ' + i + ': ' + g(markChunkTran[i]) + ' to-> ' + i + ': ' + yow(thisResult[i]) )
-                        }
-					}
-
-				} else if (markChunkTran.length != thisResult.length) { // debug only unequal
-
-					loggerText(debugInfo)
-
-                    for (let i in BigOne) { // Debug
-                        if(!markChunkTran[i] || !thisResult[i]){
-                            logger.debug('2. set- ' + i + ': ' + g(markChunkTran[i]) + ` ${tc.bgMagenta('to-> ')} ${i} : ` + yow(thisResult[i]))
-                        }else{
-                            logger.debug('2. set- ' + i + ': ' + g(markChunkTran[i]) + ' to-> ' + i + ': ' + yow(thisResult[i]))
-                        }
-					}
+                    debugMsg(2, thisChunkTran, thisResult)
 
 				}
 
