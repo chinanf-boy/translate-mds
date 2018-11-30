@@ -1,4 +1,3 @@
-
 // defaultConfig options
 /**
  * @description
@@ -7,8 +6,8 @@
  * @param {any} args
  * @returns {Function}
  */
-function setDefault(option, callback, args){
-    return callback(option, args)
+function setDefault(option, callback, args) {
+  return callback(option, args);
 }
 
 /**
@@ -17,18 +16,18 @@ function setDefault(option, callback, args){
  * @param {string} mS.n
  * @param {any} args
  */
-function matchAndSkip(mS, args){
-	let BeArr = []
-	if(mS.n){
-		BeArr = BeArr.concat(mS.n.split(','))
-	}
-		// init
-	if(mS.type == 'M'){
-		args.matchs = BeArr
-	}else{
-		args.skips = BeArr
-	}
-	return BeArr
+function matchAndSkip(mS, args) {
+  let BeArr = [];
+  if (mS.n) {
+    BeArr = BeArr.concat(mS.n.split(','));
+  }
+  // init
+  if (mS.type == 'M') {
+    args.matchs = BeArr;
+  } else {
+    args.skips = BeArr;
+  }
+  return BeArr;
 }
 
 /**
@@ -37,16 +36,16 @@ function matchAndSkip(mS, args){
  * @param {string} mS.n
  * @param {any} args
  */
-function typesTodo(mS, args){
-	let BeArr = []
-	if(mS.n){
-		BeArr = BeArr.concat(mS.n.trim().split(','))
-	}
-		// init
-	if(mS.type == 'T'){
-		args.types = BeArr
-	}
-	return BeArr
+function typesTodo(mS, args) {
+  let BeArr = [];
+  if (mS.n) {
+    BeArr = BeArr.concat(mS.n.trim().split(','));
+  }
+  // init
+  if (mS.type == 'T') {
+    args.types = BeArr;
+  }
+  return BeArr;
 }
 
 /**
@@ -55,14 +54,14 @@ function typesTodo(mS, args){
  * @param {any} args
  * @returns {String}
  */
-function debugTodo(debug, args){
-  if(debug){
-    args.logger.level = 'debug'
+function debugTodo(debug, args) {
+  if (debug) {
+    args.logger.level = 'debug';
   }
-  if(typeof debug == 'string'){
-    args.logger.level = debug
+  if (typeof debug == 'string') {
+    args.logger.level = debug;
   }
-  return args.logger.level
+  return args.logger.level;
 }
 
 /**
@@ -71,11 +70,11 @@ function debugTodo(debug, args){
  * @param {any} args
  * @returns {String}
  */
-function fromTodo(tranFrom, args){
-if(tranFrom){
-  args.from = tranFrom
-}
-return args.from
+function fromTodo(tranFrom, args) {
+  if (tranFrom) {
+    args.from = tranFrom;
+  }
+  return args.from;
 }
 
 /**
@@ -84,11 +83,11 @@ return args.from
  * @param {any} args
  * @returns {String}
  */
-function toTodo(tranTo, args){
-if(tranTo){
-  args.to = tranTo
-}
-return args.to
+function toTodo(tranTo, args) {
+  if (tranTo) {
+    args.to = tranTo;
+  }
+  return args.to;
 }
 
 /**
@@ -97,13 +96,13 @@ return args.to
  * @param {any} args
  * @returns {number}
  */
-function numTodo(num, args){
-  if(typeof num == 'number'){
-    if(num > 0){
-      args.num = num
+function numTodo(num, args) {
+  if (typeof num == 'number') {
+    if (num > 0) {
+      args.num = num;
     }
   }
-  return args.num
+  return args.num;
 }
 
 /**
@@ -112,12 +111,11 @@ function numTodo(num, args){
  * @param {any} args
  * @returns {String}
  */
-function apiTodo(api, args){
-  if(api){
-    args.api = api
-
+function apiTodo(api, args) {
+  if (api) {
+    args.api = api;
   }
-  return args.api
+  return args.api;
 }
 
 /**
@@ -127,8 +125,18 @@ function apiTodo(api, args){
  * @returns {Boolean}
  */
 function rewriteTodo(rewrite, args) {
-
-  args.rewrite = rewrite? true : false
-  return args.rewrite
+  args.rewrite = rewrite ? true : false;
+  return args.rewrite;
 }
-module.exports = {setDefault, debugTodo, fromTodo, toTodo, apiTodo, rewriteTodo, numTodo,matchAndSkip,typesTodo }
+
+module.exports = {
+  setDefault,
+  debugTodo,
+  fromTodo,
+  toTodo,
+  apiTodo,
+  rewriteTodo,
+  numTodo,
+  matchAndSkip,
+  typesTodo
+};
