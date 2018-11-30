@@ -63,7 +63,7 @@ async function translateValue(value, api) {
 
 		if (value.length == result.result.length) {
 			return result.result
-		}
+        }
 
 		if (value.length > result.result.length) {
 			return translateValue(value.slice(result.result.length), api).then(youdao => {
@@ -239,7 +239,7 @@ async function setObjectKey(obj, opts) {
 
 				if (markChunkTran.length != thisResult.length) { // debug only unequal
 
-                    debugMsg(2, thisChunkTran, thisResult)
+                    debugMsg(2, markChunkTran, thisResult)
 
 				}
 

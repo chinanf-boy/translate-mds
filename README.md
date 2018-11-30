@@ -10,13 +10,11 @@ like
 
 ---
 
-
 [![Build Status](https://travis-ci.org/chinanf-boy/translate-mds.svg?branch=master)](https://travis-ci.org/chinanf-boy/translate-mds)
 [![codecov](https://codecov.io/gh/chinanf-boy/translate-mds/branch/master/graph/badge.svg)](https://codecov.io/gh/chinanf-boy/translate-mds)
 [![GitHub license](https://img.shields.io/github/license/chinanf-boy/translate-mds.svg)](https://github.com/chinanf-boy/translate-mds/blob/master/License)
 ![npm](https://img.shields.io/npm/v/translate-mds.svg)
 ![GitHub release](https://img.shields.io/github/tag/chinanf-boy/translate-mds.svg)
-
 
 ## 生活
 
