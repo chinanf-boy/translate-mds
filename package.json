@@ -36,6 +36,7 @@
   "dependencies": {
     "async": "^2.6.0",
     "debug": "^3.1.0",
+    "diskdb": "^0.1.17",
     "files-list": "^1.4.1",
     "meow": "^3.7.0",
     "minimatch": "^3.0.4",
