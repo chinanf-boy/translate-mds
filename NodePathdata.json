@@ -51,12 +51,17 @@
 		"translation.js-fix",
 		"./config/loggerConfig.js",
 		"./config/work-options.js",
+		"./util/diskCache",
 		"./Fix/fixZhtoEn.js",
 		"./Fix/lengthEqual.js",
 		"./Fix/fixFileTooBig.js",
 		"./util/util.js",
 		"./util/debugMsg.js",
 		"./typeSetAndGet"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/src/util/diskCache.js": [
+		"diskdb",
+		"path"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/src/Fix/fixZhtoEn.js": [
 		"zh-to-en-symbol"
@@ -132,6 +137,16 @@
 		"ava",
 		"fs",
 		"../../src/Fix/lengthEqual.js"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/test/disk-cache/disk.js": [
+		"ava",
+		"../../src/util/diskCache"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/test/logger/debugMgs.test.js": [
+		"ava",
+		"../../src/util/debugMsg",
+		"debug')('mds:tran",
+		"../../src/config/loggerConfig.js"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/test/logger/logger.test.js": [
 		"ava",

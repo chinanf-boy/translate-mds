@@ -16,7 +16,6 @@ like
 ![npm](https://img.shields.io/npm/v/translate-mds.svg)
 ![GitHub release](https://img.shields.io/github/tag/chinanf-boy/translate-mds.svg)
 
-
 ## life
 
 [help me live , live need money 💰](https://github.com/chinanf-boy/live-need-money)
@@ -65,7 +64,7 @@ translateMds test.md
 ## Command line options
 
 ```bash
-  translate [folder/single] md file language to you want
+translate [folder/single] md file language to you want
 
   Usage
     $ translateMds [folder/file name] [options]
@@ -83,16 +82,18 @@ translateMds test.md
   🌟[high user options]❤️
 
     -D   debug
-    -G   google.com               : default < false > { cn => com with Google api }
-    -F   force                    : default < false > { If, translate result is no 100%, force wirte md file }
-    -M   match                    : default [ ". ", "! "//...] {match this str, merge translate result }
-    -S   skips                    : default ["... ", "etc. ", "i.e. "] {match this str will, skip merge translate result}
-    -T   types                    : default ["html", "code"] {pass the md AST type}
-    --timewait                    : default: 80 {each fetch api wait time}
-    --values [path]               : default: false {write the original of wait for translate file} [single file])
-    --translate [path]            : default: false {use this file translate} [single file]
-    --text-glob [pattern]         : default: false {text must be match, then be transalte}
-    --glob [pattern]              : default: false {file path must be match, then be transalte}
+    -C   cache            : default: false  cache in disk
+    -G   google.com       : default: false  { cn => com with Google api }
+    -F   force            : default: false  { If, translate result is no 100%, force wirte md file }
+    -M   match            : default [ ". ", "! "//...] {match this str, merge translate result }
+    -S   skips            : default ["... ", "etc. ", "i.e. "] {match this str will, skip merge translate result }
+    -T   types            : default ["html", "code"] {pass the md AST type}
+    --timewait            : default < 80 > {each fetch api wait time}
+    --values [path]       : default: false {write the original of wait for translate file} [single file]
+    --translate [path]    : default: false {use this file translate} [single file]
+    --text-glob [pattern] : default: false {text must be match, then be transalte}
+    --cache-name [filename]: default: "translateMds" named the cache file
+    --glob [pattern]      : default: false {file must be match, then be transalte}
     --ignore [relative file/folder] : default: false {ignore files/folders string, split with `,` }
 ```
 
@@ -144,7 +145,6 @@ At this time, you can use`-D`Debug /`-F`Force write to file / Adjust unusual cha
 - [files-list](https://github.com/chinanf-boy/files-list)
 - [what-time](https://github.com/chinanf-boy/what-time)
 - [zh-to-en-symbol](https://github.com/chinanf-boy/zh-to-en-symbol)
-
 
 ---
 

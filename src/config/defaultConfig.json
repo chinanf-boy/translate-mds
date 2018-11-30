@@ -17,5 +17,7 @@
   "matchs": [],
   "types": [],
   "skips": [],
-  "textGlob": false
+  "textGlob": false,
+  "cache": false,
+  "cacheName": "translateMds"
 }
