@@ -93,7 +93,7 @@ Example
 	const noDone = [];
 	let showAsyncnum = 0;
 
-	loggerStart('translate running ...');
+	loggerStart('translate running ... >> ');
 	async.mapLimit(getList, asyncNum, runTranslate,
 		(err, IsTranslateS) => {
 			loggerStop();

@@ -15,6 +15,15 @@ timeWait = configs['timewait'],
 getValuesFile = configs['getvalues'],
 gotTranslateFile = configs['translate'],
 apis = configs['apis'];
+
+
+// Cache right result
+let cache = configs['cache'];
+let cacheName = configs['cacheName'];
+
+const {setDisk, getDisk} = require("./util/diskCache")(cacheName)
+
+
 // Fix china symbal
 const fixZhtoEn = require("./Fix/fixZhtoEn.js")
 // Fix result.length no equal
@@ -161,13 +170,23 @@ async function setObjectKey(obj, opts) {
 
 		for (let third in chunkTranArray) {
 
-			let thisChunkTran = chunkTranArray[third]
+            let thisChunkTran = chunkTranArray[third]
+            let thisInfo = ""
 			let isWork = true
 			// auto change translate source
 			allAPi = allAPi.filter(x => x != api)
 			allAPi.push(api)
 			let thisResult = []
 
+            // get cache disk with chunk result
+            let cacheRes = getDisk(cacheName, {source:thisChunkTran.join("\n")})
+            if(cacheRes && cacheRes.result){
+                thisResult = cacheRes.result
+                isWork = false
+                thisInfo = y(`result: come from Cache disk`)
+            }
+
+            if(isWork)
 			for (let i in allAPi) { // Auto next api
 
 				loggerText(`2. ${yow(relaPath(opts.name))} use ${g(api)} ${resultArray.length}/${thisTranArray.length} - ${tips}`)
@@ -228,7 +247,7 @@ async function setObjectKey(obj, opts) {
 
 			}
 
-			if (isWork) { // can fetch something result
+			if (isWork && !errMsg) { // can fetch something result
                 // Fix use Fix/lengthEqual.js in every Chunk
 
                 let markChunkTran = [].concat(thisChunkTran); // mark some emoji, display the split
@@ -261,10 +280,22 @@ async function setObjectKey(obj, opts) {
 
 			resultArray = resultArray.concat(thisResult) // Add result
 
-            loggerText(`3. translate loading - ${resultArray.length}/${thisTranArray.length}`)
+            loggerText(`3. translate loading - ${resultArray.length}/${thisTranArray.length} < ${thisInfo}`)
 
             if(errMsg && !Force){
                 break;
+            }else if(!errMsg && cache && !thisInfo){ // cache with cache-name
+                let cacheStruct = {
+                    time: new Date().getTime(),
+                    api: api,
+                    f:tranF,
+                    t:tranT,
+                    source: thisChunkTran.join("\n"),
+                    result: thisResult
+                }
+
+                setDisk(cacheName, {source:cacheStruct.source}, cacheStruct)
+                loggerText(`3.1. ${g("cached")} the translate result`)
             }
 
 		}
@@ -277,7 +308,7 @@ async function setObjectKey(obj, opts) {
     }
 
 	if (howManyValNoTran > 0) {
-		newObj.Error = `no translate number: ${howManyValNoTran}/${thisTranArray.length} ${errMsg}`
+		newObj.Error = `translated number: ${resultArray.length - howManyValNoTran}/${thisTranArray.length} ${errMsg}`
 	}
 
 
