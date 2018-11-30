@@ -5,6 +5,10 @@ const DBname = 'test-disk';
 let dbFace = dbFunc(DBname);
 const OBJ = {author: 'name'};
 
+test.serial('get obj', async t => {
+  let res = await dbFace.getDisk(DBname, {nothing:1});
+  t.deepEqual(res, undefined);
+});
 test.serial('set obj', async t => {
   let res = await dbFace.setDisk(DBname, OBJ, OBJ);
   console.log(res);
