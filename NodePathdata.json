@@ -49,13 +49,13 @@
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/src/setObjectKey.js": [
 		"translation.js-fix",
-		"debug\")(\"mds:tran",
 		"./config/loggerConfig.js",
 		"./config/work-options.js",
 		"./Fix/fixZhtoEn.js",
 		"./Fix/lengthEqual.js",
 		"./Fix/fixFileTooBig.js",
 		"./util/util.js",
+		"./util/debugMsg.js",
 		"./typeSetAndGet"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/src/Fix/fixZhtoEn.js": [
@@ -64,6 +64,11 @@
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/src/Fix/lengthEqual.js": [
 		"../config/work-options.js",
 		"../util/util.js"
+	],
+	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/src/util/debugMsg.js": [
+		"debug')('mds:tran",
+		"./util.js",
+		"../config/loggerConfig.js"
 	],
 	"/Users/lizhenyong/Desktop/JSJSJSJSJSJJSJS——project/node/translate-mds/src/typeSetAndGet.js": [
 		"minimatch",
