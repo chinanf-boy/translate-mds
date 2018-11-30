@@ -82,6 +82,7 @@ translateMds test.md
   🌟[high user options]❤️
 
     -D   debug
+    -C   cache                    : default: false  是否存储结果
     -G   google.com               : default < false > { cn => Google.com 的 api }
     -F   force                    : default < false > { 当, 翻译的结果达不到 100%, 强行写入翻译文件 }
     -M   match                    : default [ ". ", "! "//...] {match this str, merge translate result }
@@ -91,6 +92,7 @@ translateMds test.md
     --values [path]               : default: false {取出原文中需要翻译的文本,放入path文件} [single file])
     --translate [path]            : default: false {使用此path文件替代请求网络翻译, 可搭配--values使用} [single file]
     --text-glob [pattern]         : default: false {文本匹配glob模式, 才能被翻译}
+    --cache-name [filename]:      : default: "translateMds" 存储的文件名
     --glob [pattern]              : default: false {文件匹配glob模式, 才能被翻译}
     --ignore [relative file/folder] : default: false {忽略 文件/文件夹 字符串匹配, 可用`,`分隔多路径 }
 ```
