@@ -37,6 +37,7 @@ Example
 🌟${m('[high user options]')}❤️
 
   ${g('-D   debug')}
+  ${g('-C   cache')}            : default: false  ${y('cache in disk')}
   ${g('-G   google.com')}       : default: false  ${y('{ cn => com with Google api }')}
   ${g('-F   force')}            : default: false  ${y('{ If, translate result is no 100%, force wirte md file }')}
   ${g('-M   match')}            : default [ ". ", "! "//...] ${y('{match this str, merge translate result }')}
@@ -46,6 +47,7 @@ Example
   ${g('--values [path]')}       : default: false ${y('{write the original of wait for translate file}')} ${r('[single file]')}
   ${g('--translate [path]')}    : default: false ${y('{use this file translate}')} ${r('[single file]')}
   ${g('--text-glob [pattern]')} : default: false ${y('{text must be match, then be transalte}')}
+  ${g('--cache-name [filename]')}: default: "translateMds" ${y('named the cache file')}
   ${g('--glob [pattern]')}      : default: false ${y('{file must be match, then be transalte}')}
   ${g('--ignore [relative file/folder]')} : default: false ${y('{ignore files/folders string, split with `,` }')}
 

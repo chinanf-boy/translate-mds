@@ -45,6 +45,11 @@ function mergeConfig(cli) {
         defaultConfig.com = COM
     }
 
+    let Cache = cli.flags['C'] ? true : false
+    if(Cache){
+        defaultConfig.cache = Cache
+    }
+
     let values = cli.flags['values']
     if(values){
         defaultConfig.getvalues = (typeof values === 'string') ? path.resolve(values) : path.resolve('./translate-values.md')
@@ -83,6 +88,11 @@ function mergeConfig(cli) {
         textGlob = false
     }
     defaultConfig.textGlob = textGlob
+
+    let cacheName = cli.flags['cacheName']
+    if(typeof cacheName === 'string'){
+        defaultConfig.cacheName = cacheName
+    }
 
 	workOptions.setOptions(defaultConfig)
 
@@ -129,7 +139,7 @@ function main(opts) {
 	}, typesTodo, defaultConfig)
 	// rewrite config.json
 	workOptions.setOptions(defaultConfig)
-    
+
 	return {
 		debug,
 		tranFrom,
