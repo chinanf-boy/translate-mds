@@ -105,7 +105,8 @@ function mergeConfig(cli) {
 		asyncNum,
         Force,
         ignores,
-        glob
+        glob,
+        Cache
 	}
 }
 

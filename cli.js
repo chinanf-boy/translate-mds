@@ -72,7 +72,8 @@ Example
 		asyncNum,
 		Force,
         ignores,
-        glob
+        glob,
+        Cache
 	} = mergeConfig(cli);
 
 	const translateMds = require('./src/translateMds.js');
@@ -82,7 +83,7 @@ Example
 	// after workOptions ready
 	const {writeDataToFile} = require('./src/util/writeDataToFile.js');
 
-	console.log(b('Starting 翻译') + r(dir));
+	console.log(b(`> ${yow(`Cache:${Cache}`)} Starting 翻译`) + r(dir));
 
 	// Get floder markdown files Array
 	const getList = await listMd(path.resolve(process.cwd(), dir), {deep: 'all'});
