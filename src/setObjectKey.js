@@ -227,7 +227,29 @@ async function setObjectKey(obj, opts) {
 
 				// result-1 return translate value, break for allAPi
 				if (thisResult.length > 0 && thisResult.length >= thisChunkTran.length) {
-					break
+
+                    let markChunkTran = [].concat(thisChunkTran); // mark some emoji, display the split
+                    if (thisChunkTran.length < thisResult.length) {
+
+                        // Fix use Fix/lengthEqual.js in every Chunk
+                        markChunkTran = translateLengthEquals(thisChunkTran, thisResult) // Fix
+                    }
+
+                    if (markChunkTran.length != thisResult.length) { // debug only unequal
+
+                        debugMsg(2, markChunkTran, thisResult)
+
+                    }
+
+                    if (thisChunkTran.length == thisResult.length) {
+                        // Fix Upper/Lower case
+                        for (let i in thisChunkTran) {
+                            if (thisChunkTran[i].trim().toLowerCase() == thisResult[i].trim().toLowerCase()) {
+                                thisResult[i] = thisChunkTran[i]
+                            }
+                        }
+                        break
+                    }
                 }
 
                 // debug
@@ -245,37 +267,6 @@ async function setObjectKey(obj, opts) {
                     errMsg = `PS: can not get translation from API`
 				}
 
-			}
-
-			if (isWork && !errMsg) { // can fetch something result
-                // Fix use Fix/lengthEqual.js in every Chunk
-
-                let markChunkTran = [].concat(thisChunkTran); // mark some emoji, display the split
-				if (thisChunkTran.length < thisResult.length) {
-
-					markChunkTran = translateLengthEquals(thisChunkTran, thisResult) // Fix
-				}
-
-				if (markChunkTran.length != thisResult.length) { // debug only unequal
-
-                    debugMsg(2, markChunkTran, thisResult)
-
-				}
-
-				if (thisChunkTran.length == thisResult.length) {
-					// Fix Upper/Lower case
-					for (let i in thisChunkTran) {
-						if (thisChunkTran[i].trim().toLowerCase() == thisResult[i].trim().toLowerCase()) {
-							thisResult[i] = thisChunkTran[i]
-						}
-					}
-				}
-
-				if (thisChunkTran.length != thisResult.length) { // can't Fix
-					howManyValNoTran += thisChunkTran.length
-                    thisResult = thisChunkTran // Add source tran
-                    errMsg = `PS: can not sort the translate Text, may use '-a baidu'`
-				}
 			}
 
 			resultArray = resultArray.concat(thisResult) // Add result
