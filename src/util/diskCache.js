@@ -1,7 +1,7 @@
 var dbS = require('diskdb');
 const path = require('path');
 
-const localPath = () => path.join(__dirname, 'disks');
+const localPath = () => path.join(__dirname, '../../disks');
 
 function loadDisk(...filename) {
   let db = dbS.connect(

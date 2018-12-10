@@ -51,4 +51,4 @@ src/config/sequelize.json
 lib/*
 .nyc_output
 ./config.json
-./disks
+disks
