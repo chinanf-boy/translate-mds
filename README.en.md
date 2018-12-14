@@ -25,20 +25,18 @@ like
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [This project is for all-of-markdown-writing-files translation`工具`](#this-project-is-for-all-of-markdown-writing-files-translation%E5%B7%A5%E5%85%B7)
 - [Demo](#demo)
 - [Command line options](#command-line-options)
-- [Project reference](#project-reference)
-  - [translate(options,debug)](#translateoptionsdebug)
-  - [Options when using `[]`](#options-when-using-)
-  - [Options when using `{}`](#options-when-using-)
 - [My-translate-list](#my-translate-list)
 - [common problem](#common-problem)
-  - [1. Sometimes the wind will get stuck and stagnate.](#1--sometimes-the-wind-will-get-stuck-and-stagnate)
-  - [2. There are a number of totals that have not been translated successfully](#2--there-are-a-number-of-totals-that-have-not-been-translated-successfully)
+  - [1. Sometimes the wind will get stuck and stagnate.](#1-sometimes-the-wind-will-get-stuck-and-stagnate)
+  - [2. There are a number of totals that have not been translated successfully](#2-there-are-a-number-of-totals-that-have-not-been-translated-successfully)
 - [Tips](#tips)
   - [Welcome 👏 ISSUE and PULL](#welcome--issue-and-pull)
 - [characteristic](#characteristic)
+- [Split Code](#split-code)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
