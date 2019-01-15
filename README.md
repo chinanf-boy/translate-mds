@@ -25,7 +25,6 @@ like
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [这个项目是 为了 所有-的-markdown-编写-文件 📃 翻译 的 `工具`](#%E8%BF%99%E4%B8%AA%E9%A1%B9%E7%9B%AE%E6%98%AF-%E4%B8%BA%E4%BA%86-%E6%89%80%E6%9C%89-%E7%9A%84-markdown-%E7%BC%96%E5%86%99-%E6%96%87%E4%BB%B6--%E7%BF%BB%E8%AF%91-%E7%9A%84-%E5%B7%A5%E5%85%B7)
 - [Demo](#demo)
 - [命令行选项](#%E5%91%BD%E4%BB%A4%E8%A1%8C%E9%80%89%E9%A1%B9)
@@ -90,6 +89,7 @@ translateMds test.md
     --values [path]               : default: false {取出原文中需要翻译的文本,放入path文件} [single file])
     --translate [path]            : default: false {使用此path文件替代请求网络翻译, 可搭配--values使用} [single file]
     --text-glob [pattern]         : default: false {文本匹配glob模式, 才能被翻译}
+    --no-disk                     : default: false {do not use cached Result}
     --cache-name [filename]:      : default: "translateMds" 存储的文件名
     --glob [pattern]              : default: false {文件匹配glob模式, 才能被翻译}
     --ignore [relative file/folder] : default: false {忽略 文件/文件夹 字符串匹配, 可用`,`分隔多路径 }

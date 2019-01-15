@@ -89,13 +89,16 @@ function mergeConfig(cli) {
     }
     defaultConfig.textGlob = textGlob
 
+    // disk
+    defaultConfig.disk = cli.flags['disk'] == undefined
+
     let cacheName = cli.flags['cacheName']
     if(typeof cacheName === 'string'){
         defaultConfig.cacheName = cacheName
     }
 
 	workOptions.setOptions(defaultConfig)
-
+    console.log(cli.flags)
 	return {
 		debug,
 		tranFr,

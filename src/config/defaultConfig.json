@@ -18,6 +18,7 @@
   "types": [],
   "skips": [],
   "textGlob": false,
+  "disk": true,
   "cache": false,
   "cacheName": "translateMds"
 }

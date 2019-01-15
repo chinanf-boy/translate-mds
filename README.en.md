@@ -25,7 +25,6 @@ like
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [This project is for all-of-markdown-writing-files translation`工具`](#this-project-is-for-all-of-markdown-writing-files-translation%E5%B7%A5%E5%85%B7)
 - [Demo](#demo)
 - [Command line options](#command-line-options)
@@ -80,18 +79,19 @@ translate [folder/single] md file language to you want
   🌟[high user options]❤️
 
     -D   debug
-    -C   cache            : default: false  cache in disk
-    -G   google.com       : default: false  { cn => com with Google api }
-    -F   force            : default: false  { If, translate result is no 100%, force wirte md file }
-    -M   match            : default [ ". ", "! "//...] {match this str, merge translate result }
-    -S   skips            : default ["... ", "etc. ", "i.e. "] {match this str will, skip merge translate result }
-    -T   types            : default ["html", "code"] {pass the md AST type}
-    --timewait            : default < 80 > {each fetch api wait time}
-    --values [path]       : default: false {write the original of wait for translate file} [single file]
-    --translate [path]    : default: false {use this file translate} [single file]
-    --text-glob [pattern] : default: false {text must be match, then be transalte}
-    --cache-name [filename]: default: "translateMds" named the cache file
-    --glob [pattern]      : default: false {file must be match, then be transalte}
+    -C   cache              : default: false  cache in disk
+    -G   google.com         : default: false  { cn => com with Google api }
+    -F   force              : default: false  { If, translate result is no 100%, force wirte md file }
+    -M   match              : default [ ". ", "! "//...] {match this str, merge translate result }
+    -S   skips              : default ["... ", "etc. ", "i.e. "] {match this str will, skip merge translate result }
+    -T   types              : default ["html", "code"] {pass the md AST type}
+    --timewait              : default < 80 > {each fetch api wait time}
+    --values [path]         : default: false {write the original of wait for translate file} [single file]
+    --translate [path]      : default: false {use this file translate} [single file]
+    --text-glob [pattern]   : default: false {text must be match, then be transalte}
+    --no-disk               : default: false {do not use cached Result}
+    --cache-name [filename] : default: "translateMds" named the cache file
+    --glob [pattern]        : default: false {file must be match, then be transalte}
     --ignore [relative file/folder] : default: false {ignore files/folders string, split with `,` }
 ```
 

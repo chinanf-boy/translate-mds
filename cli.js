@@ -47,6 +47,7 @@ Example
   ${g('--values [path]')}       : default: false ${y('{write the original of wait for translate file}')} ${r('[single file]')}
   ${g('--translate [path]')}    : default: false ${y('{use this file translate}')} ${r('[single file]')}
   ${g('--text-glob [pattern]')} : default: false ${y('{text must be match, then be transalte}')}
+  ${g('--no-disk')}             : default: false ${y('{do not use cached Result}')}
   ${g('--cache-name [filename]')}: default: "translateMds" ${y('named the cache file')}
   ${g('--glob [pattern]')}      : default: false ${y('{file must be match, then be transalte}')}
   ${g('--ignore [relative file/folder]')} : default: false ${y('{ignore files/folders string, split with `,` }')}

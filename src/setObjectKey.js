@@ -20,6 +20,7 @@ apis = configs['apis'];
 // Cache right result
 let cache = configs['cache'];
 let cacheName = configs['cacheName'];
+let diskState = configs["disk"]
 
 const {setDisk, getDisk} = require("./util/diskCache")(cacheName)
 
@@ -180,10 +181,10 @@ async function setObjectKey(obj, opts) {
 
             // get cache disk with chunk result
             let cacheRes = getDisk(cacheName, {source:thisChunkTran.join("\n")})
-            if(cacheRes && cacheRes.result){
+            if(cacheRes && cacheRes.result && diskState){
                 thisResult = cacheRes.result
                 isWork = false
-                thisInfo = y(`result: come from Cache disk`)
+                thisInfo = y(`result: come from Cache disk`+diskState)
             }
 
             if(isWork)
@@ -223,7 +224,10 @@ async function setObjectKey(obj, opts) {
 						})
 					}
 					thisResult = []
-				}
+                }
+
+                // debug
+                debugMsg(1, thisChunkTran, thisResult)
 
 				// result-1 return translate value, break for allAPi
 				if (thisResult.length > 0 && thisResult.length >= thisChunkTran.length) {
@@ -251,9 +255,6 @@ async function setObjectKey(obj, opts) {
                         break
                     }
                 }
-
-                // debug
-                debugMsg(1, thisChunkTran, thisResult)
 
 				api = allAPi[i]
 				// result-2 return source value
