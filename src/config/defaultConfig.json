@@ -19,6 +19,7 @@
   "skips": [],
   "textGlob": false,
   "disk": true,
+  "zh":true,
   "cache": false,
   "cacheName": "translateMds"
 }

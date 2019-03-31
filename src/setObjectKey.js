@@ -13,6 +13,7 @@ COM   = configs['com'],
 Force = configs['force']
 timeWait = configs['timewait'],
 getValuesFile = configs['getvalues'],
+zhSymbal = configs['zh'],
 gotTranslateFile = configs['translate'],
 apis = configs['apis'];
 
@@ -294,7 +295,9 @@ async function setObjectKey(obj, opts) {
 	}
 
     if(!errMsg || Force){
-        resultArray = fixZhtoEn(resultArray) // fix zh symbal to en
+
+        // default: zh symbal ，。！
+        !zhSymbal && (resultArray = fixZhtoEn(resultArray))
 
         setTypeValue(newObj, resultArray)
     }

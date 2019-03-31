@@ -91,6 +91,8 @@ function mergeConfig(cli) {
 
     // disk
     defaultConfig.disk = cli.flags['disk'] == undefined
+    // zh symbal
+    defaultConfig.zh = cli.flags['zh'] == undefined
 
     let cacheName = cli.flags['cacheName']
     if(typeof cacheName === 'string'){
