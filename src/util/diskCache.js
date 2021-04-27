@@ -1,17 +1,20 @@
-var dbS = require('diskdb');
-const path = require('path');
+var dbS = require("diskdb");
+const path = require("path");
+const fs = require("fs");
 
-const localPath = () => path.join(__dirname, '../../disks');
+const localPath = () => path.join(__dirname, "../../disks");
 
 function loadDisk(...filename) {
-  let db = dbS.connect(
-    localPath(),
-    [...filename]
-  );
+  // fixed: missing path
+  let lP = localPath();
+  if (!fs.existsSync(lP)) {
+    fs.mkdirSync(lP);
+  }
+  let db = dbS.connect(lP, [...filename]);
 
   let options = {
     multi: false, // update multiple - default false
-    upsert: true // if object is not found, add it (update-insert) - default false
+    upsert: true, // if object is not found, add it (update-insert) - default false
   };
 
   function setDisk(key, q, obj) {
@@ -22,7 +25,7 @@ function loadDisk(...filename) {
     return db[key].findOne(obj);
   }
 
-  return {setDisk, getDisk, db, path: db._db.path};
+  return { setDisk, getDisk, db, path: db._db.path };
 }
 
 module.exports = loadDisk;
