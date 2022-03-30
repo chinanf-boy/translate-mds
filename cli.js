@@ -249,7 +249,7 @@ Example
 
     if (State && !Err) {
       oneOra(
-        `已搞定 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(
+        `已搞定 第 [${localDone}/${getList.length}] 文件 - 并发${b(showAsyncnum)} -- ${b(
           humanTime
         )} - ${rePath}`
       );
@@ -259,7 +259,7 @@ Example
         // Write data no ok | translate no ok
         noDone.push(value); // If process exit code
         oneOra(
-          `没完成 第 ${localDone} 文件 - 并发${b(showAsyncnum)} -- ${b(
+          `没完成 第 [${localDone}/${getList.length}] 文件 - 并发${b(showAsyncnum)} -- ${b(
             humanTime
           )} - ${rePath} \n ${Err}`,
           "fail"
