@@ -34,7 +34,7 @@
   "author": "yobrave",
   "license": "ISC",
   "dependencies": {
-    "async": "^2.6.0",
+    "async": "^3.2.2",
     "debug": "^3.1.0",
     "diskdb": "^0.1.17",
     "files-list": "^1.4.1",
